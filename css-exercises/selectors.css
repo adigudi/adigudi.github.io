@@ -1,1 +1,20 @@
-
+h1{
+  color:red;
+  font-family: verdana;
+}
+p{
+  color:blue;
+  font-family: verdana;
+}
+.greenv{
+  color:green;
+  font-family: "Times New Roman";
+}
+.purplev{
+  color:purple;
+  font-family: "Comic Sans MS";
+}
+.yellowv p{
+  color:yellow;
+  font-family: "Sans-Serif";
+}
