@@ -2,14 +2,28 @@
   text-align:center;
   font-family:Helvetica;
   background-color: lightblue;
+  border: solid DodgerBlue 10px; 
+  color:red;
 }
 h2{
   font-family:Arial;
   font-size:30px;
+  background-color:lightblue;
+  border:solid DodgerBlue 5px;
+  color:red;
+  
 }
 p{
   font-family:Arial;
+  box-shadow: 5px 5px 2.5px #888888;
 }
 h3{
   background-color:lightgreen;
+  border: solid green 2px;
+  font-family:Arial;
+}
+
+table, th, td {
+   border: 2px solid green;
+   background-color:#82E0AA;
 }
