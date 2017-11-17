@@ -5,8 +5,13 @@ body {
   margin: 0;
   background-color:#e0eaf9;
 }
-
-/* Style the header */
+p{
+  font-family:Arial;
+}
+table, th, td {
+    border: 1px solid black;
+}
+/*the header */
 .header {
     padding: 20px;
     text-align: center;
@@ -15,13 +20,13 @@ body {
     background-image:url("https://www.logodesignlove.com/images/classic/apple-logo-rob-janoff-01.jpg");
 }
 
-/* Style the top navigation bar */
+/*the top navigation bar */
 .topnav {
     overflow: hidden;
     background-color: #257296;
 }
 
-/* Style the topnav links */
+/*the topnav links */
 .topnav a {
     float: left;
     display: block;
@@ -31,13 +36,12 @@ body {
     text-decoration: none;
 }
 
-/* Change color on hover */
 .topnav a:hover:not(.active) {
     background-color: #ddd;
     color: black;
 }
 
-/* indicate active page on nav */
+
 .active{
     background-color: #257296;
 }
@@ -51,11 +55,16 @@ body {
 /* Left and right column */
 .column.side {
     width: 25%;
+    float:left;
 }
 
 /* Middle column */
 .column.middle {
     width: 50%;
+    float:left;
+}
+.pictures{
+  width: 100%;
 }
 
 /* Clear floats after the columns */
@@ -74,7 +83,8 @@ body {
 
 /* Style the footer */
 .footer {
-    background-color: #f1f1f1;
+    background-color: #257296;
     padding: 10px;
     text-align: center;
+
 }
