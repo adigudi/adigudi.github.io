@@ -16,14 +16,14 @@ table, th, td {
     padding: 20px;
     text-align: center;
     font-family:Helvetica;
-    color:#000000;
-    background-image:url("https://www.logodesignlove.com/images/classic/apple-logo-rob-janoff-01.jpg");
+    //color:#000000;
+    background-image:url('/images/binarybackground.jpg');
 }
 
 /*the top navigation bar */
 .topnav {
     overflow: hidden;
-    background-color: #257296;
+    background-color: #b51d1d;
 }
 
 /*the topnav links */
@@ -43,7 +43,7 @@ table, th, td {
 
 
 .active{
-    background-color: #257296;
+    background-color: ##b51d1d;
 }
 
 /* A - Create three unequal columns that floats next to each other */
@@ -83,7 +83,7 @@ table, th, td {
 
 /* Style the footer */
 .footer {
-    background-color: #257296;
+    background-color: #b51d1d;
     padding: 10px;
     text-align: center;
 
