@@ -3,13 +3,19 @@
 }
 body {
   margin: 0;
-  background-color:#e0eaf9;
+  background-color: #f2abaa;
 }
 p{
   font-family:Arial;
 }
 table, th, td {
     border: 1px solid black;
+}
+.center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
 }
 /*the header */
 .header {
