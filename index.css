@@ -50,7 +50,7 @@ table, th, td {
 
 
 .active{
-    background-color: ##b51d1d;
+    background-color: #808080;
 }
 
 /* A - Create three unequal columns that floats next to each other */
@@ -90,7 +90,7 @@ table, th, td {
 
 /* Style the footer */
 .footer {
-    background-color: #b51d1d;
+    background-color: #808080;
     padding: 10px;
     text-align: center;
 
