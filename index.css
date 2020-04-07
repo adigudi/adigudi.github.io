@@ -42,6 +42,8 @@ table, th, td {
     padding: 14px 16px;
     text-decoration: none;
     width: 100%;
+    font-family: monospace;
+    font-size: 14 px;
 }
 
 .topnav a:hover:not(.active) {
@@ -94,5 +96,6 @@ table, th, td {
     background-color: #808080;
     padding: 10px;
     text-align: center;
-
+    font-family: monospace;
+    font-size: 14px;
 }
