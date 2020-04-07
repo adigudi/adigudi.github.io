@@ -53,7 +53,7 @@ table, th, td {
 .active{
     background-color: #808080;
     font-family: monospace;
-    font-size: 14 px;
+    font-size: 18 px;
 }
 
 /* A - Create three unequal columns that floats next to each other */
