@@ -35,12 +35,13 @@ table, th, td {
 
 /*the topnav links */
 .topnav a {
-    float: center;
+    float: left;
     display: block;
     color: #f1f1f1;
     text-align: center;
     padding: 14px 16px;
     text-decoration: none;
+    width: 100%;
 }
 
 .topnav a:hover:not(.active) {
