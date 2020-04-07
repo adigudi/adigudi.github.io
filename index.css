@@ -35,7 +35,7 @@ table, th, td {
 
 /*the topnav links */
 .topnav a {
-    float: left;
+    float: center;
     display: block;
     color: #f1f1f1;
     text-align: center;
