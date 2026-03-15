@@ -1,0 +1,1446 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Aditya (Adi) Gudi — Computer Science graduate building data-driven software, analytics tools, and AI/ML projects. Based in San Diego, CA.">
+  <title>Aditya (Adi) Gudi | Portfolio</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&display=swap');
+
+    /* ===========================
+       DESIGN TOKENS
+    =========================== */
+    :root {
+      --bg:         #f4f5f7;
+      --surface:    #ffffff;
+      --surface-2:  #f9fafb;
+      --ink:        #111827;
+      --ink-2:      #374151;
+      --muted:      #6b7280;
+      --border:     #e5e7eb;
+      --border-2:   #d1d5db;
+      --accent:     #2563eb;
+      --accent-h:   #1d4ed8;
+      --accent-pale:#eff6ff;
+      --accent-mid: #bfdbfe;
+      --red:        #dc2626;
+      --shadow-sm:  0 1px 3px rgba(0,0,0,0.07), 0 1px 2px rgba(0,0,0,0.04);
+      --shadow:     0 4px 14px rgba(0,0,0,0.07), 0 1px 4px rgba(0,0,0,0.04);
+      --shadow-lg:  0 10px 30px rgba(0,0,0,0.09), 0 2px 8px rgba(0,0,0,0.04);
+      --radius-sm:  8px;
+      --radius:     14px;
+      --radius-lg:  20px;
+      --max:        1060px;
+      --font-body:  "DM Sans", system-ui, sans-serif;
+      --font-head:  "Fraunces", Georgia, serif;
+    }
+
+    /* ===========================
+       RESET & BASE
+    =========================== */
+    *, *::before, *::after { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; font-size: 15px; }
+
+    body {
+      margin: 0;
+      font-family: var(--font-body);
+      background: var(--bg);
+      color: var(--ink);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    h1, h2, h3, h4 { margin: 0; line-height: 1.2; }
+    p { margin: 0; }
+    a { color: inherit; }
+    ul { margin: 0; padding: 0; list-style: none; }
+    img { display: block; max-width: 100%; }
+
+    ::selection { background: #bfdbfe; color: #1e3a8a; }
+
+    :focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 2px;
+      border-radius: 4px;
+    }
+
+    /* ===========================
+       LAYOUT
+    =========================== */
+    .shell {
+      width: min(var(--max), calc(100% - 32px));
+      margin: 20px auto 48px;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 18px;
+    }
+
+    /* ===========================
+       CARD / PANEL SURFACE
+    =========================== */
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .card-elevated {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+
+    /* ===========================
+       HEADER / NAV
+    =========================== */
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 12px 16px;
+      margin-bottom: 16px;
+      position: sticky;
+      top: 10px;
+      z-index: 50;
+      background: rgba(255,255,255,0.92);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      min-width: 0;
+      text-decoration: none;
+    }
+
+    .brand-mark {
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      overflow: hidden;
+      flex-shrink: 0;
+      border: 1px solid var(--border);
+      background: var(--surface-2);
+      display: grid;
+      place-items: center;
+      font-weight: 700;
+      font-size: 13px;
+      color: var(--accent);
+    }
+
+    .brand-mark img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .brand-name {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--ink);
+      white-space: nowrap;
+    }
+
+    .brand-role {
+      font-size: 12px;
+      color: var(--muted);
+      white-space: nowrap;
+    }
+
+    nav {
+      display: flex;
+      gap: 4px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    .nav-btn {
+      font: 500 13px/1 var(--font-body);
+      color: var(--muted);
+      padding: 7px 12px;
+      border-radius: 999px;
+      border: 1px solid transparent;
+      background: transparent;
+      cursor: pointer;
+      transition: background 150ms, color 150ms, border-color 150ms;
+      -webkit-appearance: none;
+      appearance: none;
+    }
+
+    .nav-btn:hover {
+      background: var(--bg);
+      color: var(--ink);
+      border-color: var(--border);
+    }
+
+    .nav-btn.is-active {
+      background: var(--ink);
+      color: #fff;
+      border-color: var(--ink);
+    }
+
+    /* ===========================
+       MAIN CONTENT VIEWS
+    =========================== */
+    main { display: grid; gap: 18px; }
+
+    .view { display: grid; gap: 18px; }
+    .view[hidden] { display: none !important; }
+
+    /* ===========================
+       HERO (ABOUT)
+    =========================== */
+    .hero {
+      padding: 32px;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 32px;
+      align-items: start;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      top: 0; right: 0;
+      width: 340px; height: 340px;
+      background: radial-gradient(circle at 80% 20%, rgba(37,99,235,0.07), transparent 65%);
+      pointer-events: none;
+    }
+
+    .hero-left { min-width: 0; }
+
+    .availability-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      font-size: 12px;
+      font-weight: 500;
+      color: #166534;
+      background: #dcfce7;
+      border: 1px solid #bbf7d0;
+      border-radius: 999px;
+      padding: 5px 11px;
+      margin-bottom: 20px;
+    }
+
+    .availability-badge::before {
+      content: "";
+      width: 7px; height: 7px;
+      border-radius: 50%;
+      background: #16a34a;
+      box-shadow: 0 0 0 2px #bbf7d0;
+      animation: pulse 2s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.5; }
+    }
+
+    h1 {
+      font-family: var(--font-head);
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      color: var(--ink);
+      margin-bottom: 14px;
+    }
+
+    .hero-bio {
+      font-size: 15px;
+      line-height: 1.7;
+      color: var(--ink-2);
+      max-width: 56ch;
+      margin-bottom: 24px;
+    }
+
+    .cta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 28px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      font: 500 13.5px/1 var(--font-body);
+      padding: 9px 16px;
+      border-radius: 999px;
+      border: 1px solid var(--border-2);
+      background: var(--surface);
+      color: var(--ink);
+      text-decoration: none;
+      cursor: pointer;
+      transition: background 140ms, border-color 140ms, box-shadow 140ms, transform 140ms;
+      -webkit-appearance: none;
+    }
+
+    .btn:hover {
+      background: var(--surface-2);
+      border-color: var(--border-2);
+      box-shadow: var(--shadow-sm);
+      transform: translateY(-1px);
+    }
+
+    .btn.primary {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+      box-shadow: 0 4px 14px rgba(37,99,235,0.3);
+    }
+
+    .btn.primary:hover {
+      background: var(--accent-h);
+      border-color: var(--accent-h);
+      box-shadow: 0 6px 18px rgba(37,99,235,0.35);
+    }
+
+    .stats-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .stat-pill {
+      display: flex;
+      flex-direction: column;
+      padding: 10px 14px;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border);
+      background: var(--surface-2);
+      min-width: 90px;
+    }
+
+    .stat-pill strong {
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--ink);
+      line-height: 1.1;
+      margin-bottom: 3px;
+    }
+
+    .stat-pill span {
+      font-size: 11.5px;
+      color: var(--muted);
+      line-height: 1.3;
+    }
+
+    /* Portrait side */
+    .hero-right { flex-shrink: 0; }
+
+    .portrait-wrap {
+      width: 220px;
+      border-radius: var(--radius);
+      overflow: hidden;
+      border: 1px solid var(--border);
+      background: var(--surface-2);
+      box-shadow: var(--shadow);
+      aspect-ratio: 3/4;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .portrait-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 20%;
+    }
+
+    .portrait-placeholder {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      padding: 32px 20px;
+      text-align: center;
+    }
+
+    .portrait-placeholder .avatar-icon {
+      width: 72px;
+      height: 72px;
+      border-radius: 50%;
+      background: var(--accent-pale);
+      border: 2px solid var(--accent-mid);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-head);
+      font-size: 26px;
+      font-weight: 700;
+      color: var(--accent);
+    }
+
+    .portrait-placeholder p {
+      font-size: 12px;
+      color: var(--muted);
+      line-height: 1.4;
+    }
+
+    /* ===========================
+       SECTION WRAPPER
+    =========================== */
+    .section {
+      padding: 24px;
+    }
+
+    .section-head {
+      margin-bottom: 20px;
+    }
+
+    .section-label {
+      display: inline-block;
+      font-size: 11.5px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 6px;
+    }
+
+    .section-title {
+      font-family: var(--font-head);
+      font-size: 1.7rem;
+      font-weight: 700;
+      color: var(--ink);
+      letter-spacing: -0.02em;
+      margin-bottom: 4px;
+    }
+
+    .section-sub {
+      font-size: 14px;
+      color: var(--muted);
+    }
+
+    /* ===========================
+       TIMELINE (EXPERIENCE)
+    =========================== */
+    .timeline { display: grid; gap: 3px; }
+
+    .timeline-item {
+      padding: 18px 18px 18px 20px;
+      border-radius: var(--radius);
+      border: 1px solid transparent;
+      position: relative;
+      transition: border-color 160ms, background 160ms, box-shadow 160ms;
+    }
+
+    .timeline-item::before {
+      content: "";
+      position: absolute;
+      left: 0; top: 16px; bottom: 16px;
+      width: 3px;
+      border-radius: 2px;
+      background: linear-gradient(180deg, var(--accent) 0%, transparent 100%);
+      opacity: 0;
+      transition: opacity 160ms;
+    }
+
+    .timeline-item:hover {
+      background: var(--surface-2);
+      border-color: var(--border);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .timeline-item:hover::before { opacity: 1; }
+
+    .timeline-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px 12px;
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 6px;
+    }
+
+    .timeline-meta .dot::before {
+      content: "·";
+      margin-right: 12px;
+    }
+
+    .timeline-item h3 {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--ink);
+      margin-bottom: 8px;
+    }
+
+    .timeline-item ul {
+      list-style: disc;
+      padding-left: 18px;
+      display: grid;
+      gap: 5px;
+    }
+
+    .timeline-item ul li {
+      font-size: 13.5px;
+      color: var(--ink-2);
+      line-height: 1.55;
+    }
+
+    /* ===========================
+       PROJECTS GRID
+    =========================== */
+    .project-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+    }
+
+    .project-card {
+      padding: 18px;
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      background: var(--surface);
+      box-shadow: var(--shadow-sm);
+      display: grid;
+      gap: 10px;
+      align-content: start;
+      transition: border-color 160ms, box-shadow 160ms, transform 160ms;
+    }
+
+    .project-card:hover {
+      border-color: var(--accent-mid);
+      box-shadow: var(--shadow);
+      transform: translateY(-2px);
+    }
+
+    .project-card.featured {
+      background: linear-gradient(135deg, var(--accent-pale) 0%, var(--surface) 60%);
+      border-color: var(--accent-mid);
+    }
+
+    .project-meta {
+      font-size: 11.5px;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--accent);
+    }
+
+    .project-card h3 {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--ink);
+      line-height: 1.3;
+    }
+
+    .project-card p {
+      font-size: 13.5px;
+      color: var(--muted);
+      line-height: 1.55;
+    }
+
+    /* ===========================
+       TAG / CHIP STYLES
+    =========================== */
+    .tag-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .tag {
+      font-size: 12px;
+      font-weight: 500;
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      color: var(--ink-2);
+    }
+
+    .chip {
+      font-size: 12px;
+      font-weight: 500;
+      padding: 5px 10px;
+      border-radius: var(--radius-sm);
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      color: var(--ink-2);
+    }
+
+    .chip-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+    }
+
+    /* ===========================
+       SKILLS
+    =========================== */
+    .skill-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+    }
+
+    .skill-box {
+      padding: 18px;
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      background: var(--surface);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .skill-box h3 {
+      font-size: 11.5px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 12px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    /* ===========================
+       EDUCATION
+    =========================== */
+    .edu-card {
+      padding: 18px;
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      background: var(--surface);
+      box-shadow: var(--shadow-sm);
+      display: grid;
+      gap: 10px;
+    }
+
+    .edu-header {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+    }
+
+    .edu-icon {
+      width: 42px;
+      height: 42px;
+      border-radius: 10px;
+      background: var(--accent-pale);
+      border: 1px solid var(--accent-mid);
+      flex-shrink: 0;
+      display: grid;
+      place-items: center;
+      font-size: 20px;
+    }
+
+    .edu-info h3 {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--ink);
+      margin-bottom: 3px;
+    }
+
+    .edu-info p {
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    .edu-courses h4 {
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 8px;
+    }
+
+    /* ===========================
+       SIDEBAR CARDS
+    =========================== */
+    .info-card {
+      padding: 16px;
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      background: var(--surface);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .info-card h3 {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--ink);
+      margin-bottom: 12px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .link-list { display: grid; gap: 8px; }
+
+    .link-list a {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      padding: 9px 12px;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border);
+      background: var(--surface-2);
+      text-decoration: none;
+      font-size: 13.5px;
+      color: var(--ink);
+      transition: background 140ms, border-color 140ms, transform 140ms;
+    }
+
+    .link-list a:hover {
+      background: var(--accent-pale);
+      border-color: var(--accent-mid);
+      transform: translateX(2px);
+    }
+
+    .link-list .link-arrow {
+      color: var(--muted);
+      font-size: 14px;
+      flex-shrink: 0;
+    }
+
+    /* ===========================
+       CONTACT
+    =========================== */
+    .contact-grid { display: grid; gap: 10px; }
+
+    .contact-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 14px;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border);
+      background: var(--surface-2);
+    }
+
+    .contact-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: 8px;
+      background: var(--accent-pale);
+      border: 1px solid var(--accent-mid);
+      display: grid;
+      place-items: center;
+      font-size: 16px;
+      flex-shrink: 0;
+    }
+
+    .contact-item-body strong {
+      display: block;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--ink);
+      margin-bottom: 2px;
+    }
+
+    .contact-item-body a,
+    .contact-item-body span {
+      font-size: 13px;
+      color: var(--muted);
+      text-decoration: none;
+    }
+
+    .contact-item-body a:hover { color: var(--accent); }
+
+    /* ===========================
+       SIGNAL / FEATURE CARD
+    =========================== */
+    .feature-card {
+      padding: 16px;
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      background: linear-gradient(135deg, var(--accent-pale), var(--surface));
+    }
+
+    .feature-card h3 {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--ink);
+      margin-bottom: 10px;
+    }
+
+    .feature-list { display: grid; gap: 8px; }
+
+    .feature-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      font-size: 13.5px;
+      color: var(--ink-2);
+      line-height: 1.45;
+    }
+
+    .feature-list li::before {
+      content: "→";
+      color: var(--accent);
+      font-size: 12px;
+      margin-top: 1px;
+      flex-shrink: 0;
+    }
+
+    /* ===========================
+       FOOTER
+    =========================== */
+    footer {
+      padding: 16px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    footer p {
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    footer strong { color: var(--ink); }
+
+    footer .footer-links {
+      display: flex;
+      gap: 16px;
+    }
+
+    footer .footer-links a {
+      font-size: 13px;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 140ms;
+    }
+
+    footer .footer-links a:hover { color: var(--accent); }
+
+    /* ===========================
+       BADGE / MISC
+    =========================== */
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 11.5px;
+      font-weight: 600;
+      padding: 4px 9px;
+      border-radius: 999px;
+    }
+
+    .badge-blue {
+      color: var(--accent);
+      background: var(--accent-pale);
+      border: 1px solid var(--accent-mid);
+    }
+
+    .divider {
+      height: 1px;
+      background: var(--border);
+      margin: 16px 0;
+    }
+
+    /* ===========================
+       SIDEBAR STACK
+    =========================== */
+    .sidebar-stack { display: grid; gap: 14px; align-content: start; }
+
+    /* ===========================
+       RESPONSIVE
+    =========================== */
+    @media (max-width: 900px) {
+      .hero {
+        grid-template-columns: 1fr;
+        padding: 24px;
+      }
+      .hero-right { display: none; }
+      .grid-2 { grid-template-columns: 1fr; }
+      .project-grid { grid-template-columns: 1fr 1fr; }
+      .skill-grid { grid-template-columns: 1fr 1fr; }
+    }
+
+    @media (max-width: 600px) {
+      .shell { width: calc(100% - 20px); margin: 10px auto 32px; }
+
+      header {
+        position: static;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 10px;
+        padding: 12px;
+      }
+
+      nav { justify-content: flex-start; gap: 4px; }
+      .nav-btn { padding: 6px 10px; font-size: 12.5px; }
+
+      h1 { font-size: 1.9rem; }
+      .hero { padding: 20px; }
+      .section { padding: 18px; }
+      .project-grid { grid-template-columns: 1fr; }
+      .skill-grid { grid-template-columns: 1fr; }
+      .cta-row { gap: 8px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after { animation: none !important; transition: none !important; }
+    }
+  </style>
+</head>
+<body>
+  <div class="shell">
+
+    <!-- ── HEADER ── -->
+    <header>
+      <div class="brand" aria-label="Site brand">
+        <div class="brand-mark">
+          <img src="assets/adi-logo.png" alt="" onerror="this.style.display='none'; this.parentElement.textContent='AG';">
+        </div>
+        <div>
+          <div class="brand-name">Aditya (Adi) Gudi</div>
+          <div class="brand-role">Software · Data · AI/ML</div>
+        </div>
+      </div>
+      <nav aria-label="Primary navigation" role="tablist">
+        <button id="tab-about"      class="nav-btn is-active" type="button" role="tab" aria-selected="true"  aria-controls="view-about"      data-view-btn="about">About</button>
+        <button id="tab-experience" class="nav-btn"           type="button" role="tab" aria-selected="false" aria-controls="view-experience" data-view-btn="experience">Experience</button>
+        <button id="tab-projects"   class="nav-btn"           type="button" role="tab" aria-selected="false" aria-controls="view-projects"   data-view-btn="projects">Projects</button>
+        <button id="tab-skills"     class="nav-btn"           type="button" role="tab" aria-selected="false" aria-controls="view-skills"     data-view-btn="skills">Skills</button>
+        <button id="tab-resume"     class="nav-btn"           type="button" role="tab" aria-selected="false" aria-controls="view-resume"     data-view-btn="resume">Resume</button>
+        <button id="tab-contact"    class="nav-btn"           type="button" role="tab" aria-selected="false" aria-controls="view-contact"    data-view-btn="contact">Contact</button>
+      </nav>
+    </header>
+
+    <main>
+
+      <!-- ═══════════════════════════════
+           ABOUT VIEW
+      ═══════════════════════════════ -->
+      <section class="view" id="view-about" role="tabpanel" aria-labelledby="tab-about" data-view="about">
+
+        <article class="card-elevated hero" id="top" aria-labelledby="hero-name">
+          <div class="hero-left">
+            <div class="availability-badge">Open to opportunities</div>
+
+            <h1 id="hero-name">Aditya (Adi) Gudi</h1>
+
+            <p class="hero-bio">
+              UC San Diego Computer Science graduate with experience in software engineering, data analytics, and machine learning. I enjoy building practical systems that solve real problems — from automation and forecasting tools to ML-driven analysis pipelines. Currently looking for software, data, or ML engineering roles.
+            </p>
+
+            <div class="cta-row">
+              <a class="btn primary" href="Adi%20Gudi%20Current%20Resume.pdf" download>
+                ↓ Download Resume
+              </a>
+              <a class="btn" href="https://github.com/adigudi" target="_blank" rel="noreferrer">
+                GitHub
+              </a>
+              <a class="btn" href="https://www.linkedin.com/in/adi-gudi-611a89208/" target="_blank" rel="noreferrer">
+                LinkedIn
+              </a>
+              <a class="btn" href="mailto:agudi24@gmail.com">
+                Email Me
+              </a>
+            </div>
+
+            <div class="stats-row">
+              <div class="stat-pill">
+                <strong>3</strong>
+                <span>Internships</span>
+              </div>
+              <div class="stat-pill">
+                <strong>3+</strong>
+                <span>Projects</span>
+              </div>
+              <div class="stat-pill">
+                <strong>UCSD</strong>
+                <span>CS Graduate</span>
+              </div>
+              <div class="stat-pill">
+                <strong>San Diego</strong>
+                <span>California</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="hero-right" aria-label="Profile photo">
+            <div class="portrait-wrap">
+              <img
+                src="assets/adi-photo.jpg"
+                alt="Aditya Gudi"
+                onerror="this.parentElement.innerHTML='<div class=\'portrait-placeholder\'><div class=\'avatar-icon\'>AG</div><p>Add assets/adi-photo.jpg</p></div>';"
+              >
+            </div>
+          </div>
+        </article>
+
+        <!-- Quick highlights row -->
+        <div style="display:grid; grid-template-columns: 1fr 1fr; gap: 14px;">
+          <div class="card section">
+            <div class="section-label">Currently Seeking</div>
+            <h2 class="section-title" style="font-size:1.25rem; margin-bottom:12px;">What I'm Looking For</h2>
+            <ul class="feature-list">
+              <li>Software Engineering roles (backend, full-stack)</li>
+              <li>Data Engineering or Analytics Engineering</li>
+              <li>ML Engineering or Applied AI roles</li>
+              <li>Open to full-time or contract positions</li>
+            </ul>
+          </div>
+
+          <div class="card section">
+            <div class="section-label">Key Strengths</div>
+            <h2 class="section-title" style="font-size:1.25rem; margin-bottom:12px;">What I Bring</h2>
+            <ul class="feature-list">
+              <li>Python automation &amp; API integrations</li>
+              <li>ML pipelines — from EDA to deployment</li>
+              <li>Data analysis with Pandas, SQL, and visualization</li>
+              <li>Clear, practical code that solves real problems</li>
+            </ul>
+          </div>
+        </div>
+
+      </section>
+
+      <!-- ═══════════════════════════════
+           EXPERIENCE VIEW
+      ═══════════════════════════════ -->
+      <section class="view" id="view-experience" role="tabpanel" aria-labelledby="tab-experience" data-view="experience" hidden>
+        <div class="grid-2">
+
+          <section class="card section" aria-labelledby="work-title">
+            <div class="section-head">
+              <div class="section-label">Career</div>
+              <h2 class="section-title" id="work-title">Work Experience</h2>
+              <p class="section-sub">Recent roles, distilled to the highlights.</p>
+            </div>
+
+            <div class="timeline">
+              <article class="timeline-item">
+                <div class="timeline-meta">
+                  <span>Apr 2024 – Apr 2025</span>
+                  <span class="dot">Rancho Santa Fe, CA</span>
+                </div>
+                <h3>Data Analyst Intern · TECHCET LLC</h3>
+                <ul>
+                  <li>Built automation using Financial Modeling Prep and OpenAI APIs to extract financial metrics for 500+ companies.</li>
+                  <li>Reduced manual data retrieval by nearly 8 hours per day for market analysts.</li>
+                  <li>Developed a Python/Tkinter forecasting tool using FinMind + FRED APIs for real-time revenue modeling.</li>
+                </ul>
+              </article>
+
+              <article class="timeline-item">
+                <div class="timeline-meta">
+                  <span>Apr 2023 – Sep 2023</span>
+                  <span class="dot">San Diego, CA</span>
+                </div>
+                <h3>Data Systems Analyst Assistant · CAIDA, UCSD</h3>
+                <ul>
+                  <li>Used LLMs to extract structured information from scientific publications and support categorization workflows.</li>
+                  <li>Applied ML techniques to analyze data usability and generate actionable reporting for management.</li>
+                </ul>
+              </article>
+
+              <article class="timeline-item">
+                <div class="timeline-meta">
+                  <span>Aug 2020 – Jan 2021</span>
+                  <span class="dot">San Diego, CA</span>
+                </div>
+                <h3>Software Development Intern · Leonardo DRS</h3>
+                <ul>
+                  <li>Developed an unsupervised ML workflow for clustering hyperspectral microscope imagery to identify chemical compounds.</li>
+                  <li>Implemented K-Means, GMM, and PCA; built a PyQt GUI for configuring runs and visualizing outputs.</li>
+                </ul>
+              </article>
+            </div>
+          </section>
+
+          <aside class="sidebar-stack" aria-label="Supplementary info">
+            <div class="info-card">
+              <h3>Core Stack</h3>
+              <div class="tag-row">
+                <span class="tag">Python</span>
+                <span class="tag">ML / AI</span>
+                <span class="tag">SQL</span>
+                <span class="tag">React</span>
+                <span class="tag">REST APIs</span>
+                <span class="tag">Data Viz</span>
+                <span class="tag">PyTorch</span>
+                <span class="tag">Pandas</span>
+              </div>
+            </div>
+
+            <div class="info-card">
+              <h3>Featured Links</h3>
+              <div class="link-list">
+                <a href="https://github.com/adigudi" target="_blank" rel="noreferrer">
+                  <span>GitHub Profile</span>
+                  <span class="link-arrow">↗</span>
+                </a>
+                <a href="https://github.com/adigudi/video-game-market-intelligence-platform" target="_blank" rel="noreferrer">
+                  <span>Video Game Market Intelligence Platform</span>
+                  <span class="link-arrow">↗</span>
+                </a>
+                <a href="https://www.linkedin.com/in/adi-gudi-611a89208/" target="_blank" rel="noreferrer">
+                  <span>LinkedIn Profile</span>
+                  <span class="link-arrow">↗</span>
+                </a>
+                <a href="Adi%20Gudi%20Current%20Resume.pdf" target="_blank" rel="noreferrer">
+                  <span>Resume (PDF)</span>
+                  <span class="link-arrow">↗</span>
+                </a>
+              </div>
+            </div>
+
+            <div class="feature-card">
+              <h3>Looking for</h3>
+              <ul class="feature-list">
+                <li>Full-time software / data / ML roles</li>
+                <li>San Diego area or remote</li>
+                <li>Available immediately</li>
+              </ul>
+            </div>
+          </aside>
+
+        </div>
+      </section>
+
+      <!-- ═══════════════════════════════
+           PROJECTS VIEW
+      ═══════════════════════════════ -->
+      <section class="view" id="view-projects" role="tabpanel" aria-labelledby="tab-projects" data-view="projects" hidden>
+
+        <section class="card section" aria-labelledby="projects-title">
+          <div class="section-head">
+            <div class="section-label">Portfolio</div>
+            <h2 class="section-title" id="projects-title">Projects &amp; Applied Research</h2>
+            <p class="section-sub">Selected work — click any card to explore further.</p>
+          </div>
+
+          <div class="project-grid">
+            <article class="project-card featured">
+              <div class="project-meta">⭐ Featured · GitHub</div>
+              <h3>Video Game Market Intelligence Platform</h3>
+              <p>Game-industry analytics platform showcasing dashboard UX, market insight workflows, and product thinking. Designed to demonstrate end-to-end data storytelling.</p>
+              <div class="tag-row">
+                <span class="tag">Market Intelligence</span>
+                <span class="tag">Dashboarding</span>
+                <span class="tag">Analytics UX</span>
+              </div>
+              <a class="btn" href="https://github.com/adigudi/video-game-market-intelligence-platform" target="_blank" rel="noreferrer">Open Repo ↗</a>
+            </article>
+
+            <article class="project-card">
+              <div class="project-meta">UCSD Design Lab · Oct 2022 – Sep 2023</div>
+              <h3>AI/ML Engineer — AquaMesh</h3>
+              <p>Built ML and sensor analysis components for remote water-quality monitoring, including Arduino-based signaling and data pipelines for environmental analysis.</p>
+              <div class="tag-row">
+                <span class="tag">ML</span>
+                <span class="tag">IoT</span>
+                <span class="tag">Arduino</span>
+                <span class="tag">Sensor Data</span>
+              </div>
+            </article>
+
+            <article class="project-card">
+              <div class="project-meta">UCSD ACM AI · Jan – Mar 2022</div>
+              <h3>RL Benchmarking on CarRacing</h3>
+              <p>Benchmarked PPO, TD3, TRPO, and SAC on OpenAI Gym CarRacing. Implemented TD3 testing workflows using stable-baselines3 and analyzed convergence behavior.</p>
+              <div class="tag-row">
+                <span class="tag">Reinforcement Learning</span>
+                <span class="tag">TD3</span>
+                <span class="tag">OpenAI Gym</span>
+              </div>
+            </article>
+          </div>
+        </section>
+
+      </section>
+
+      <!-- ═══════════════════════════════
+           SKILLS VIEW
+      ═══════════════════════════════ -->
+      <section class="view" id="view-skills" role="tabpanel" aria-labelledby="tab-skills" data-view="skills" hidden>
+
+        <section class="card section" aria-labelledby="skills-title">
+          <div class="section-head">
+            <div class="section-label">Technical Expertise</div>
+            <h2 class="section-title" id="skills-title">Skills &amp; Tools</h2>
+            <p class="section-sub">Languages, libraries, and developer tools I work with regularly.</p>
+          </div>
+
+          <div class="skill-grid">
+            <div class="skill-box">
+              <h3>Languages</h3>
+              <div class="chip-row">
+                <span class="chip">Python</span>
+                <span class="chip">Java</span>
+                <span class="chip">C++</span>
+                <span class="chip">C</span>
+                <span class="chip">SQL</span>
+                <span class="chip">JavaScript</span>
+                <span class="chip">R</span>
+                <span class="chip">MATLAB</span>
+                <span class="chip">HTML</span>
+                <span class="chip">CSS</span>
+              </div>
+            </div>
+
+            <div class="skill-box">
+              <h3>Libraries &amp; Frameworks</h3>
+              <div class="chip-row">
+                <span class="chip">PyTorch</span>
+                <span class="chip">TensorFlow</span>
+                <span class="chip">Keras</span>
+                <span class="chip">NumPy</span>
+                <span class="chip">Pandas</span>
+                <span class="chip">Matplotlib</span>
+                <span class="chip">React.js</span>
+                <span class="chip">Node.js</span>
+                <span class="chip">PyQt</span>
+              </div>
+            </div>
+
+            <div class="skill-box">
+              <h3>Developer Tools</h3>
+              <div class="chip-row">
+                <span class="chip">Git / GitHub</span>
+                <span class="chip">VS Code</span>
+                <span class="chip">Google Colab</span>
+                <span class="chip">Android Studio</span>
+                <span class="chip">Eclipse</span>
+                <span class="chip">Excel</span>
+                <span class="chip">API Integration</span>
+                <span class="chip">Data Analysis</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+      </section>
+
+      <!-- ═══════════════════════════════
+           RESUME VIEW
+      ═══════════════════════════════ -->
+      <section class="view" id="view-resume" role="tabpanel" aria-labelledby="tab-resume" data-view="resume" hidden>
+        <div class="grid-2">
+
+          <div style="display:grid; gap:18px; align-content:start;">
+            <section class="card section" aria-labelledby="resume-title">
+              <div class="section-head">
+                <div class="section-label">Download</div>
+                <h2 class="section-title" id="resume-title">Resume</h2>
+                <p class="section-sub">Latest version — updated 2025.</p>
+              </div>
+              <div class="cta-row" style="margin:0;">
+                <a class="btn primary" href="Adi%20Gudi%20Current%20Resume.pdf" download>↓ Download PDF</a>
+                <a class="btn" href="Adi%20Gudi%20Current%20Resume.pdf" target="_blank" rel="noreferrer">Open in Browser ↗</a>
+              </div>
+            </section>
+
+            <section class="card section" aria-labelledby="edu-title">
+              <div class="section-head">
+                <div class="section-label">Education</div>
+                <h2 class="section-title" id="edu-title">Academic Background</h2>
+              </div>
+
+              <div class="edu-card" style="border:none; box-shadow:none; padding:0; background:transparent;">
+                <div class="edu-header">
+                  <div class="edu-icon">🎓</div>
+                  <div class="edu-info">
+                    <h3>UC San Diego</h3>
+                    <p>B.S. Computer Science · Graduated 2024</p>
+                    <p style="margin-top:3px;">La Jolla, California</p>
+                  </div>
+                </div>
+                <div class="divider"></div>
+                <div class="edu-courses">
+                  <h4>Relevant Coursework</h4>
+                  <div class="chip-row">
+                    <span class="chip">Machine Learning</span>
+                    <span class="chip">Data Structures</span>
+                    <span class="chip">Algorithms</span>
+                    <span class="chip">Deep Learning</span>
+                    <span class="chip">Database Systems</span>
+                    <span class="chip">Computer Vision</span>
+                    <span class="chip">NLP</span>
+                    <span class="chip">Software Engineering</span>
+                    <span class="chip">Operating Systems</span>
+                    <span class="chip">Probability &amp; Statistics</span>
+                  </div>
+                </div>
+              </div>
+            </section>
+          </div>
+
+          <aside class="sidebar-stack">
+            <div class="info-card">
+              <h3>What's Inside</h3>
+              <ul class="feature-list">
+                <li>3 internships across data, ML, and software engineering</li>
+                <li>Featured projects with technical depth</li>
+                <li>Full stack of languages and frameworks</li>
+                <li>UCSD CS degree — class of 2024</li>
+              </ul>
+            </div>
+
+            <div class="info-card">
+              <h3>Also Available On</h3>
+              <div class="link-list">
+                <a href="https://www.linkedin.com/in/adi-gudi-611a89208/" target="_blank" rel="noreferrer">
+                  <span>LinkedIn Profile</span>
+                  <span class="link-arrow">↗</span>
+                </a>
+                <a href="https://github.com/adigudi" target="_blank" rel="noreferrer">
+                  <span>GitHub Portfolio</span>
+                  <span class="link-arrow">↗</span>
+                </a>
+              </div>
+            </div>
+          </aside>
+
+        </div>
+      </section>
+
+      <!-- ═══════════════════════════════
+           CONTACT VIEW
+      ═══════════════════════════════ -->
+      <section class="view" id="view-contact" role="tabpanel" aria-labelledby="tab-contact" data-view="contact" hidden>
+        <div class="grid-2">
+
+          <section class="card section" aria-labelledby="contact-title">
+            <div class="section-head">
+              <div class="section-label">Get in Touch</div>
+              <h2 class="section-title" id="contact-title">Contact</h2>
+              <p class="section-sub">Open to roles, projects, and collaborations.</p>
+            </div>
+
+            <div class="contact-grid">
+              <div class="contact-item">
+                <div class="contact-icon">✉️</div>
+                <div class="contact-item-body">
+                  <strong>Email</strong>
+                  <a href="mailto:agudi24@gmail.com">agudi24@gmail.com</a>
+                </div>
+              </div>
+
+              <div class="contact-item">
+                <div class="contact-icon">📱</div>
+                <div class="contact-item-body">
+                  <strong>Phone</strong>
+                  <a href="tel:+18587037152">(858) 703-7152</a>
+                </div>
+              </div>
+
+              <div class="contact-item">
+                <div class="contact-icon">📍</div>
+                <div class="contact-item-body">
+                  <strong>Location</strong>
+                  <span>San Diego / La Jolla, CA</span>
+                </div>
+              </div>
+
+              <div class="contact-item">
+                <div class="contact-icon">💼</div>
+                <div class="contact-item-body">
+                  <strong>Status</strong>
+                  <span style="color:#16a34a; font-weight:500;">Open to opportunities</span>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <aside class="sidebar-stack">
+            <div class="info-card">
+              <h3>Online Profiles</h3>
+              <div class="link-list">
+                <a href="https://github.com/adigudi" target="_blank" rel="noreferrer">
+                  <span>GitHub · github.com/adigudi</span>
+                  <span class="link-arrow">↗</span>
+                </a>
+                <a href="https://www.linkedin.com/in/adi-gudi-611a89208/" target="_blank" rel="noreferrer">
+                  <span>LinkedIn Profile</span>
+                  <span class="link-arrow">↗</span>
+                </a>
+                <a href="Adi%20Gudi%20Current%20Resume.pdf" target="_blank" rel="noreferrer">
+                  <span>Resume (PDF)</span>
+                  <span class="link-arrow">↗</span>
+                </a>
+              </div>
+            </div>
+
+            <div class="feature-card">
+              <h3>Best way to reach me</h3>
+              <ul class="feature-list">
+                <li>Email for roles or project inquiries</li>
+                <li>LinkedIn for professional networking</li>
+                <li>GitHub to see my code and contributions</li>
+              </ul>
+            </div>
+          </aside>
+
+        </div>
+      </section>
+
+      <!-- ── FOOTER ── -->
+      <footer class="card">
+        <p><strong>Aditya (Adi) Gudi</strong> · Software · Data · AI/ML · San Diego, CA</p>
+        <div class="footer-links">
+          <a href="https://github.com/adigudi" target="_blank" rel="noreferrer">GitHub</a>
+          <a href="https://www.linkedin.com/in/adi-gudi-611a89208/" target="_blank" rel="noreferrer">LinkedIn</a>
+          <a href="mailto:agudi24@gmail.com">Email</a>
+        </div>
+      </footer>
+
+    </main>
+  </div>
+
+  <script>
+    (() => {
+      const buttons = Array.from(document.querySelectorAll("[data-view-btn]"));
+      const views   = Array.from(document.querySelectorAll("[data-view]"));
+      const valid   = new Set(views.map(v => v.dataset.view));
+      const aliases = { work: "experience", top: "about", education: "resume" };
+
+      function normalize(v) {
+        const c = aliases[v] || v;
+        return valid.has(c) ? c : "about";
+      }
+
+      function setView(name, updateHash = true) {
+        const active = normalize(name);
+        views.forEach(v => { v.hidden = v.dataset.view !== active; });
+        buttons.forEach(b => {
+          const on = b.dataset.viewBtn === active;
+          b.classList.toggle("is-active", on);
+          b.setAttribute("aria-selected", String(on));
+        });
+        if (updateHash) history.replaceState(null, "", "#" + active);
+        window.scrollTo({ top: 0, behavior: "auto" });
+      }
+
+      buttons.forEach(b => b.addEventListener("click", () => setView(b.dataset.viewBtn)));
+
+      const init = window.location.hash ? window.location.hash.slice(1) : "about";
+      setView(init, false);
+
+      window.addEventListener("hashchange", () => {
+        setView(window.location.hash ? window.location.hash.slice(1) : "about", false);
+      });
+    })();
+  </script>
+</body>
+</html>
