@@ -3,8 +3,16 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Adi Gudi — Computer Science graduate building data-driven software, analytics tools, and AI/ML projects. Based in San Diego, CA.">
-  <title>Adi Gudi | Portfolio</title>
+  <meta name="description" content="Adi Gudi — UCSD CS '25. I build data tools that ship: Python automation that saved analysts 8 hrs/day, a 14-step ETL + C++ ML pipeline turning 17 years of game-sales data into launch strategy, and forecasting tools real teams used.">
+  <meta property="og:title" content="Adi Gudi | Software, Data &amp; ML Engineer">
+  <meta property="og:description" content="UCSD CS '25. Built a live game-market intelligence platform (14-step ETL + C++ ML + FastAPI + Streamlit). Python automation that saved analysts 8 hrs/day. ML forecasting tools.">
+  <meta property="og:image" content="assets/video-game-dashboard.png">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="assets/video-game-dashboard.png">
+  <link rel="icon" type="image/png" href="assets/adi-logo.png">
+  <link rel="apple-touch-icon" href="assets/adi-logo.png">
+  <title>Adi Gudi | Software, Data &amp; ML Engineer</title>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&display=swap');
 
@@ -539,10 +547,23 @@
       flex-shrink: 0;
     }
 
-    .project-visual svg {
+    .project-visual svg,
+    .project-visual img {
       width: 100%;
       height: 100%;
       display: block;
+    }
+
+    .project-visual img {
+      object-fit: contain;
+      object-position: center;
+      background: #ffffff;
+      padding: 8px;
+    }
+
+    .project-card.featured .project-visual {
+      height: 240px;
+      background: #ffffff;
     }
 
     .btn-row {
@@ -919,6 +940,295 @@
       html { scroll-behavior: auto; }
       *, *::before, *::after { animation: none !important; transition: none !important; }
     }
+
+    /* ===========================
+       CASE STUDY MODAL
+    =========================== */
+    .case-modal {
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.55);
+      -webkit-backdrop-filter: blur(6px);
+      backdrop-filter: blur(6px);
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      padding: 40px 16px;
+      z-index: 1000;
+      overflow-y: auto;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.18s ease;
+    }
+    .case-modal.is-open { opacity: 1; pointer-events: auto; }
+
+    .case-modal-card {
+      background: var(--surface);
+      border-radius: var(--radius-lg);
+      width: min(880px, 100%);
+      box-shadow: var(--shadow-lg);
+      overflow: hidden;
+      transform: translateY(8px);
+      transition: transform 0.18s ease;
+    }
+    .case-modal.is-open .case-modal-card { transform: translateY(0); }
+
+    .case-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 18px 24px;
+      border-bottom: 1px solid var(--border);
+    }
+    .case-head .case-meta {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 4px;
+    }
+    .case-head h2 {
+      font-family: var(--font-head);
+      font-size: 1.35rem;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+    }
+    .case-close {
+      appearance: none;
+      background: none;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      width: 34px;
+      height: 34px;
+      display: grid;
+      place-items: center;
+      cursor: pointer;
+      color: var(--ink-2);
+      font-size: 18px;
+      line-height: 1;
+      flex-shrink: 0;
+    }
+    .case-close:hover { background: var(--surface-2); color: var(--ink); }
+
+    .case-hero {
+      background: linear-gradient(135deg, var(--accent-pale), #ffffff);
+      padding: 22px;
+      text-align: center;
+    }
+    .case-hero img {
+      max-width: 100%;
+      height: auto;
+      margin: 0 auto;
+      border-radius: var(--radius-sm);
+      box-shadow: var(--shadow);
+    }
+
+    .case-question {
+      padding: 20px 24px 4px;
+      font-family: var(--font-head);
+      font-size: 1.05rem;
+      font-style: italic;
+      color: var(--ink-2);
+      text-align: center;
+    }
+
+    .case-numbers {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+      padding: 18px 24px 4px;
+    }
+    .case-num {
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 14px 10px;
+      text-align: center;
+    }
+    .case-num strong {
+      display: block;
+      font-family: var(--font-head);
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: var(--accent);
+      letter-spacing: -0.02em;
+    }
+    .case-num span {
+      display: block;
+      font-size: 11px;
+      color: var(--muted);
+      margin-top: 4px;
+      line-height: 1.35;
+    }
+
+    .case-section {
+      padding: 18px 24px;
+    }
+
+    .case-section h3 {
+      font-family: var(--font-body);
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--muted);
+      font-weight: 600;
+      margin-bottom: 12px;
+    }
+
+    .case-findings {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+    .case-finding {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+    .case-finding-img {
+      height: 130px;
+      background: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 6px;
+      border-bottom: 1px solid var(--border);
+    }
+    .case-finding-img img {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+    }
+    .case-finding-body {
+      padding: 12px 14px;
+    }
+    .case-finding-body strong {
+      display: block;
+      font-size: 0.85rem;
+      color: var(--ink);
+      margin-bottom: 4px;
+    }
+    .case-finding-body p {
+      font-size: 0.8rem;
+      color: var(--ink-2);
+      line-height: 1.45;
+    }
+
+    .case-arch {
+      display: grid;
+      grid-template-columns: 1fr auto 1.4fr auto 1fr;
+      gap: 8px;
+      align-items: stretch;
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 16px;
+    }
+    .arch-node {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 12px 10px;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 4px;
+    }
+    .arch-node b {
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--ink);
+    }
+    .arch-node small {
+      font-size: 0.7rem;
+      color: var(--muted);
+      line-height: 1.4;
+    }
+    .arch-arrow {
+      color: var(--accent);
+      font-weight: 700;
+      font-size: 1.2rem;
+      align-self: center;
+    }
+
+    .case-stack {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+    .case-stack .tag {
+      background: var(--accent-pale);
+      border-color: var(--accent-mid);
+      color: var(--accent-h);
+    }
+
+    .case-rec {
+      background: linear-gradient(135deg, #ecfdf5, #dbeafe);
+      border: 1px solid var(--accent-mid);
+      border-radius: var(--radius-sm);
+      padding: 18px 20px;
+      margin: 8px 24px 24px;
+    }
+    .case-rec strong {
+      display: block;
+      font-family: var(--font-head);
+      font-size: 1.05rem;
+      color: var(--accent-h);
+      margin-bottom: 6px;
+    }
+    .case-rec p {
+      font-size: 0.85rem;
+      color: var(--ink-2);
+      line-height: 1.5;
+    }
+
+    /* ===========================
+       LIVE DEMO BUTTON
+    =========================== */
+    .btn.live {
+      background: #059669;
+      color: #ffffff;
+      border-color: #047857;
+      font-weight: 600;
+    }
+    .btn.live:hover {
+      background: #047857;
+      border-color: #065f46;
+    }
+    .btn.live::before {
+      content: "";
+      display: inline-block;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #6ee7b7;
+      margin-right: 8px;
+      vertical-align: 1px;
+      box-shadow: 0 0 0 0 rgba(110, 231, 183, 0.7);
+      animation: live-pulse 2s infinite;
+    }
+    @keyframes live-pulse {
+      0%   { box-shadow: 0 0 0 0 rgba(110, 231, 183, 0.7); }
+      70%  { box-shadow: 0 0 0 8px rgba(110, 231, 183, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(110, 231, 183, 0); }
+    }
+
+    @media (max-width: 700px) {
+      .case-numbers { grid-template-columns: 1fr 1fr; }
+      .case-findings { grid-template-columns: 1fr; }
+      .case-arch {
+        grid-template-columns: 1fr;
+        gap: 10px;
+      }
+      .case-arch .arch-arrow { transform: rotate(90deg); justify-self: center; }
+      .case-head h2 { font-size: 1.15rem; }
+    }
   </style>
 </head>
 <body>
@@ -959,10 +1269,13 @@
             <h1 id="hero-name">Adi Gudi</h1>
 
             <p class="hero-bio">
-              UC San Diego Computer Science graduate with experience in software engineering, data analytics, and machine learning. I enjoy building practical systems that solve real problems — from automation and forecasting tools to ML-driven analysis pipelines. Currently looking for software, data, or ML engineering roles.
+              I build data tools that ship. Most recently: a 14-step ETL + custom C++ ML pipeline that turns 17 years of game-sales data into actionable launch strategy, Python automation that cut analyst workloads by ~8 hours/day at TECHCET, and ML/forecasting tools real teams used. UC San Diego CS '25 — open to software, data, or ML engineering roles.
             </p>
 
             <div class="cta-row">
+              <a class="btn live" href="https://video-game-market-intelligence-platform.streamlit.app" target="_blank" rel="noreferrer">
+                Live Demo ↗
+              </a>
               <a class="btn primary" href="Adi%20Gudi%20Current%20Resume.pdf" download>
                 ↓ Download Resume
               </a>
@@ -973,26 +1286,26 @@
                 LinkedIn
               </a>
               <a class="btn" href="mailto:agudi24@gmail.com">
-                Email Me
+                Email
               </a>
             </div>
 
             <div class="stats-row">
               <div class="stat-pill">
-                <strong>3</strong>
-                <span>Internships</span>
+                <strong>8 hrs/day</strong>
+                <span>Analyst hours saved via automation</span>
               </div>
               <div class="stat-pill">
-                <strong>3+</strong>
-                <span>Projects</span>
+                <strong>5,950 games</strong>
+                <span>Analyzed in flagship ETL pipeline</span>
+              </div>
+              <div class="stat-pill">
+                <strong>3</strong>
+                <span>Engineering internships</span>
               </div>
               <div class="stat-pill">
                 <strong>UCSD '25</strong>
-                <span>CS Graduate</span>
-              </div>
-              <div class="stat-pill">
-                <strong>San Diego</strong>
-                <span>California</span>
+                <span>CS Graduate · San Diego</span>
               </div>
             </div>
           </div>
@@ -1025,10 +1338,10 @@
             <div class="section-label">Key Strengths</div>
             <h2 class="section-title" style="font-size:1.25rem; margin-bottom:12px;">What I Bring</h2>
             <ul class="feature-list">
-              <li>Python automation &amp; API integrations</li>
-              <li>ML pipelines — from EDA to deployment</li>
-              <li>Data analysis with Pandas, SQL, and visualization</li>
-              <li>Clear, practical code that solves real problems</li>
+              <li>End-to-end ML pipelines — ETL → features → models → API/dashboard</li>
+              <li>Python automation &amp; API integrations that remove real hours of manual work</li>
+              <li>Stats &amp; ML for decisions: t-tests, clustering, regression, forecasting</li>
+              <li>Polyglot when it pays off — C++17 for performance, Python for everything else</li>
             </ul>
           </div>
         </div>
@@ -1056,9 +1369,8 @@
                 </div>
                 <h3>Data Analyst Intern · TECHCET LLC</h3>
                 <ul>
-                  <li>Built automation using Financial Modeling Prep and OpenAI APIs to extract financial metrics for 500+ companies.</li>
-                  <li>Reduced manual data retrieval by nearly 8 hours per day for market analysts.</li>
-                  <li>Developed a Python/Tkinter forecasting tool using FinMind + FRED APIs for real-time revenue modeling.</li>
+                  <li>Python + FMP + OpenAI pipeline that pulled financial metrics for <strong>500+ companies</strong> — saved analysts <strong>~8 hrs/day</strong>.</li>
+                  <li>Shipped a Python/Tkinter forecasting tool on FinMind + FRED for real-time revenue modeling.</li>
                 </ul>
               </article>
 
@@ -1069,8 +1381,8 @@
                 </div>
                 <h3>Data Systems Analyst Assistant · CAIDA, UCSD</h3>
                 <ul>
-                  <li>Used LLMs to extract structured information from scientific publications and support categorization workflows.</li>
-                  <li>Applied ML techniques to analyze data usability and generate actionable reporting for management.</li>
+                  <li>LLM pipeline that extracted structured metadata from scientific publications — replaced a manual categorization workflow.</li>
+                  <li>ML-based data-usability analyses driving research-management reporting.</li>
                 </ul>
               </article>
 
@@ -1081,8 +1393,8 @@
                 </div>
                 <h3>Software Development Intern · Leonardo DRS</h3>
                 <ul>
-                  <li>Developed an unsupervised ML workflow for clustering hyperspectral microscope imagery to identify chemical compounds.</li>
-                  <li>Implemented K-Means, GMM, and PCA; built a PyQt GUI for configuring runs and visualizing outputs.</li>
+                  <li>Unsupervised ML workflow clustering hyperspectral microscope imagery → compound-level groupings, no labels needed.</li>
+                  <li>K-Means / GMM / PCA wrapped in a PyQt GUI so researchers could run experiments without touching code.</li>
                 </ul>
               </article>
             </div>
@@ -1093,25 +1405,32 @@
               <h3>Core Stack</h3>
               <div class="tag-row">
                 <span class="tag">Python</span>
-                <span class="tag">ML / AI</span>
+                <span class="tag">C++17</span>
                 <span class="tag">SQL</span>
-                <span class="tag">React</span>
-                <span class="tag">REST APIs</span>
-                <span class="tag">Data Viz</span>
+                <span class="tag">FastAPI</span>
+                <span class="tag">scikit-learn</span>
+                <span class="tag">XGBoost</span>
                 <span class="tag">PyTorch</span>
                 <span class="tag">Pandas</span>
+                <span class="tag">Streamlit</span>
+                <span class="tag">Tableau</span>
+                <span class="tag">Docker</span>
               </div>
             </div>
 
             <div class="info-card">
               <h3>Featured Links</h3>
               <div class="link-list">
+                <a href="https://video-game-market-intelligence-platform.streamlit.app" target="_blank" rel="noreferrer">
+                  <span>🟢 Live Dashboard — Video Game Intelligence</span>
+                  <span class="link-arrow">↗</span>
+                </a>
                 <a href="https://github.com/adigudi" target="_blank" rel="noreferrer">
                   <span>GitHub Profile</span>
                   <span class="link-arrow">↗</span>
                 </a>
                 <a href="https://github.com/adigudi/video-game-market-intelligence-platform" target="_blank" rel="noreferrer">
-                  <span>Video Game Market Intelligence Platform</span>
+                  <span>Video Game Repo — 14-step ETL + C++ ML</span>
                   <span class="link-arrow">↗</span>
                 </a>
                 <a href="https://www.linkedin.com/in/adi-gudi-611a89208/" target="_blank" rel="noreferrer">
@@ -1155,52 +1474,23 @@
             <!-- Video Game Market Intelligence Platform -->
             <article class="project-card featured">
               <div class="project-visual">
-                <svg viewBox="0 0 400 140" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
-                  <defs>
-                    <linearGradient id="g-vg" x1="0" y1="0" x2="400" y2="140" gradientUnits="userSpaceOnUse">
-                      <stop offset="0%" stop-color="#dbeafe"/>
-                      <stop offset="100%" stop-color="#eff6ff"/>
-                    </linearGradient>
-                  </defs>
-                  <rect width="400" height="140" fill="url(#g-vg)"/>
-                  <line x1="50" y1="15" x2="50" y2="115" stroke="#bfdbfe" stroke-width="1"/>
-                  <line x1="50" y1="115" x2="370" y2="115" stroke="#bfdbfe" stroke-width="1"/>
-                  <line x1="50" y1="88" x2="370" y2="88" stroke="#bfdbfe" stroke-width="0.5" stroke-dasharray="3,3"/>
-                  <line x1="50" y1="60" x2="370" y2="60" stroke="#bfdbfe" stroke-width="0.5" stroke-dasharray="3,3"/>
-                  <line x1="50" y1="33" x2="370" y2="33" stroke="#bfdbfe" stroke-width="0.5" stroke-dasharray="3,3"/>
-                  <rect x="68" y="30" width="26" height="85" fill="#2563eb" rx="3" opacity="0.9"/>
-                  <rect x="113" y="55" width="26" height="60" fill="#3b82f6" rx="3" opacity="0.9"/>
-                  <rect x="158" y="95" width="26" height="20" fill="#93c5fd" rx="3" opacity="0.9"/>
-                  <rect x="203" y="80" width="26" height="35" fill="#60a5fa" rx="3" opacity="0.9"/>
-                  <rect x="92" y="65" width="14" height="50" fill="#1d4ed8" rx="2" opacity="0.55"/>
-                  <rect x="137" y="78" width="14" height="37" fill="#1d4ed8" rx="2" opacity="0.55"/>
-                  <rect x="182" y="108" width="14" height="7" fill="#1d4ed8" rx="2" opacity="0.55"/>
-                  <rect x="227" y="99" width="14" height="16" fill="#1d4ed8" rx="2" opacity="0.55"/>
-                  <polyline points="81,42 126,65 171,100 216,88" stroke="#1e40af" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-                  <circle cx="81" cy="42" r="3.5" fill="#1e40af"/>
-                  <circle cx="126" cy="65" r="3.5" fill="#1e40af"/>
-                  <circle cx="171" cy="100" r="3.5" fill="#1e40af"/>
-                  <circle cx="216" cy="88" r="3.5" fill="#1e40af"/>
-                  <text x="81" y="128" font-family="system-ui,sans-serif" font-size="9" fill="#2563eb" text-anchor="middle" font-weight="600">NA</text>
-                  <text x="126" y="128" font-family="system-ui,sans-serif" font-size="9" fill="#2563eb" text-anchor="middle" font-weight="600">EU</text>
-                  <text x="171" y="128" font-family="system-ui,sans-serif" font-size="9" fill="#2563eb" text-anchor="middle" font-weight="600">JP</text>
-                  <text x="216" y="128" font-family="system-ui,sans-serif" font-size="9" fill="#2563eb" text-anchor="middle" font-weight="600">Other</text>
-                  <rect x="270" y="33" width="10" height="10" fill="#2563eb" rx="1"/>
-                  <text x="284" y="42" font-family="system-ui,sans-serif" font-size="9" fill="#475569">Action</text>
-                  <rect x="270" y="50" width="10" height="10" fill="#1d4ed8" rx="1" opacity="0.55"/>
-                  <text x="284" y="59" font-family="system-ui,sans-serif" font-size="9" fill="#475569">Strategy</text>
-                </svg>
+                <img src="assets/video-game-dashboard.png" alt="Video Game Market Intelligence — Tableau dashboard showing top genres, sales trend, regional split, and clustered game scatter">
               </div>
-              <div class="project-meta">⭐ Featured · GitHub</div>
+              <div class="project-meta">⭐ Featured · Python + C++17 · 14-step pipeline</div>
               <h3>Video Game Market Intelligence Platform</h3>
-              <p>Game-industry analytics platform showcasing dashboard UX, market insight workflows, and product thinking. Designed to demonstrate end-to-end data storytelling.</p>
+              <p>5,950 games. 17 years of sales. One question: <em>where should a publisher actually launch?</em></p>
               <div class="tag-row">
-                <span class="tag">Market Intelligence</span>
-                <span class="tag">Dashboarding</span>
-                <span class="tag">Analytics UX</span>
+                <span class="tag">Python</span>
+                <span class="tag">C++17</span>
+                <span class="tag">FastAPI</span>
+                <span class="tag">Streamlit</span>
+                <span class="tag">Tableau</span>
+                <span class="tag">Docker</span>
               </div>
               <div class="btn-row">
-                <a class="btn primary" href="https://github.com/adigudi/video-game-market-intelligence-platform" target="_blank" rel="noreferrer">Open Repo ↗</a>
+                <a class="btn live" href="https://video-game-market-intelligence-platform.streamlit.app" target="_blank" rel="noreferrer">Live Demo ↗</a>
+                <button type="button" class="btn primary" data-open-case="vg">View Case Study →</button>
+                <a class="btn" href="https://github.com/adigudi/video-game-market-intelligence-platform" target="_blank" rel="noreferrer">GitHub ↗</a>
               </div>
             </article>
 
@@ -1243,12 +1533,12 @@
               </div>
               <div class="project-meta">UCSD Design Lab · Oct 2022 – Sep 2023</div>
               <h3>AI/ML Engineer — AquaMesh</h3>
-              <p>Built ML and sensor analysis components for remote water-quality monitoring, including Arduino-based signaling and data pipelines for environmental analysis.</p>
+              <p>Remote water-quality monitoring. Owned the ML and sensor pipeline turning raw Arduino streams into usable field readings.</p>
               <div class="tag-row">
+                <span class="tag">Python</span>
                 <span class="tag">ML</span>
-                <span class="tag">IoT</span>
-                <span class="tag">Arduino</span>
-                <span class="tag">Sensor Data</span>
+                <span class="tag">IoT / Arduino</span>
+                <span class="tag">Sensor Data Pipelines</span>
               </div>
               <div class="btn-row">
                 <a class="btn" href="assets/aquamesh-pitch-deck.pdf" target="_blank" rel="noreferrer">View Pitch Deck ↗</a>
@@ -1296,7 +1586,7 @@
               </div>
               <div class="project-meta">MGT 151 · UCSD · Mar 2025</div>
               <h3>Data-Driven Market Strategy — ER Games</h3>
-              <p>Advised a fictional game studio on launch strategy using video game sales data (2000–2016). Applied hierarchical clustering to segment markets into 5 groups and used KPI dashboards to identify North America as the primary launch market and Europe as secondary — with Action-heavy positioning as the key commercial lever.</p>
+              <p>Hierarchical clustering on 17 years of game sales → 5 market segments → NA primary, EU secondary, Action-led positioning.</p>
               <div class="tag-row">
                 <span class="tag">Market Analysis</span>
                 <span class="tag">Clustering</span>
@@ -1341,11 +1631,12 @@
               </div>
               <div class="project-meta">UCSD ACM AI · Jan – Mar 2022</div>
               <h3>RL Benchmarking on CarRacing</h3>
-              <p>Benchmarked PPO, TD3, TRPO, and SAC on OpenAI Gym CarRacing. Implemented TD3 testing workflows using stable-baselines3 and analyzed convergence behavior.</p>
+              <p>Benchmarked <strong>PPO, TD3, TRPO, SAC</strong> on OpenAI Gym CarRacing-v0. Owned the TD3 workflow and compared convergence and sample efficiency across runs.</p>
               <div class="tag-row">
-                <span class="tag">Reinforcement Learning</span>
-                <span class="tag">TD3</span>
+                <span class="tag">PyTorch</span>
+                <span class="tag">stable-baselines3</span>
                 <span class="tag">OpenAI Gym</span>
+                <span class="tag">PPO / TD3 / SAC / TRPO</span>
               </div>
               <div class="btn-row">
                 <a class="btn" href="https://colab.research.google.com/drive/1gf_mqJzLX8raZLA0Qljhalf_qKZYdeG-" target="_blank" rel="noreferrer">Open in Colab ↗</a>
@@ -1477,10 +1768,10 @@
             <div class="info-card">
               <h3>What's Inside</h3>
               <ul class="feature-list">
-                <li>3 internships across data, ML, and software engineering</li>
-                <li>Featured projects with technical depth</li>
-                <li>Full stack of languages and frameworks</li>
-                <li>UCSD CS degree — class of 2025</li>
+                <li>3 engineering internships — data, ML, software</li>
+                <li>Featured: 14-step ETL + C++17 ML pipeline</li>
+                <li>Stack: Python, C++17, FastAPI, SQL, Docker</li>
+                <li>UCSD CS · Class of 2025</li>
               </ul>
             </div>
 
@@ -1595,6 +1886,132 @@
     </main>
   </div>
 
+  <!-- ═══════════════════════════════
+       CASE STUDY MODAL — Video Game
+  ═══════════════════════════════ -->
+  <div class="case-modal" id="case-vg" role="dialog" aria-modal="true" aria-labelledby="case-vg-title" hidden>
+    <div class="case-modal-card">
+
+      <div class="case-head">
+        <div>
+          <div class="case-meta">Case Study · Featured</div>
+          <h2 id="case-vg-title">Video Game Market Intelligence Platform</h2>
+        </div>
+        <button type="button" class="case-close" data-close-case aria-label="Close">×</button>
+      </div>
+
+      <div class="case-hero">
+        <img src="assets/video-game-dashboard.png" alt="Tableau dashboard: top genres, sales trend, regional split, clustered game scatter">
+      </div>
+
+      <p class="case-question">5,950 games. 17 years of sales. <em>Where should a publisher actually launch?</em></p>
+
+      <div class="case-numbers">
+        <div class="case-num"><strong>5,950</strong><span>Games analyzed</span></div>
+        <div class="case-num"><strong>17 yrs</strong><span>Of sales data</span></div>
+        <div class="case-num"><strong>51%</strong><span>NA share of market</span></div>
+        <div class="case-num"><strong>+7.6 pts</strong><span>EU share growth</span></div>
+      </div>
+
+      <div class="case-section">
+        <h3>What the data said</h3>
+        <div class="case-findings">
+
+          <div class="case-finding">
+            <div class="case-finding-img">
+              <img src="assets/vg-sales-by-region-over-time.png" alt="Regional sales over time">
+            </div>
+            <div class="case-finding-body">
+              <strong>NA leads, EU is catching up</strong>
+              <p>NA accounts for 51% of all units, but EU share rose +7.6 pts between 2004–08 and 2010–14.</p>
+            </div>
+          </div>
+
+          <div class="case-finding">
+            <div class="case-finding-img">
+              <img src="assets/vg-genre-sales-by-region.png" alt="Sales by genre and region">
+            </div>
+            <div class="case-finding-body">
+              <strong>Action by volume, Shooter by momentum</strong>
+              <p>Action wins total units, but Shooter's share more than doubled (12% → 22%) — the genre to bet on.</p>
+            </div>
+          </div>
+
+          <div class="case-finding">
+            <div class="case-finding-img">
+              <img src="assets/vg-cluster-profiles.png" alt="K-means cluster profiles">
+            </div>
+            <div class="case-finding-body">
+              <strong>The market is blockbuster-driven</strong>
+              <p>Custom C++17 K-means surfaced 5 clusters — ~93% of titles are "modest sellers"; hits carry the slate.</p>
+            </div>
+          </div>
+
+          <div class="case-finding">
+            <div class="case-finding-img">
+              <img src="assets/vg-sales-forecast.png" alt="Time-series forecast">
+            </div>
+            <div class="case-finding-body">
+              <strong>Boxed-console sales decline post-2008</strong>
+              <p>Exp-smoothing forecast with confidence bands — partly real shift to digital, partly data-recency. Pair with digital data.</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="case-section">
+        <h3>Architecture</h3>
+        <div class="case-arch">
+          <div class="arch-node">
+            <b>Raw Data</b>
+            <small>2 CSVs · 17 yrs sales + global population</small>
+          </div>
+          <div class="arch-arrow">→</div>
+          <div class="arch-node">
+            <b>14-Step Pipeline</b>
+            <small>Python ETL · SQLite warehouse · C++17 K-means · scikit-learn · XGBoost · stats tests</small>
+          </div>
+          <div class="arch-arrow">→</div>
+          <div class="arch-node">
+            <b>Serving</b>
+            <small>FastAPI (12 endpoints) · Streamlit · Tableau · Docker · CI/CD</small>
+          </div>
+        </div>
+      </div>
+
+      <div class="case-section">
+        <h3>Stack</h3>
+        <div class="case-stack">
+          <span class="tag">Python 3.11</span>
+          <span class="tag">C++17</span>
+          <span class="tag">SQLite</span>
+          <span class="tag">FastAPI</span>
+          <span class="tag">Streamlit</span>
+          <span class="tag">scikit-learn</span>
+          <span class="tag">XGBoost</span>
+          <span class="tag">SciPy</span>
+          <span class="tag">Tableau</span>
+          <span class="tag">Docker</span>
+          <span class="tag">GitHub Actions</span>
+          <span class="tag">pytest</span>
+        </div>
+      </div>
+
+      <div class="case-rec">
+        <strong>Build a Shooter. Weight the launch toward Europe.</strong>
+        <p>That's where the data points: Shooter share more than doubled while Sports/Racing declined, and EU is under-tapped at 0.13 copies/person/year vs NA's 0.31 — momentum and headroom in the same direction.</p>
+      </div>
+
+      <div class="case-section" style="border-top:1px solid var(--border); padding-top:18px; display:flex; flex-wrap:wrap; gap:8px; justify-content:flex-end;">
+        <a class="btn live" href="https://video-game-market-intelligence-platform.streamlit.app" target="_blank" rel="noreferrer">Try the Live Dashboard ↗</a>
+        <a class="btn primary" href="https://github.com/adigudi/video-game-market-intelligence-platform" target="_blank" rel="noreferrer">View Repo on GitHub ↗</a>
+        <button type="button" class="btn" data-close-case>Close</button>
+      </div>
+
+    </div>
+  </div>
+
   <script>
     (() => {
       const buttons = Array.from(document.querySelectorAll("[data-view-btn]"));
@@ -1626,6 +2043,37 @@
 
       window.addEventListener("hashchange", () => {
         setView(window.location.hash ? window.location.hash.slice(1) : "about", false);
+      });
+
+      // ── Case-study modal ──────────────────────────────
+      const modals = Array.from(document.querySelectorAll(".case-modal"));
+      const byId = Object.fromEntries(modals.map(m => [m.id.replace(/^case-/, ""), m]));
+
+      function openCase(key) {
+        const m = byId[key];
+        if (!m) return;
+        m.hidden = false;
+        requestAnimationFrame(() => m.classList.add("is-open"));
+        document.body.style.overflow = "hidden";
+      }
+      function closeCase(m) {
+        m.classList.remove("is-open");
+        document.body.style.overflow = "";
+        setTimeout(() => { m.hidden = true; }, 200);
+      }
+
+      document.querySelectorAll("[data-open-case]").forEach(btn => {
+        btn.addEventListener("click", () => openCase(btn.dataset.openCase));
+      });
+      modals.forEach(m => {
+        m.addEventListener("click", e => {
+          if (e.target === m || e.target.closest("[data-close-case]")) closeCase(m);
+        });
+      });
+      document.addEventListener("keydown", e => {
+        if (e.key === "Escape") {
+          modals.filter(m => m.classList.contains("is-open")).forEach(closeCase);
+        }
       });
     })();
   </script>
