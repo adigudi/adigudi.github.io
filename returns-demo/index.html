@@ -56,19 +56,18 @@
   .panel { display: none; padding-top: 30px; }
   .panel.active { display: block; }
 
-  /* ---------- audience line ---------- */
-  .who {
-    display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
-    font-size: 13.5px; color: var(--muted); margin-bottom: 26px;
+  /* ---------- takeaway header ---------- */
+  .takeaway { margin-bottom: 28px; }
+  .takeaway .point {
+    font-size: 19.5px; font-weight: 650; line-height: 1.35;
+    letter-spacing: -0.012em; max-width: 700px; margin-bottom: 8px;
   }
-  .who .badge {
-    display: inline-flex; align-items: center; gap: 7px;
-    background: var(--surface); border: 1px solid var(--border);
-    border-radius: 999px; padding: 5px 13px 5px 10px;
-    font-weight: 650; color: var(--ink); font-size: 13px;
+  .takeaway .who {
+    display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
+    font-size: 13px; color: var(--muted);
   }
-  .who .badge svg { width: 14px; height: 14px; }
-  .who .sep { color: var(--grid); }
+  .takeaway .who svg { width: 14px; height: 14px; opacity: 0.7; }
+  .takeaway .who .sep { color: var(--grid); }
 
   h2 { font-size: 17px; margin: 0 0 14px; font-weight: 650; letter-spacing: -0.01em; }
   section { margin-bottom: 40px; }
@@ -268,19 +267,19 @@
   </header>
 
   <nav class="tabs" role="tablist">
-    <button class="tab" role="tab" aria-selected="true"  data-p="ops"><svg viewBox="0 0 20 20"><use href="#i-box"/></svg>Warehouse</button>
-    <button class="tab" role="tab" aria-selected="false" data-p="quality"><svg viewBox="0 0 20 20"><use href="#i-flask"/></svg>Quality</button>
+    <button class="tab" role="tab" aria-selected="true"  data-p="quality"><svg viewBox="0 0 20 20"><use href="#i-flask"/></svg>Quality</button>
+    <button class="tab" role="tab" aria-selected="false" data-p="ops"><svg viewBox="0 0 20 20"><use href="#i-box"/></svg>Warehouse</button>
     <button class="tab" role="tab" aria-selected="false" data-p="credits"><svg viewBox="0 0 20 20"><use href="#i-cash"/></svg>Vendor Credits</button>
     <button class="tab" role="tab" aria-selected="false" data-p="exec"><svg viewBox="0 0 20 20"><use href="#i-chart"/></svg>Leadership</button>
     <button class="tab" role="tab" aria-selected="false" data-p="pipeline"><svg viewBox="0 0 20 20"><use href="#i-flow"/></svg>How It Works</button>
   </nav>
 
   <!-- ===================== WAREHOUSE ===================== -->
-  <div class="panel active" id="p-ops" role="tabpanel">
-    <div class="who">
-      <span class="badge"><svg viewBox="0 0 20 20"><use href="#i-box"/></svg>Warehouse team</span>
-      <span class="sep">/</span> on a tablet <span class="sep">/</span> every morning
-      <span class="sep">/</span> tells them what to do, not what to think
+  <div class="panel" id="p-ops" role="tabpanel">
+    <div class="takeaway">
+      <div class="point">The agent already sorted today's 20 returns. Six of them need nobody at all.</div>
+      <div class="who"><svg viewBox="0 0 20 20"><use href="#i-box"/></svg>Warehouse team
+        <span class="sep">/</span> on a tablet <span class="sep">/</span> every morning</div>
     </div>
 
     <div class="stats s4">
@@ -298,10 +297,11 @@
   </div>
 
   <!-- ===================== QUALITY ===================== -->
-  <div class="panel" id="p-quality" role="tabpanel">
-    <div class="who">
-      <span class="badge"><svg viewBox="0 0 20 20"><use href="#i-flask"/></svg>Quality &amp; production</span>
-      <span class="sep">/</span> weekly <span class="sep">/</span> separates one bad unit from a bad run
+  <div class="panel active" id="p-quality" role="tabpanel">
+    <div class="takeaway">
+      <div class="point">One production batch is failing, and nobody reading returns one at a time would have caught it.</div>
+      <div class="who"><svg viewBox="0 0 20 20"><use href="#i-flask"/></svg>Quality and production
+        <span class="sep">/</span> weekly <span class="sep">/</span> separates one bad unit from a bad run</div>
     </div>
 
     <div class="alert">
@@ -333,7 +333,7 @@
     </section>
 
     <section>
-      <h2>Graded returns</h2>
+      <h2>Graded returns <span style="font-weight:500;color:var(--muted);font-size:14px">click any row to see why</span></h2>
       <div class="filters" id="filters">
         <button class="fbtn active" data-f="all">All 20</button>
         <button class="fbtn" data-f="flag">Flagged 10</button>
@@ -357,9 +357,10 @@
 
   <!-- ===================== CREDITS ===================== -->
   <div class="panel" id="p-credits" role="tabpanel">
-    <div class="who">
-      <span class="badge"><svg viewBox="0 0 20 20"><use href="#i-cash"/></svg>Sourcing &amp; finance</span>
-      <span class="sep">/</span> Monday mornings <span class="sep">/</span> one evidence-backed invoice per vendor
+    <div class="takeaway">
+      <div class="point">$181 is owed across three vendors, and every claim already has photo evidence attached.</div>
+      <div class="who"><svg viewBox="0 0 20 20"><use href="#i-cash"/></svg>Sourcing and finance
+        <span class="sep">/</span> Monday mornings <span class="sep">/</span> one invoice per vendor</div>
     </div>
 
     <div class="stats s4">
@@ -409,9 +410,10 @@
 
   <!-- ===================== EXEC ===================== -->
   <div class="panel" id="p-exec" role="tabpanel">
-    <div class="who">
-      <span class="badge"><svg viewBox="0 0 20 20"><use href="#i-chart"/></svg>Founder</span>
-      <span class="sep">/</span> monthly, on a phone <span class="sep">/</span> is quality getting better or worse
+    <div class="takeaway">
+      <div class="point">Half of these returns are defects, and seven of the ten flagged trace back to one vendor.</div>
+      <div class="who"><svg viewBox="0 0 20 20"><use href="#i-chart"/></svg>Founder
+        <span class="sep">/</span> monthly, on a phone <span class="sep">/</span> is quality getting better or worse</div>
     </div>
 
     <section>
@@ -451,9 +453,10 @@
 
   <!-- ===================== PIPELINE ===================== -->
   <div class="panel" id="p-pipeline" role="tabpanel">
-    <div class="who">
-      <span class="badge"><svg viewBox="0 0 20 20"><use href="#i-flow"/></svg>Whoever asks how it works</span>
-      <span class="sep">/</span> and whoever maintains it later
+    <div class="takeaway">
+      <div class="point">Four systems in, one graded record out, four teams served from it.</div>
+      <div class="who"><svg viewBox="0 0 20 20"><use href="#i-flow"/></svg>Whoever asks how it works
+        <span class="sep">/</span> and whoever maintains it later</div>
     </div>
 
     <section>
@@ -470,7 +473,7 @@
               <tbody>
                 <tr><td class="sku">Returns platform<small>Loop / Returnly / Shopify</small></td><td class="lead">reason, comment</td><td class="lead">webhook</td></tr>
                 <tr><td class="sku">Warehouse / 3PL<small>WMS</small></td><td class="lead">notes, photos</td><td class="lead">hourly</td></tr>
-                <tr><td class="sku">Shopify<small>catalog</small></td><td class="lead">sku, landed cost</td><td class="lead">daily</td></tr>
+                <tr><td class="sku">Shopify<small>catalog</small></td><td class="lead">sku, landed cost, <b>no batch</b></td><td class="lead">daily</td></tr>
                 <tr><td class="sku">PO / ERP<small>or a spreadsheet</small></td><td class="lead">batch, vendor</td><td class="lead">on receipt</td></tr>
               </tbody>
             </table>
@@ -495,7 +498,8 @@
       <div class="card pad">
         <div id="join-viz"></div>
         <p class="note" style="margin-top:16px">
-          A return knows its SKU, not its production batch. Resolved by order date against receipt windows.
+          Shopify gives you the return, the SKU and the cost. It does not know which production run the unit
+          came from, so batch has to be resolved from the PO system by order date against receipt windows.
           <b>This is the most fragile link in the system</b> and the first thing I would check against real data,
           because wrong batch attribution means wrong vendor claims.
         </p>
@@ -682,6 +686,11 @@
       });
 
       tb.appendChild(tr); tb.appendChild(dr);
+
+      /* first row opens by default so the reasoning is visible without hunting */
+      if (tb.children.length === 2) {
+        dr.style.display = ""; tr.classList.add("open");
+      }
     });
   }
   renderTable("all");
