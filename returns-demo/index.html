@@ -95,8 +95,13 @@
   .task {
     background: var(--surface); border: 1px solid var(--border); border-radius: 14px;
     padding: 0; margin-bottom: 9px; display: grid;
-    grid-template-columns: 46px 1fr auto; align-items: center; overflow: hidden;
+    grid-template-columns: 46px 62px 1fr auto; align-items: center; overflow: hidden;
   }
+  .task.nothumb { grid-template-columns: 46px 1fr auto; }
+  .thumb-wrap { display: flex; align-items: center; justify-content: center; padding: 10px 0; }
+  svg.thumb { width: 38px; height: 44px; display: block; }
+  svg.thumb-sm { width: 26px; height: 30px; display: block; flex: none; }
+  .item-cell { display: flex; align-items: center; gap: 11px; }
   .task .mark {
     align-self: stretch; display: flex; align-items: center; justify-content: center;
     color: #fff;
@@ -293,7 +298,8 @@
     <section>
       <h2>Today's queue</h2>
       <div id="ops-queue"></div>
-      <p class="note"><b>Photo jobs come first.</b> Once a unit is restocked the evidence is gone, and so is the credit.</p>
+      <p class="note"><b>Photo jobs come first.</b> Once a unit is restocked the evidence is gone, and so is the credit.
+      Thumbnails are schematic and mark where the failure sits; the live system shows the real customer and warehouse photos here.</p>
     </section>
   </div>
 
@@ -538,6 +544,52 @@
   }
   function td(tr, cls) { var c = document.createElement("td"); if (cls) c.className = cls; tr.appendChild(c); return c; }
 
+  /* ---------------- garment thumbnails ----------------
+     Schematic, not photographic. In the live system the real customer and
+     warehouse photos sit here; these show shape, colour and defect location. */
+  var SHAPE = {
+    tee:    { body:"M14 3 L7 6 L2 12 L6.5 16.5 L10 13 L10 42 L30 42 L30 13 L33.5 16.5 L38 12 L33 6 L26 3 C25 6 22.5 7.5 20 7.5 C17.5 7.5 15 6 14 3 Z", det:[] },
+    polo:   { body:"M14 3 L7 6 L2 12 L6.5 16.5 L10 13 L10 42 L30 42 L30 13 L33.5 16.5 L38 12 L33 6 L26 3 C25 6 22.5 7.5 20 7.5 C17.5 7.5 15 6 14 3 Z",
+              det:["M15.5 3.5 L20 9.5 L24.5 3.5","M20 9.5 V17"] },
+    hoodie: { body:"M14 3 L6 6.5 L1.5 13 L6 17.5 L9.5 14 L9.5 42 L30.5 42 L30.5 14 L34 17.5 L38.5 13 L34 6.5 L26 3 Z",
+              det:["M14 3 C14 9.5 17 12 20 12 C23 12 26 9.5 26 3","M20 12 V42","M13 28 H27"] },
+    jogger: { body:"M11 3 H29 L30.5 12 L27.5 42 H21.5 L20 22 L18.5 42 H12.5 L9.5 12 Z",
+              det:["M10 8.5 H30"] },
+    henley: { body:"M14 3 L7 6 L2.5 12.5 L4.5 30 L9.5 29 L10 42 L30 42 L30.5 29 L35.5 30 L37.5 12.5 L33 6 L26 3 C25 6 22.5 7.5 20 7.5 C17.5 7.5 15 6 14 3 Z",
+              det:["M20 7.5 V19"] }
+  };
+  var SKU_SHAPE = { "PIMA-TEE-BLK":"tee", "CURVE-TEE-WHT":"tee", "AO-POLO-NVY":"polo",
+                    "HW-HOOD-GRY":"hoodie", "PERF-JOG-BLK":"jogger", "LS-HENLEY-OLV":"henley" };
+  var SKU_COLOR = { "PIMA-TEE-BLK":"#33322f", "CURVE-TEE-WHT":"#f4f3ef", "AO-POLO-NVY":"#25323f",
+                    "HW-HOOD-GRY":"#a8a7a1", "PERF-JOG-BLK":"#33322f", "LS-HENLEY-OLV":"#6b6f4a" };
+  /* where on the garment the failure sits */
+  var SPOT = {
+    "Seam failure":[11.5,13], "Collar deformation":[20,8], "Zipper hardware":[20,14],
+    "Dye transfer":[26,32], "Button failure":[20,15], "Print peeling":[20,22],
+    "Fabric wear":[20,23], "Trim defect":[14.5,8], "Spec mismatch":[20,28]
+  };
+  var MARK = { flag:"#d03b3b", review:"#d98d00", none:null };
+
+  function garment(sku, cat, kind, cls) {
+    var s = SHAPE[SKU_SHAPE[sku] || "tee"], fill = SKU_COLOR[sku] || "#c9c8c2";
+    var svg = document.createElementNS(NS, "svg");
+    svg.setAttribute("viewBox", "0 0 40 46");
+    svg.setAttribute("class", cls || "thumb");
+    svg.setAttribute("aria-hidden", "true");
+    E("path", { d:s.body, fill:fill, stroke:"rgba(11,11,11,0.22)", "stroke-width":1,
+      "stroke-linejoin":"round" }, svg);
+    s.det.forEach(function (d) {
+      E("path", { d:d, fill:"none", stroke:"rgba(255,255,255,0.5)", "stroke-width":1,
+        "stroke-linecap":"round" }, svg);
+    });
+    var c = MARK[kind], p = SPOT[cat];
+    if (c && p) {
+      E("circle", { cx:p[0], cy:p[1], r:6, fill:c, "fill-opacity":"0.18" }, svg);
+      E("circle", { cx:p[0], cy:p[1], r:3, fill:c, stroke:"#fff", "stroke-width":1.4 }, svg);
+    }
+    return svg;
+  }
+
   var R = [
     {id:"R-1047",sku:"PIMA-TEE-BLK",item:"Pima Split-Hem Tee",batch:"B-2241",vendor:"Meridian Textiles",cost:14,reason:"Defective",note:"Shoulder seam fully separated",score:96,cat:"Seam failure",
      why:"Photo confirms the open seam. Third identical failure in this batch."},
@@ -599,6 +651,9 @@
       var m = document.createElement("div"); m.className = "mark";
       m.appendChild(icon(flag ? "i-cam" : "i-eye")); c.appendChild(m);
 
+      var tw = document.createElement("div"); tw.className = "thumb-wrap";
+      tw.appendChild(garment(r.sku, r.cat, k)); c.appendChild(tw);
+
       var b = document.createElement("div"); b.className = "body";
       var t = document.createElement("div"); t.className = "ttl";
       t.appendChild(document.createTextNode(r.item));
@@ -616,7 +671,7 @@
       host.appendChild(c);
     });
 
-    var c = document.createElement("div"); c.className = "task pass";
+    var c = document.createElement("div"); c.className = "task pass nothumb";
     var m = document.createElement("div"); m.className = "mark";
     m.appendChild(icon("i-check")); c.appendChild(m);
     var b = document.createElement("div"); b.className = "body";
@@ -643,9 +698,13 @@
       var tr = document.createElement("tr"); tr.className = "row";
       var c0 = td(tr); c0.appendChild(icon("i-chev", "chev"));
 
-      var c1 = td(tr, "sku");
-      c1.appendChild(document.createTextNode(r.sku));
-      var sm = document.createElement("small"); sm.textContent = r.batch; c1.appendChild(sm);
+      var c1 = td(tr);
+      var wrap = document.createElement("div"); wrap.className = "item-cell";
+      wrap.appendChild(garment(r.sku, r.cat, k, "thumb-sm"));
+      var lab = document.createElement("div"); lab.className = "sku";
+      lab.appendChild(document.createTextNode(r.sku));
+      var sm = document.createElement("small"); sm.textContent = r.batch; lab.appendChild(sm);
+      wrap.appendChild(lab); c1.appendChild(wrap);
 
       var c2 = td(tr, "lead");
       c2.appendChild(document.createTextNode(r.note));
