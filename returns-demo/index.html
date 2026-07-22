@@ -7,23 +7,19 @@
 <style>
   :root {
     color-scheme: light;
-    --page:      #f9f9f7;
-    --surface:   #fcfcfb;
+    --page:      #f7f7f5;
+    --surface:   #ffffff;
     --ink:       #0b0b0b;
-    --ink-2:     #52514e;
-    --muted:     #898781;
-    --grid:      #e1e0d9;
-    --baseline:  #c3c2b7;
-    --border:    rgba(11,11,11,0.10);
+    --ink-2:     #56554f;
+    --muted:     #918f88;
+    --grid:      #e7e6df;
+    --border:    rgba(11,11,11,0.09);
     --blue:      #2a78d6;
-    --blue-2:    #5598e7;
-    --blue-3:    #86b6ef;
-    --blue-deep: #1c5cab;
-    --blue-track:#cde2fb;
+    --blue-track:#dbeafd;
     --crit:      #d03b3b;
-    --warn:      #fab219;
-    --good:      #0ca30c;
-    --good-txt:  #006300;
+    --warn:      #d98d00;
+    --good:      #0f8a3c;
+    --accent:    #2a78d6;
   }
   * { box-sizing: border-box; }
   html, body {
@@ -31,354 +27,351 @@
     font-family: system-ui, -apple-system, "Segoe UI", Helvetica, Arial, sans-serif;
     -webkit-font-smoothing: antialiased; line-height: 1.5;
   }
-  .wrap { max-width: 1140px; margin: 0 auto; padding: 36px 26px 56px; }
+  .wrap { max-width: 1060px; margin: 0 auto; padding: 44px 26px 64px; }
 
   /* ---------- masthead ---------- */
   .eyebrow {
-    display: inline-block; font-size: 12px; letter-spacing: 0.13em;
-    text-transform: uppercase; color: var(--blue); font-weight: 650; margin-bottom: 10px;
+    display: inline-flex; align-items: center; gap: 7px; font-size: 11.5px;
+    letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted);
+    font-weight: 650; margin-bottom: 14px;
   }
-  h1 { font-size: 30px; line-height: 1.15; margin: 0 0 9px; font-weight: 700; letter-spacing: -0.01em; }
-  .framing { font-size: 15.5px; color: var(--ink-2); margin: 0; max-width: 760px; }
-  .synthetic-banner {
-    margin-top: 14px; background: var(--surface);
-    border: 1px solid var(--border); border-left: 4px solid var(--blue);
-    border-radius: 10px; padding: 10px 15px; font-size: 13px; color: var(--ink-2); max-width: 790px;
-  }
-  .synthetic-banner strong { color: var(--ink); }
+  .eyebrow .pip { width: 6px; height: 6px; border-radius: 50%; background: var(--blue); }
+  h1 { font-size: 34px; line-height: 1.1; margin: 0 0 12px; font-weight: 700; letter-spacing: -0.02em; }
+  .framing { font-size: 16px; color: var(--ink-2); margin: 0; max-width: 620px; }
+  .framing b { color: var(--ink); font-weight: 600; }
 
   /* ---------- tabs ---------- */
-  nav.tabs {
-    display: flex; gap: 4px; flex-wrap: wrap;
-    border-bottom: 1px solid var(--grid); margin: 26px 0 0;
-  }
+  nav.tabs { display: flex; gap: 2px; flex-wrap: wrap; margin: 34px 0 0; border-bottom: 1px solid var(--grid); }
   .tab {
-    font: inherit; font-size: 14px; font-weight: 600; color: var(--ink-2);
+    font: inherit; font-size: 14px; font-weight: 600; color: var(--muted);
     background: none; border: none; border-bottom: 2px solid transparent;
-    padding: 10px 14px; cursor: pointer; margin-bottom: -1px; white-space: nowrap;
+    padding: 11px 15px; cursor: pointer; margin-bottom: -1px; white-space: nowrap;
+    display: inline-flex; align-items: center; gap: 8px;
   }
-  .tab:hover { color: var(--ink); }
-  .tab[aria-selected="true"] { color: var(--blue); border-bottom-color: var(--blue); }
+  .tab svg { width: 15px; height: 15px; opacity: 0.55; }
+  .tab:hover { color: var(--ink-2); }
+  .tab[aria-selected="true"] { color: var(--ink); }
+  .tab[aria-selected="true"] svg { opacity: 1; }
 
-  .panel { display: none; padding-top: 26px; }
+  .panel { display: none; padding-top: 30px; }
   .panel.active { display: block; }
 
-  /* ---------- audience strip ---------- */
-  .audience {
-    display: grid; grid-template-columns: repeat(3, 1fr); gap: 0;
+  /* ---------- audience line ---------- */
+  .who {
+    display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
+    font-size: 13.5px; color: var(--muted); margin-bottom: 26px;
+  }
+  .who .badge {
+    display: inline-flex; align-items: center; gap: 7px;
     background: var(--surface); border: 1px solid var(--border);
-    border-radius: 12px; overflow: hidden; margin-bottom: 26px;
+    border-radius: 999px; padding: 5px 13px 5px 10px;
+    font-weight: 650; color: var(--ink); font-size: 13px;
   }
-  .audience div { padding: 13px 16px; border-right: 1px solid var(--grid); }
-  .audience div:last-child { border-right: none; }
-  .audience dt {
-    font-size: 11px; letter-spacing: 0.07em; text-transform: uppercase;
-    color: var(--muted); font-weight: 650; margin-bottom: 4px;
-  }
-  .audience dd { margin: 0; font-size: 13.5px; color: var(--ink-2); }
-  .audience dd b { color: var(--ink); font-weight: 650; }
+  .who .badge svg { width: 14px; height: 14px; }
+  .who .sep { color: var(--grid); }
 
-  h2 { font-size: 18.5px; margin: 0 0 4px; font-weight: 650; }
-  .section-sub { font-size: 14px; color: var(--ink-2); margin: 0 0 14px; max-width: 760px; }
-  section { margin-bottom: 32px; }
-  .card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 18px 20px; }
+  h2 { font-size: 17px; margin: 0 0 14px; font-weight: 650; letter-spacing: -0.01em; }
+  section { margin-bottom: 40px; }
+  .card { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; }
+  .card.pad { padding: 22px 24px; }
 
-  /* ---------- stat tiles ---------- */
-  .kpi-grid { display: grid; gap: 14px; margin-bottom: 26px; }
-  .kpi-4 { grid-template-columns: repeat(4, 1fr); }
-  .kpi-3 { grid-template-columns: repeat(3, 1fr); }
-  .kpi { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 15px 17px 13px; }
-  .kpi-label { font-size: 12.5px; color: var(--muted); font-weight: 600; margin-bottom: 6px; }
-  .kpi-value { font-size: 27px; font-weight: 650; line-height: 1.05; }
-  .kpi-sub { font-size: 12.5px; color: var(--ink-2); margin-top: 4px; }
-  .kpi-sub.good { color: var(--good-txt); font-weight: 600; }
+  /* ---------- stat row ---------- */
+  .stats { display: grid; gap: 1px; background: var(--grid);
+    border: 1px solid var(--border); border-radius: 14px; overflow: hidden; margin-bottom: 34px; }
+  .stats.s4 { grid-template-columns: repeat(4, 1fr); }
+  .stats.s3 { grid-template-columns: repeat(3, 1fr); }
+  .stat { background: var(--surface); padding: 18px 20px 16px; }
+  .stat .lbl { font-size: 12px; color: var(--muted); font-weight: 600; margin-bottom: 9px; }
+  .stat .val { font-size: 30px; font-weight: 680; line-height: 1; letter-spacing: -0.02em; }
+  .stat .sub { font-size: 12.5px; color: var(--muted); margin-top: 7px; }
+  .stat .sub.pos { color: var(--good); font-weight: 600; }
 
-  .hero-fig { font-size: 52px; font-weight: 700; line-height: 1; letter-spacing: -0.02em; }
+  .hero { padding: 30px 28px; }
+  .hero .lbl { font-size: 12.5px; color: var(--muted); font-weight: 600; margin-bottom: 12px; }
+  .hero .fig { font-size: 66px; font-weight: 700; line-height: 0.95; letter-spacing: -0.035em; }
+  .hero .sub { font-size: 13.5px; color: var(--muted); margin-top: 12px; max-width: 480px; }
 
-  /* ---------- operator task cards ---------- */
+  /* ---------- task cards ---------- */
   .task {
-    background: var(--surface); border: 1px solid var(--border); border-radius: 12px;
-    padding: 15px 18px; margin-bottom: 11px; display: grid;
-    grid-template-columns: 92px 1fr 210px; gap: 18px; align-items: start;
+    background: var(--surface); border: 1px solid var(--border); border-radius: 14px;
+    padding: 0; margin-bottom: 9px; display: grid;
+    grid-template-columns: 46px 1fr auto; align-items: center; overflow: hidden;
   }
-  .task .rma { font-weight: 700; font-size: 14px; }
-  .task .rma small { display: block; font-weight: 400; color: var(--muted); font-size: 11.5px; margin-top: 2px; }
-  .task .what { font-size: 13.5px; color: var(--ink-2); }
-  .task .what b { color: var(--ink); display: block; margin-bottom: 2px; font-size: 13.5px; }
-  .task .said { color: var(--muted); font-size: 12.5px; margin-top: 5px; }
-  .action {
-    border-left: 3px solid var(--blue); padding-left: 12px; font-size: 13px; color: var(--ink-2);
+  .task .mark {
+    align-self: stretch; display: flex; align-items: center; justify-content: center;
+    color: #fff;
   }
-  .action b { display: block; color: var(--ink); font-size: 13px; margin-bottom: 2px; }
-  .action.hold { border-left-color: var(--crit); }
-  .action.check { border-left-color: var(--warn); }
-  .action.pass { border-left-color: var(--good); }
+  .task .mark svg { width: 17px; height: 17px; }
+  .task.hold .mark { background: var(--crit); }
+  .task.check .mark { background: var(--warn); }
+  .task.pass .mark { background: var(--good); }
+  .task .body { padding: 15px 18px; }
+  .task .ttl { font-size: 14px; font-weight: 650; }
+  .task .ttl .rid { color: var(--muted); font-weight: 500; margin-left: 8px; font-size: 12.5px; }
+  .task .dsc { font-size: 13.5px; color: var(--ink-2); margin-top: 3px; }
+  .task .verb { padding: 15px 22px 15px 18px; text-align: right; white-space: nowrap; }
+  .task .verb b { display: block; font-size: 13.5px; font-weight: 650; }
+  .task .verb span { font-size: 12.5px; color: var(--muted); }
 
   /* ---------- tables ---------- */
   .tbl-scroll { overflow-x: auto; }
-  table.data { border-collapse: collapse; width: 100%; font-size: 13px; }
-  table.data.wide { min-width: 900px; }
+  table.data { border-collapse: collapse; width: 100%; font-size: 13.5px; }
+  table.data.wide { min-width: 760px; }
   table.data th {
-    text-align: left; color: var(--muted); font-weight: 600; font-size: 12px;
-    border-bottom: 1px solid var(--grid); padding: 8px 12px 8px 0; white-space: nowrap;
+    text-align: left; color: var(--muted); font-weight: 600; font-size: 11.5px;
+    letter-spacing: 0.04em; text-transform: uppercase;
+    border-bottom: 1px solid var(--grid); padding: 0 14px 10px 0; white-space: nowrap;
   }
-  table.data td { border-bottom: 1px solid var(--grid); padding: 9px 12px 9px 0; vertical-align: top; }
+  table.data td { border-bottom: 1px solid var(--grid); padding: 13px 14px 13px 0; vertical-align: middle; }
   table.data tr:last-child td { border-bottom: none; }
-  table.data tr:hover td { background: rgba(42,120,214,0.045); }
   td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; padding-right: 0; }
   .sku { font-weight: 650; white-space: nowrap; }
-  .sku small { display: block; font-weight: 400; color: var(--muted); font-size: 11.5px; }
-  .wrapcell { max-width: 240px; color: var(--ink-2); }
+  .sku small { display: block; font-weight: 400; color: var(--muted); font-size: 12px; margin-top: 1px; }
+  .lead { color: var(--ink-2); }
 
-  .meter { display: flex; align-items: center; gap: 8px; }
-  .meter .track { width: 64px; height: 8px; border-radius: 4px; background: var(--blue-track); flex: none; overflow: hidden; }
-  .meter .fill { height: 100%; background: var(--blue); }
-  .meter .val { font-weight: 650; font-variant-numeric: tabular-nums; }
+  tr.row { cursor: pointer; }
+  tr.row:hover td { background: #fafaf8; }
+  tr.detail td { padding: 0 0 14px; border-bottom: 1px solid var(--grid); }
+  tr.detail .why {
+    background: #f7f9fc; border-left: 3px solid var(--blue);
+    padding: 11px 15px; border-radius: 0 8px 8px 0; font-size: 13px; color: var(--ink-2);
+    display: flex; gap: 9px; align-items: flex-start;
+  }
+  tr.detail .why svg { width: 15px; height: 15px; flex: none; margin-top: 1px; color: var(--blue); }
+  .chev { width: 13px; height: 13px; color: var(--muted); transition: transform 0.15s; }
+  tr.row.open .chev { transform: rotate(90deg); }
+
+  .meter { display: flex; align-items: center; gap: 9px; }
+  .meter .track { width: 54px; height: 6px; border-radius: 3px; background: var(--blue-track); flex: none; overflow: hidden; }
+  .meter .fill { height: 100%; background: var(--blue); border-radius: 3px; }
+  .meter .val { font-weight: 650; font-variant-numeric: tabular-nums; font-size: 13px; }
 
   .chip {
     display: inline-flex; align-items: center; gap: 6px; white-space: nowrap;
-    font-size: 12px; font-weight: 650; border-radius: 999px; padding: 3px 10px;
+    font-size: 12px; font-weight: 650; border-radius: 999px; padding: 4px 11px;
   }
-  .chip .dot { width: 7px; height: 7px; border-radius: 50%; flex: none; }
-  .chip.flag { background: rgba(208,59,59,0.10); color: #9c2323; }
-  .chip.flag .dot { background: var(--crit); }
-  .chip.review { background: rgba(250,178,25,0.16); color: #7a5200; }
-  .chip.review .dot { background: var(--warn); }
-  .chip.none { background: rgba(137,135,129,0.12); color: var(--ink-2); }
-  .chip.none .dot { background: var(--muted); }
-  .chip.paid { background: rgba(12,163,12,0.12); color: var(--good-txt); }
-  .chip.paid .dot { background: var(--good); }
+  .chip .dot { width: 6px; height: 6px; border-radius: 50%; flex: none; }
+  .chip.flag { background: #fdeceb; color: #a52a2a; } .chip.flag .dot { background: var(--crit); }
+  .chip.review { background: #fdf2dd; color: #7d5200; } .chip.review .dot { background: var(--warn); }
+  .chip.none { background: #f1f1ee; color: var(--ink-2); } .chip.none .dot { background: var(--muted); }
+  .chip.paid { background: #e6f5eb; color: #0b6b2f; } .chip.paid .dot { background: var(--good); }
 
-  .filters { display: flex; gap: 8px; margin-bottom: 14px; flex-wrap: wrap; }
+  .filters { display: flex; gap: 7px; margin-bottom: 4px; flex-wrap: wrap; }
   .fbtn {
-    font: inherit; font-size: 13px; font-weight: 600; color: var(--ink-2);
-    background: var(--surface); border: 1px solid var(--border); border-radius: 999px;
+    font: inherit; font-size: 13px; font-weight: 600; color: var(--muted);
+    background: none; border: 1px solid var(--border); border-radius: 999px;
     padding: 5px 14px; cursor: pointer;
   }
-  .fbtn:hover { border-color: var(--baseline); }
+  .fbtn:hover { color: var(--ink); }
   .fbtn.active { background: var(--ink); color: #fff; border-color: var(--ink); }
 
-  /* ---------- callout ---------- */
-  .callout {
-    border: 1px solid var(--border); border-left: 4px solid var(--crit);
-    background: var(--surface); border-radius: 12px; padding: 15px 19px;
-    font-size: 13.5px; color: var(--ink-2); margin-bottom: 14px;
+  /* ---------- alert ---------- */
+  .alert {
+    display: flex; gap: 14px; align-items: flex-start;
+    background: var(--surface); border: 1px solid var(--border);
+    border-left: 3px solid var(--crit); border-radius: 12px;
+    padding: 16px 20px; margin-bottom: 30px;
   }
-  .callout b { color: var(--ink); }
-  .callout .tag {
-    display: block; font-size: 11px; font-weight: 700; letter-spacing: 0.06em;
-    text-transform: uppercase; color: #9c2323; margin-bottom: 5px;
+  .alert svg { width: 19px; height: 19px; color: var(--crit); flex: none; margin-top: 2px; }
+  .alert .t { font-size: 14px; font-weight: 650; margin-bottom: 3px; }
+  .alert .d { font-size: 13.5px; color: var(--ink-2); }
+
+  svg.chart { display: block; width: 100%; height: auto; }
+  .chart text { font-family: system-ui, -apple-system, "Segoe UI", Helvetica, Arial, sans-serif; }
+  .lb { font-size: 12.5px; fill: var(--ink-2); }
+  .vl { font-size: 12.5px; font-weight: 650; fill: var(--ink); }
+  .tk { font-size: 11px; fill: var(--muted); }
+
+  .two { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+
+  /* ---------- email ---------- */
+  .mail { font-size: 13px; color: var(--ink-2); }
+  .mail .hd {
+    border-bottom: 1px solid var(--grid); padding-bottom: 12px; margin-bottom: 13px;
+    font-size: 12.5px; color: var(--muted); line-height: 1.7;
   }
-  .callout.info { border-left-color: var(--blue); }
-  .callout.info .tag { color: var(--blue); }
-
-  svg { display: block; width: 100%; height: auto; }
-  svg text { font-family: system-ui, -apple-system, "Segoe UI", Helvetica, Arial, sans-serif; }
-  .tick-label { font-size: 11.5px; fill: var(--muted); }
-  .direct-label { font-size: 12.5px; font-weight: 650; fill: var(--ink); }
-  .cat-label { font-size: 12.5px; fill: var(--ink-2); }
-
-  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
-  .two-col.wide-right { grid-template-columns: 1fr 1.2fr; }
-
-  /* ---------- email preview ---------- */
-  .email-preview {
-    border: 1px dashed var(--baseline); border-radius: 10px;
-    background: var(--page); padding: 14px 16px; font-size: 13px; color: var(--ink-2);
+  .mail .hd b { color: var(--ink); font-weight: 600; }
+  .mail table { border-collapse: collapse; width: 100%; font-size: 12.5px; margin: 11px 0; }
+  .mail th { text-align: left; color: var(--muted); font-weight: 600; border-bottom: 1px solid var(--grid); padding: 5px 10px 5px 0; font-size: 11.5px; }
+  .mail td { border-bottom: 1px solid var(--grid); padding: 6px 10px 6px 0; font-variant-numeric: tabular-nums; }
+  .mail p { margin: 0 0 9px; }
+  .tagline {
+    display: inline-flex; align-items: center; gap: 6px; font-size: 11px; font-weight: 650;
+    letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); margin-bottom: 14px;
   }
-  .email-preview .meta { font-size: 12px; color: var(--muted); margin-bottom: 8px; line-height: 1.6; }
-  .email-preview .meta b { color: var(--ink-2); }
-  .email-preview p { margin: 0 0 8px; }
-  .email-preview table { border-collapse: collapse; width: 100%; font-size: 12.5px; margin: 8px 0; }
-  .email-preview th { text-align: left; color: var(--muted); font-weight: 600; border-bottom: 1px solid var(--grid); padding: 4px 8px 4px 0; }
-  .email-preview td { border-bottom: 1px solid var(--grid); padding: 4px 8px 4px 0; font-variant-numeric: tabular-nums; }
-  .preview-tag {
-    display: block; font-size: 11px; font-weight: 700; letter-spacing: 0.06em;
-    text-transform: uppercase; color: var(--muted); margin-bottom: 8px;
-  }
+  .tagline svg { width: 13px; height: 13px; }
 
-  /* ---------- pipeline ---------- */
-  .lineage { overflow-x: auto; }
-  .stage-note { font-size: 13.5px; color: var(--ink-2); }
-  .stage-note b { color: var(--ink); }
-  dl.specs { margin: 0; }
-  dl.specs dt { font-size: 13.5px; font-weight: 650; margin-top: 13px; }
-  dl.specs dt:first-child { margin-top: 0; }
-  dl.specs dd { margin: 2px 0 0; font-size: 13.5px; color: var(--ink-2); }
-  ul.gates { margin: 0; padding-left: 18px; }
-  ul.gates li { font-size: 13.5px; color: var(--ink-2); margin-bottom: 9px; }
-  ul.gates li b { color: var(--ink); }
+  /* ---------- gates ---------- */
+  .gates { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1px; background: var(--grid);
+    border: 1px solid var(--border); border-radius: 14px; overflow: hidden; }
+  .gate { background: var(--surface); padding: 16px 19px; }
+  .gate .g-t { display: flex; align-items: center; gap: 8px; font-size: 13.5px; font-weight: 650; margin-bottom: 4px; }
+  .gate .g-t svg { width: 15px; height: 15px; color: var(--muted); flex: none; }
+  .gate .g-d { font-size: 13px; color: var(--muted); }
+
+  dl.spec { margin: 0; display: grid; grid-template-columns: 128px 1fr; gap: 11px 18px; }
+  dl.spec dt { font-size: 13px; font-weight: 650; }
+  dl.spec dd { margin: 0; font-size: 13px; color: var(--ink-2); }
   code {
-    font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 12.5px;
-    background: rgba(11,11,11,0.05); padding: 1px 5px; border-radius: 4px;
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 12px;
+    background: #f1f1ee; padding: 1.5px 6px; border-radius: 5px; white-space: nowrap;
   }
 
-  .scope-note {
-    border-top: 1px solid var(--grid); padding-top: 15px; margin-top: 4px;
-    font-size: 13.5px; color: var(--ink-2);
-  }
-  .scope-note b { color: var(--ink); }
+  .note { font-size: 13px; color: var(--muted); margin-top: 14px; }
+  .note b { color: var(--ink-2); font-weight: 600; }
 
   footer {
-    border-top: 1px solid var(--grid); padding-top: 16px; margin-top: 30px;
-    font-size: 13px; color: var(--muted);
+    border-top: 1px solid var(--grid); padding-top: 18px; margin-top: 40px;
+    font-size: 12.5px; color: var(--muted);
     display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap;
   }
-  footer a { color: var(--blue); text-decoration: none; }
+  footer a { color: var(--ink-2); text-decoration: none; }
 
-  @media (max-width: 940px) {
-    .kpi-4 { grid-template-columns: repeat(2, 1fr); }
-    .kpi-3, .audience { grid-template-columns: 1fr; }
-    .two-col, .two-col.wide-right { grid-template-columns: 1fr; }
-    .task { grid-template-columns: 1fr; gap: 10px; }
-    .audience div { border-right: none; border-bottom: 1px solid var(--grid); }
-    .audience div:last-child { border-bottom: none; }
+  @media (max-width: 900px) {
+    .stats.s4, .stats.s3, .two, .gates { grid-template-columns: 1fr; }
+    .task { grid-template-columns: 46px 1fr; }
+    .task .verb { grid-column: 2; text-align: left; padding: 0 18px 15px; }
+    dl.spec { grid-template-columns: 1fr; gap: 3px; }
+    dl.spec dd { margin-bottom: 9px; }
   }
 </style>
 </head>
 <body>
 <div class="wrap">
 
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+  <g id="i-box"><path d="M3 7l7-4 7 4v7l-7 4-7-4z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M3 7l7 4 7-4M10 11v7" fill="none" stroke="currentColor" stroke-width="1.6"/></g>
+  <g id="i-flask"><path d="M8 2v5L4 15a1.5 1.5 0 001.3 2.2h9.4A1.5 1.5 0 0016 15l-4-8V2M7 2h6M6.5 11h7" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></g>
+  <g id="i-cash"><rect x="2.5" y="4.5" width="15" height="11" rx="2" fill="none" stroke="currentColor" stroke-width="1.6"/><circle cx="10" cy="10" r="2.6" fill="none" stroke="currentColor" stroke-width="1.6"/></g>
+  <g id="i-chart"><path d="M3 16V9M8 16V4M13 16v-5M17.5 16H2.5" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></g>
+  <g id="i-flow"><rect x="2" y="3" width="6" height="5" rx="1.4" fill="none" stroke="currentColor" stroke-width="1.6"/><rect x="12" y="12" width="6" height="5" rx="1.4" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M5 8v4.5a2 2 0 002 2h5" fill="none" stroke="currentColor" stroke-width="1.6"/></g>
+  <g id="i-cam"><path d="M3 6.5h3l1.2-2h5.6L14 6.5h3a1 1 0 011 1v8a1 1 0 01-1 1H3a1 1 0 01-1-1v-8a1 1 0 011-1z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><circle cx="10" cy="11" r="3" fill="none" stroke="currentColor" stroke-width="1.6"/></g>
+  <g id="i-eye"><path d="M1.5 10S4.5 4.5 10 4.5 18.5 10 18.5 10 15.5 15.5 10 15.5 1.5 10 1.5 10z" fill="none" stroke="currentColor" stroke-width="1.6"/><circle cx="10" cy="10" r="2.4" fill="none" stroke="currentColor" stroke-width="1.6"/></g>
+  <g id="i-check"><path d="M4 10.5l4 4 8-9" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></g>
+  <g id="i-warn"><path d="M10 2.5l8 14H2l8-14z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M10 8v3.5M10 14h.01" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></g>
+  <g id="i-bulb"><path d="M10 2.5A5 5 0 006.5 11c.6.7 1 1.4 1 2.3h5c0-.9.4-1.6 1-2.3A5 5 0 0010 2.5zM8 16h4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></g>
+  <g id="i-send"><path d="M17.5 2.5L9 11M17.5 2.5l-5.5 15-3-6.5-6.5-3 15-5.5z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></g>
+  <g id="i-chev"><path d="M7 4l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></g>
+  <g id="i-lock"><rect x="4" y="8.5" width="12" height="8" rx="1.8" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M6.8 8.5V6a3.2 3.2 0 016.4 0v2.5" fill="none" stroke="currentColor" stroke-width="1.6"/></g>
+  <g id="i-link"><path d="M8.5 11.5a3 3 0 004.4.3l2.3-2.3a3 3 0 10-4.2-4.2l-1 1M11.5 8.5a3 3 0 00-4.4-.3l-2.3 2.3a3 3 0 104.2 4.2l1-1" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></g>
+  <g id="i-copy"><rect x="6.5" y="6.5" width="10" height="10" rx="1.6" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M13.5 6.5v-1a2 2 0 00-2-2h-6a2 2 0 00-2 2v6a2 2 0 002 2h1" fill="none" stroke="currentColor" stroke-width="1.6"/></g>
+  <g id="i-scale"><path d="M10 3v14M4 7h12M6.5 7l-3 5h6zM13.5 7l-3 5h6z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></g>
+</defs></svg>
+
   <header>
-    <span class="eyebrow">Working Demo · Synthetic Data</span>
-    <h1>Returns Defect Triage System</h1>
+    <span class="eyebrow"><span class="pip"></span>Working demo · synthetic data</span>
+    <h1>Returns Defect Triage</h1>
     <p class="framing">
-      One agent reads every return, grades how likely it is to be a production defect,
-      and feeds four different teams the view each one actually needs. Warehouse gets a
-      work queue. Quality gets batch intelligence. Sourcing gets a credit ledger.
-      Leadership gets one number.
+      One agent reads every return and grades it for production defects.
+      Four teams, four views. <b>All data below is invented</b> to demonstrate the logic.
     </p>
-    <div class="synthetic-banner">
-      <strong>All data below is synthetic</strong>, written by me to stress-test the logic and
-      deliberately defect-heavy so the interesting cases are visible. No Cuts data was used.
-      Vendor names are invented. Point the same engine at a real returns export and these
-      screens fill with live data.
-    </div>
   </header>
 
   <nav class="tabs" role="tablist">
-    <button class="tab" role="tab" aria-selected="true"  data-p="ops">Warehouse Ops</button>
-    <button class="tab" role="tab" aria-selected="false" data-p="quality">Quality &amp; Production</button>
-    <button class="tab" role="tab" aria-selected="false" data-p="credits">Vendor Credits</button>
-    <button class="tab" role="tab" aria-selected="false" data-p="exec">Leadership</button>
-    <button class="tab" role="tab" aria-selected="false" data-p="pipeline">How It Works</button>
+    <button class="tab" role="tab" aria-selected="true"  data-p="ops"><svg viewBox="0 0 20 20"><use href="#i-box"/></svg>Warehouse</button>
+    <button class="tab" role="tab" aria-selected="false" data-p="quality"><svg viewBox="0 0 20 20"><use href="#i-flask"/></svg>Quality</button>
+    <button class="tab" role="tab" aria-selected="false" data-p="credits"><svg viewBox="0 0 20 20"><use href="#i-cash"/></svg>Vendor Credits</button>
+    <button class="tab" role="tab" aria-selected="false" data-p="exec"><svg viewBox="0 0 20 20"><use href="#i-chart"/></svg>Leadership</button>
+    <button class="tab" role="tab" aria-selected="false" data-p="pipeline"><svg viewBox="0 0 20 20"><use href="#i-flow"/></svg>How It Works</button>
   </nav>
 
-  <!-- ============================ OPS ============================ -->
+  <!-- ===================== WAREHOUSE ===================== -->
   <div class="panel active" id="p-ops" role="tabpanel">
-    <dl class="audience">
-      <div><dt>Who uses this</dt><dd><b>Warehouse associates</b> at the returns inspection station</dd></div>
-      <div><dt>How it is used</dt><dd>On a tablet, <b>every morning</b>, working through the day's arrivals</dd></div>
-      <div><dt>The job it does</dt><dd>Tells them <b>what to do with the item in their hands</b>, not what to think</dd></div>
-    </dl>
-
-    <div class="callout info">
-      <span class="tag">Design note</span>
-      This screen is deliberately not a dashboard. An operator holding a returned hoodie needs a
-      verb, not a chart. The agent has already read the reason code and the photo, so the person
-      confirms a decision instead of making one from scratch. Everything is one glance and one tap.
+    <div class="who">
+      <span class="badge"><svg viewBox="0 0 20 20"><use href="#i-box"/></svg>Warehouse team</span>
+      <span class="sep">/</span> on a tablet <span class="sep">/</span> every morning
+      <span class="sep">/</span> tells them what to do, not what to think
     </div>
 
-    <div class="kpi-grid kpi-4">
-      <div class="kpi"><div class="kpi-label">Arrived today</div><div class="kpi-value">20</div><div class="kpi-sub">across 6 SKUs</div></div>
-      <div class="kpi"><div class="kpi-label">Need a human</div><div class="kpi-value">14</div><div class="kpi-sub">evidence photo or second look</div></div>
-      <div class="kpi"><div class="kpi-label">Auto-cleared to restock</div><div class="kpi-value">6</div><div class="kpi-sub good">no inspection time spent</div></div>
-      <div class="kpi"><div class="kpi-label">Est. handling time</div><div class="kpi-value">38 min</div><div class="kpi-sub">vs 75 min unassisted</div></div>
+    <div class="stats s4">
+      <div class="stat"><div class="lbl">Arrived</div><div class="val">20</div><div class="sub">6 SKUs</div></div>
+      <div class="stat"><div class="lbl">Need a human</div><div class="val">14</div><div class="sub">photo or second look</div></div>
+      <div class="stat"><div class="lbl">Auto-cleared</div><div class="val">6</div><div class="sub pos">straight to restock</div></div>
+      <div class="stat"><div class="lbl">Handling time</div><div class="val">38m</div><div class="sub">vs 75m unassisted</div></div>
     </div>
 
     <section>
-      <h2>Today's inspection queue</h2>
-      <p class="section-sub">Sorted by what matters: evidence-capture jobs first, because a missed photo means a credit you cannot claim later.</p>
+      <h2>Today's queue</h2>
       <div id="ops-queue"></div>
+      <p class="note"><b>Photo jobs come first.</b> Once a unit is restocked the evidence is gone, and so is the credit.</p>
     </section>
-
-    <div class="scope-note">
-      <b>Why the ordering matters.</b> Vendor credit claims stand or fall on photo evidence taken
-      before the item is restocked or discarded. Once a unit moves, the evidence is gone and the
-      money is unrecoverable. So the queue puts evidence jobs first, every time.
-    </div>
   </div>
 
-  <!-- ============================ QUALITY ============================ -->
+  <!-- ===================== QUALITY ===================== -->
   <div class="panel" id="p-quality" role="tabpanel">
-    <dl class="audience">
-      <div><dt>Who uses this</dt><dd><b>Quality and production leads</b>, plus whoever owns vendor relationships</dd></div>
-      <div><dt>How it is used</dt><dd><b>Weekly</b>, and any time an alert fires on a batch</dd></div>
-      <div><dt>The job it does</dt><dd>Separates <b>one bad unit from a bad production run</b></dd></div>
-    </dl>
-
-    <div class="callout">
-      <span class="tag">Recurring issue · auto-escalated</span>
-      <b>PIMA-TEE-BLK, batch B-2241 (Meridian Textiles):</b> 4 of 6 returned units show the same
-      left-shoulder seam separation. The agent groups identical failure descriptions by SKU and
-      batch, so this surfaces after the fourth return rather than after a bad quarter. Escalation
-      fires at 3 matching units or 20% of a batch's returns, whichever comes first.
+    <div class="who">
+      <span class="badge"><svg viewBox="0 0 20 20"><use href="#i-flask"/></svg>Quality &amp; production</span>
+      <span class="sep">/</span> weekly <span class="sep">/</span> separates one bad unit from a bad run
     </div>
 
-    <div class="kpi-grid kpi-4">
-      <div class="kpi"><div class="kpi-label">Flagged as defects</div><div class="kpi-value">10</div><div class="kpi-sub">of 20 graded</div></div>
-      <div class="kpi"><div class="kpi-label">Batches implicated</div><div class="kpi-value">5</div><div class="kpi-sub">of 6 in the sample</div></div>
-      <div class="kpi"><div class="kpi-label">Recurring patterns</div><div class="kpi-value">1</div><div class="kpi-sub">seam failure, B-2241</div></div>
-      <div class="kpi"><div class="kpi-label">Largest single-batch loss</div><div class="kpi-value">4 units</div><div class="kpi-sub">B-2241, 67% of its returns</div></div>
+    <div class="alert">
+      <svg viewBox="0 0 20 20"><use href="#i-warn"/></svg>
+      <div>
+        <div class="t">Recurring defect: PIMA-TEE-BLK, batch B-2241</div>
+        <div class="d">4 of 6 returns, same shoulder seam. Caught at unit 4, not at quarter end. Vendor: Meridian Textiles.</div>
+      </div>
+    </div>
+
+    <div class="stats s4">
+      <div class="stat"><div class="lbl">Flagged</div><div class="val">10</div><div class="sub">of 20 graded</div></div>
+      <div class="stat"><div class="lbl">Batches hit</div><div class="val">5</div><div class="sub">of 6</div></div>
+      <div class="stat"><div class="lbl">Recurring</div><div class="val">1</div><div class="sub">escalated</div></div>
+      <div class="stat"><div class="lbl">Worst batch</div><div class="val">4</div><div class="sub">units, B-2241</div></div>
     </div>
 
     <section>
-      <div class="two-col">
+      <div class="two">
         <div>
           <h2>What is failing</h2>
-          <p class="section-sub">Across the 10 flagged units.</p>
-          <div class="card"><div id="cat-chart"></div></div>
+          <div class="card pad"><div id="cat-chart"></div></div>
         </div>
         <div>
           <h2>Defect rate by batch</h2>
-          <p class="section-sub">Share of each batch's returns graded as production defects.</p>
-          <div class="card"><div id="batch-chart"></div></div>
+          <div class="card pad"><div id="batch-chart"></div></div>
         </div>
       </div>
     </section>
 
     <section>
-      <h2>Every graded return, with the agent's reasoning</h2>
-      <p class="section-sub">Each score explains itself, so any call can be audited or overruled by a human.</p>
-      <div class="card">
-        <div class="filters" id="filters">
-          <button class="fbtn active" data-f="all">All (20)</button>
-          <button class="fbtn" data-f="flag">Flagged (10)</button>
-          <button class="fbtn" data-f="review">Review (4)</button>
-          <button class="fbtn" data-f="none">No defect (6)</button>
-        </div>
+      <h2>Graded returns</h2>
+      <div class="filters" id="filters">
+        <button class="fbtn active" data-f="all">All 20</button>
+        <button class="fbtn" data-f="flag">Flagged 10</button>
+        <button class="fbtn" data-f="review">Review 4</button>
+        <button class="fbtn" data-f="none">Clear 6</button>
+      </div>
+      <div class="card pad">
         <div class="tbl-scroll">
           <table class="data wide" id="returns-table">
             <thead><tr>
-              <th>ID</th><th>Item</th><th>Customer reason</th><th>Warehouse note</th>
-              <th>Defect likelihood</th><th>Agent rationale</th><th>Disposition</th>
+              <th style="width:18px"></th><th>Item</th><th>What came back</th>
+              <th>Defect</th><th>Route to</th>
             </tr></thead>
             <tbody></tbody>
           </table>
         </div>
       </div>
+      <p class="note"><b>Tap any row</b> for the agent's reasoning. Every score explains itself, so a human can overrule it.</p>
     </section>
   </div>
 
-  <!-- ============================ CREDITS ============================ -->
+  <!-- ===================== CREDITS ===================== -->
   <div class="panel" id="p-credits" role="tabpanel">
-    <dl class="audience">
-      <div><dt>Who uses this</dt><dd><b>Sourcing and finance</b>, whoever actually chases vendors for money</dd></div>
-      <div><dt>How it is used</dt><dd><b>Monday mornings</b>, reviewing the week's claim batch before it sends</dd></div>
-      <div><dt>The job it does</dt><dd>Turns scattered defects into <b>one evidence-backed invoice per vendor</b></dd></div>
-    </dl>
+    <div class="who">
+      <span class="badge"><svg viewBox="0 0 20 20"><use href="#i-cash"/></svg>Sourcing &amp; finance</span>
+      <span class="sep">/</span> Monday mornings <span class="sep">/</span> one evidence-backed invoice per vendor
+    </div>
 
-    <div class="kpi-grid kpi-4">
-      <div class="kpi"><div class="kpi-label">Claimable this batch</div><div class="kpi-value">$181</div><div class="kpi-sub">10 units, landed cost</div></div>
-      <div class="kpi"><div class="kpi-label">Vendors to invoice</div><div class="kpi-value">3</div><div class="kpi-sub">Meridian, Cascade, Anvil</div></div>
-      <div class="kpi"><div class="kpi-label">Largest exposure</div><div class="kpi-value">$119</div><div class="kpi-sub">Meridian Textiles, 7 units</div></div>
-      <div class="kpi"><div class="kpi-label">Evidence complete</div><div class="kpi-value">10 of 10</div><div class="kpi-sub good">every claim has photos</div></div>
+    <div class="stats s4">
+      <div class="stat"><div class="lbl">Claimable</div><div class="val">$181</div><div class="sub">10 units</div></div>
+      <div class="stat"><div class="lbl">Vendors</div><div class="val">3</div><div class="sub">to invoice</div></div>
+      <div class="stat"><div class="lbl">Biggest</div><div class="val">$119</div><div class="sub">Meridian, 7 units</div></div>
+      <div class="stat"><div class="lbl">Evidence</div><div class="val">10/10</div><div class="sub pos">photos attached</div></div>
     </div>
 
     <section>
       <h2>Credit ledger</h2>
-      <p class="section-sub">One row per vendor and batch. Status tracks the claim from drafted through credited, so nothing is invoiced twice or quietly dropped.</p>
-      <div class="card">
+      <div class="card pad">
         <div class="tbl-scroll">
           <table class="data" id="ledger-table">
             <thead><tr>
@@ -389,169 +382,108 @@
           </table>
         </div>
       </div>
+      <p class="note"><b>The status column is the point.</b> Recovery rate against claims tells you whether any of this is working.</p>
     </section>
 
     <section>
-      <h2>What actually gets sent</h2>
-      <p class="section-sub">One email per vendor per week, with the evidence already filed and linked.</p>
-      <div class="card">
-        <div class="email-preview">
-          <span class="preview-tag">Preview · sent by the full build, not this demo</span>
-          <div class="meta">
-            <b>To:</b> QA team, Meridian Textiles (fictional vendor)<br>
-            <b>Subject:</b> Weekly defect summary: 7 units, credit request $119
+      <h2>What gets sent</h2>
+      <div class="card pad">
+        <span class="tagline"><svg viewBox="0 0 20 20"><use href="#i-send"/></svg>Preview · the full build sends this</span>
+        <div class="mail">
+          <div class="hd">
+            <b>To</b> QA team, Meridian Textiles<br>
+            <b>Subject</b> Weekly defect summary: 7 units, credit request $119
           </div>
-          <p>Hi team, seven returned units this week graded as production defects. Evidence photos are in the shared folder, filed by return ID.</p>
+          <p>Seven returned units this week graded as production defects. Evidence photos are in the shared folder, filed by return ID.</p>
           <table>
             <tr><th>SKU / batch</th><th>Units</th><th>Issue</th><th>Credit</th></tr>
-            <tr><td>PIMA-TEE-BLK · B-2241</td><td>4</td><td>Shoulder seam separation</td><td>$56</td></tr>
+            <tr><td>PIMA-TEE-BLK · B-2241</td><td>4</td><td>Seam separation</td><td>$56</td></tr>
             <tr><td>AO-POLO-NVY · B-2210</td><td>2</td><td>Collar deformation</td><td>$44</td></tr>
             <tr><td>PERF-JOG-BLK · B-2198</td><td>1</td><td>Dye transfer</td><td>$19</td></tr>
           </table>
-          <p>Note: B-2241 seam failures are recurring, 4 of 6 returns from that batch. Requesting confirmation of the fix planned for the next production run.</p>
+          <p>B-2241 seam failures are recurring. Requesting confirmation of the fix planned for the next run.</p>
         </div>
       </div>
     </section>
-
-    <div class="scope-note">
-      <b>Why a ledger and not just an email.</b> The email is the easy part. The thing that makes
-      this pay for itself is the status column: knowing which claims were acknowledged, which were
-      credited, and which a vendor is quietly ignoring. Recovery rate against claims is the metric
-      that tells you whether the whole system is working.
-    </div>
   </div>
 
-  <!-- ============================ EXEC ============================ -->
+  <!-- ===================== EXEC ===================== -->
   <div class="panel" id="p-exec" role="tabpanel">
-    <dl class="audience">
-      <div><dt>Who uses this</dt><dd><b>Founder and leadership</b></dd></div>
-      <div><dt>How it is used</dt><dd><b>Monthly</b>, or on a phone in thirty seconds</dd></div>
-      <div><dt>The job it does</dt><dd>Answers <b>one question: is quality getting better or worse</b></dd></div>
-    </dl>
+    <div class="who">
+      <span class="badge"><svg viewBox="0 0 20 20"><use href="#i-chart"/></svg>Founder</span>
+      <span class="sep">/</span> monthly, on a phone <span class="sep">/</span> is quality getting better or worse
+    </div>
 
     <section>
-      <div class="card">
-        <div class="kpi-label">Defect-driven returns, share of all returns</div>
-        <div class="hero-fig">50%</div>
-        <div class="kpi-sub">10 of 20 in this sample, deliberately inflated for the demo. A real book would run far lower, and the trend is what matters.</div>
+      <div class="card hero">
+        <div class="lbl">Defect-driven share of returns</div>
+        <div class="fig">50%</div>
+        <div class="sub">10 of 20 here, deliberately inflated for the demo. A real book runs far lower. The trend is what matters.</div>
       </div>
     </section>
 
-    <div class="kpi-grid kpi-3">
-      <div class="kpi"><div class="kpi-label">Recoverable this batch</div><div class="kpi-value">$181</div><div class="kpi-sub">identified, not yet collected</div></div>
-      <div class="kpi"><div class="kpi-label">Systemic issues open</div><div class="kpi-value">1</div><div class="kpi-sub">B-2241 seam failure, escalated</div></div>
-      <div class="kpi"><div class="kpi-label">Inspection time saved</div><div class="kpi-value">49%</div><div class="kpi-sub">6 of 20 auto-cleared</div></div>
+    <div class="stats s3">
+      <div class="stat"><div class="lbl">Recoverable</div><div class="val">$181</div><div class="sub">identified, not collected</div></div>
+      <div class="stat"><div class="lbl">Systemic issues</div><div class="val">1</div><div class="sub">B-2241, escalated</div></div>
+      <div class="stat"><div class="lbl">Time saved</div><div class="val">49%</div><div class="sub">6 of 20 auto-cleared</div></div>
     </div>
 
     <section>
-      <h2>The three things worth your attention</h2>
-      <div class="card">
+      <h2>Worth your attention</h2>
+      <div class="card pad">
         <table class="data">
-          <thead><tr><th>Issue</th><th>Why it matters</th><th class="num">Cost</th></tr></thead>
+          <thead><tr><th>Issue</th><th>Why</th><th class="num">Cost</th></tr></thead>
           <tbody>
-            <tr>
-              <td class="sku">Seam failure<small>PIMA-TEE-BLK, B-2241</small></td>
-              <td class="wrapcell">Four of six returns from one batch, same failure point. This is a factory problem, not bad luck, and it will keep costing until the next run is fixed.</td>
-              <td class="num">$56</td>
-            </tr>
-            <tr>
-              <td class="sku">Collar deformation<small>AO-POLO-NVY, B-2210</small></td>
-              <td class="wrapcell">Two units, one deformed straight out of the bag. Early signal on the same vendor as the seam issue, worth watching before it becomes a third pattern.</td>
-              <td class="num">$44</td>
-            </tr>
-            <tr>
-              <td class="sku">Vendor concentration<small>Meridian Textiles</small></td>
-              <td class="wrapcell">Seven of ten flagged units trace to one vendor across three separate batches. That is a supplier conversation, not a returns conversation.</td>
-              <td class="num">$119</td>
-            </tr>
+            <tr><td class="sku">Seam failure<small>B-2241</small></td>
+                <td class="lead">A factory problem, not bad luck. Keeps costing until the next run is fixed.</td>
+                <td class="num">$56</td></tr>
+            <tr><td class="sku">Collar deformation<small>B-2210</small></td>
+                <td class="lead">Same vendor. Early signal, worth watching before it becomes a third pattern.</td>
+                <td class="num">$44</td></tr>
+            <tr><td class="sku">Vendor concentration<small>Meridian Textiles</small></td>
+                <td class="lead">7 of 10 flagged units, across three batches. A supplier conversation, not a returns one.</td>
+                <td class="num">$119</td></tr>
           </tbody>
         </table>
       </div>
     </section>
   </div>
 
-  <!-- ============================ PIPELINE ============================ -->
+  <!-- ===================== PIPELINE ===================== -->
   <div class="panel" id="p-pipeline" role="tabpanel">
-    <dl class="audience">
-      <div><dt>Who uses this</dt><dd><b>Whoever asks how it actually works</b>, and whoever maintains it later</dd></div>
-      <div><dt>How it is used</dt><dd>Once at build time, then <b>every time a number looks wrong</b></dd></div>
-      <div><dt>The job it does</dt><dd>Makes the system <b>auditable instead of magic</b></dd></div>
-    </dl>
+    <div class="who">
+      <span class="badge"><svg viewBox="0 0 20 20"><use href="#i-flow"/></svg>Whoever asks how it works</span>
+      <span class="sep">/</span> and whoever maintains it later
+    </div>
 
     <section>
       <h2>Data flow</h2>
-      <p class="section-sub">Four systems in, one graded record out, four views served from it.</p>
-      <div class="card lineage"><div id="lineage"></div></div>
+      <div class="card pad"><div id="lineage"></div></div>
     </section>
 
     <section>
-      <h2>Sources and refresh</h2>
-      <div class="card">
-        <div class="tbl-scroll">
-          <table class="data wide">
-            <thead><tr><th>System</th><th>What it provides</th><th>Key fields</th><th>Refresh</th></tr></thead>
-            <tbody>
-              <tr>
-                <td class="sku">Returns platform<small>Loop, Returnly, or Shopify Returns</small></td>
-                <td class="wrapcell">The return record itself</td>
-                <td class="wrapcell"><code>rma_id</code>, <code>order_id</code>, <code>sku</code>, <code>reason_code</code>, <code>customer_comment</code></td>
-                <td>Webhook on create, hourly backfill</td>
-              </tr>
-              <tr>
-                <td class="sku">Warehouse / 3PL<small>WMS or inspection app</small></td>
-                <td class="wrapcell">Human inspection notes and condition photos</td>
-                <td class="wrapcell"><code>rma_id</code>, <code>inspector_note</code>, <code>photo_urls</code>, <code>condition_grade</code></td>
-                <td>Hourly</td>
-              </tr>
-              <tr>
-                <td class="sku">Shopify<small>product and order data</small></td>
-                <td class="wrapcell">SKU master and unit economics</td>
-                <td class="wrapcell"><code>sku</code>, <code>product_title</code>, <code>landed_cost</code>, <code>order_value</code></td>
-                <td>Daily</td>
-              </tr>
-              <tr>
-                <td class="sku">PO / ERP<small>or a maintained spreadsheet</small></td>
-                <td class="wrapcell">The batch-to-vendor mapping</td>
-                <td class="wrapcell"><code>sku</code>, <code>batch_id</code>, <code>vendor</code>, <code>production_date</code></td>
-                <td>On PO receipt</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </section>
-
-    <section>
-      <div class="two-col wide-right">
+      <div class="two">
         <div>
-          <h2>The join that makes it work</h2>
-          <div class="card">
-            <p class="stage-note">
-              A return knows its SKU. It does not know which <b>production batch</b> that unit came from,
-              and without that you can grade defects but never attribute them to a vendor or a run.
-            </p>
-            <p class="stage-note" style="margin-top:10px">
-              <code>return → sku → batch → vendor</code>
-            </p>
-            <p class="stage-note" style="margin-top:10px">
-              Resolved by order date against production receipt windows. <b>This is the single most
-              fragile link in the pipeline</b> and the first thing I would want to look at in real
-              data, because if batch attribution is wrong, every vendor claim is wrong.
-            </p>
+          <h2>Sources</h2>
+          <div class="card pad">
+            <table class="data">
+              <tbody>
+                <tr><td class="sku">Returns platform<small>Loop / Returnly / Shopify</small></td><td class="lead">reason, comment</td><td class="lead">webhook</td></tr>
+                <tr><td class="sku">Warehouse / 3PL<small>WMS</small></td><td class="lead">notes, photos</td><td class="lead">hourly</td></tr>
+                <tr><td class="sku">Shopify<small>catalog</small></td><td class="lead">sku, landed cost</td><td class="lead">daily</td></tr>
+                <tr><td class="sku">PO / ERP<small>or a spreadsheet</small></td><td class="lead">batch, vendor</td><td class="lead">on receipt</td></tr>
+              </tbody>
+            </table>
           </div>
         </div>
         <div>
           <h2>Grading step</h2>
-          <div class="card">
-            <dl class="specs">
-              <dt>Input</dt>
-              <dd>Reason code, customer comment, inspector note, condition photos, and the SKU's spec sheet, assembled into one context per return.</dd>
-              <dt>Output, schema-validated</dt>
-              <dd><code>defect_likelihood</code> 0-100, <code>defect_category</code> from a fixed list, <code>rationale</code> one sentence, <code>evidence_used</code>.</dd>
-              <dt>Idempotency</dt>
-              <dd>Results cached by <code>rma_id</code> and input hash, so a re-run never re-grades or re-bills. Re-grading only happens if the inspector edits the note.</dd>
-              <dt>Failure handling</dt>
-              <dd>A malformed or low-confidence response routes to human review rather than defaulting to a score. The system never guesses toward a vendor claim.</dd>
+          <div class="card pad">
+            <dl class="spec">
+              <dt>In</dt><dd>Reason code, comment, inspector note, photos, SKU spec.</dd>
+              <dt>Out</dt><dd><code>likelihood</code> <code>category</code> <code>rationale</code>, schema-validated.</dd>
+              <dt>Idempotent</dt><dd>Cached on <code>rma_id</code>. A re-run never re-grades or re-bills.</dd>
+              <dt>On failure</dt><dd>Routes to human review. Never guesses toward a vendor claim.</dd>
             </dl>
           </div>
         </div>
@@ -559,31 +491,34 @@
     </section>
 
     <section>
-      <h2>Data quality gates</h2>
-      <p class="section-sub">Where the pipeline deliberately stops rather than producing a confident wrong answer.</p>
-      <div class="card">
-        <ul class="gates">
-          <li><b>No photo, no auto-claim.</b> A return without usable images can be graded from text but never auto-flagged for a vendor credit, because the claim would not survive a vendor pushing back.</li>
-          <li><b>Unknown batch blocks attribution.</b> If the SKU cannot be resolved to a batch, the defect still counts in quality totals but is held out of the vendor ledger and raised as a data fix.</li>
-          <li><b>Reason-code drift.</b> Reason codes get renamed and added by whoever manages the returns app. Unmapped codes raise an alert instead of silently falling into a default bucket.</li>
-          <li><b>Claim reconciliation.</b> Credits claimed are matched against credits actually received. A widening gap is the signal that the whole system is being ignored by a vendor.</li>
-          <li><b>Duplicate returns.</b> Reopened or re-shipped RMAs are deduplicated on <code>rma_id</code> so a single defective unit is never claimed twice.</li>
-        </ul>
+      <h2>The join everything depends on</h2>
+      <div class="card pad">
+        <div id="join-viz"></div>
+        <p class="note" style="margin-top:16px">
+          A return knows its SKU, not its production batch. Resolved by order date against receipt windows.
+          <b>This is the most fragile link in the system</b> and the first thing I would check against real data,
+          because wrong batch attribution means wrong vendor claims.
+        </p>
       </div>
     </section>
 
-    <div class="scope-note">
-      <b>What this demo is, and is not.</b> These screens run on synthetic data to show the grading
-      engine and the four views it feeds. The full build is the plumbing: connectors to the four
-      source systems, the batch attribution job, evidence filing to Drive, the persistent credit
-      ledger, the weekly vendor sends, and the escalation hooks. That wiring is scoped against real
-      systems, which is the conversation worth having.
-    </div>
+    <section>
+      <h2>Where it deliberately stops</h2>
+      <div class="gates">
+        <div class="gate"><div class="g-t"><svg viewBox="0 0 20 20"><use href="#i-cam"/></svg>No photo, no claim</div><div class="g-d">Gradeable from text, but never auto-billed to a vendor.</div></div>
+        <div class="gate"><div class="g-t"><svg viewBox="0 0 20 20"><use href="#i-link"/></svg>Unknown batch</div><div class="g-d">Counts in quality totals, held out of the ledger.</div></div>
+        <div class="gate"><div class="g-t"><svg viewBox="0 0 20 20"><use href="#i-warn"/></svg>New reason codes</div><div class="g-d">Alerts instead of silently defaulting to a bucket.</div></div>
+        <div class="gate"><div class="g-t"><svg viewBox="0 0 20 20"><use href="#i-scale"/></svg>Claim reconciliation</div><div class="g-d">Claimed against received. A widening gap means a vendor is ignoring you.</div></div>
+        <div class="gate"><div class="g-t"><svg viewBox="0 0 20 20"><use href="#i-copy"/></svg>Duplicate RMAs</div><div class="g-d">Deduped so one unit is never claimed twice.</div></div>
+        <div class="gate"><div class="g-t"><svg viewBox="0 0 20 20"><use href="#i-lock"/></svg>Low confidence</div><div class="g-d">Anything ambiguous goes to a person, not to a number.</div></div>
+      </div>
+      <p class="note"><b>Not built here:</b> source connectors, Drive filing, the persistent ledger, weekly sends, escalation hooks. That is the full build.</p>
+    </section>
   </div>
 
   <footer>
-    <span>Built by Adi Gudi · <a href="mailto:agudi24@gmail.com">agudi24@gmail.com</a> · <a href="https://adigudi.github.io">adigudi.github.io</a></span>
-    <span>Single-file HTML, no external libraries · All data synthetic</span>
+    <span>Adi Gudi · <a href="mailto:agudi24@gmail.com">agudi24@gmail.com</a> · <a href="https://adigudi.github.io">adigudi.github.io</a></span>
+    <span>Single file, no libraries · All data synthetic</span>
   </footer>
 
 </div>
@@ -591,381 +526,321 @@
 <script>
 (function () {
   "use strict";
-
-  var SVGNS = "http://www.w3.org/2000/svg";
-  function svgEl(name, attrs, parent) {
-    var n = document.createElementNS(SVGNS, name);
-    for (var k in attrs) n.setAttribute(k, attrs[k]);
-    if (parent) parent.appendChild(n);
-    return n;
+  var NS = "http://www.w3.org/2000/svg";
+  function E(n, a, p) { var e = document.createElementNS(NS, n);
+    for (var k in a) e.setAttribute(k, a[k]); if (p) p.appendChild(e); return e; }
+  function T(p, a, s) { var t = E("text", a, p); t.appendChild(document.createTextNode(s)); return t; }
+  function icon(name, cls) {
+    var s = document.createElementNS(NS, "svg");
+    s.setAttribute("viewBox", "0 0 20 20"); if (cls) s.setAttribute("class", cls);
+    var u = document.createElementNS(NS, "use"); u.setAttribute("href", "#" + name);
+    s.appendChild(u); return s;
   }
-  function svgText(parent, attrs, str) {
-    var t = svgEl("text", attrs, parent);
-    t.appendChild(document.createTextNode(str));
-    return t;
-  }
-  function cell(row, cls) {
-    var td = document.createElement("td");
-    if (cls) td.className = cls;
-    row.appendChild(td);
-    return td;
-  }
+  function td(tr, cls) { var c = document.createElement("td"); if (cls) c.className = cls; tr.appendChild(c); return c; }
 
-  /* ---------------- data ---------------- */
-  var returns = [
-    { id:"R-1047", sku:"PIMA-TEE-BLK", item:"Pima Split-Hem Tee, Black", batch:"B-2241", vendor:"Meridian Textiles", cost:14, reason:"Defective", note:"Left shoulder seam fully separated, approx 2 in", score:96, cat:"Seam failure",
-      why:"Photo confirms open seam matching note; reason corroborates; identical to 3 other units in batch B-2241." },
-    { id:"R-1052", sku:"PIMA-TEE-BLK", item:"Pima Split-Hem Tee, Black", batch:"B-2241", vendor:"Meridian Textiles", cost:14, reason:"Quality issue", note:"Shoulder seam separating at same point, unworn tags on", score:93, cat:"Seam failure",
-      why:"Unworn with tags rules out wear damage; failure point matches batch pattern." },
-    { id:"R-1063", sku:"PIMA-TEE-BLK", item:"Pima Split-Hem Tee, Black", batch:"B-2241", vendor:"Meridian Textiles", cost:14, reason:"Defective", note:"Seam split left shoulder after first wear", score:90, cat:"Seam failure",
-      why:"First-wear failure at the recurring batch failure point; photo shows clean stitch break, not tearing." },
-    { id:"R-1071", sku:"PIMA-TEE-BLK", item:"Pima Split-Hem Tee, Black", batch:"B-2241", vendor:"Meridian Textiles", cost:14, reason:"Not as described", note:"Customer says ripped on arrival; seam open at shoulder", score:88, cat:"Seam failure",
-      why:"Damage present on arrival per note; location matches batch B-2241 pattern despite vague reason code." },
-    { id:"R-1055", sku:"PIMA-TEE-BLK", item:"Pima Split-Hem Tee, Black", batch:"B-2241", vendor:"Meridian Textiles", cost:14, reason:"Quality issue", note:"Light pilling on chest after 2 washes", score:62, cat:"Fabric wear",
-      why:"Pilling after 2 washes is borderline for pima cotton; needs human judgment on wash-care compliance." },
-    { id:"R-1080", sku:"PIMA-TEE-BLK", item:"Pima Split-Hem Tee, Black", batch:"B-2241", vendor:"Meridian Textiles", cost:14, reason:"Fit too small", note:"No damage found, tags on", score:18, cat:"None",
-      why:"Sizing return, no defect indicators in note or photo." },
-
-    { id:"R-1049", sku:"AO-POLO-NVY", item:"All-Occasion Polo, Navy", batch:"B-2210", vendor:"Meridian Textiles", cost:22, reason:"Quality issue", note:"Collar curling badly after one wash, photo attached", score:78, cat:"Collar deformation",
-      why:"Collar deformation after a single compliant wash indicates interlining or fusing defect." },
-    { id:"R-1066", sku:"AO-POLO-NVY", item:"All-Occasion Polo, Navy", batch:"B-2210", vendor:"Meridian Textiles", cost:22, reason:"Defective", note:"Collar edge wavy out of the bag", score:74, cat:"Collar deformation",
-      why:"Out-of-bag deformation cannot be customer-caused; second collar case on this SKU." },
-    { id:"R-1077", sku:"AO-POLO-NVY", item:"All-Occasion Polo, Navy", batch:"B-2210", vendor:"Meridian Textiles", cost:22, reason:"Changed mind", note:"Unworn, tags on, no issues found", score:8, cat:"None",
-      why:"Clean return, no defect signals anywhere." },
-
-    { id:"R-1051", sku:"HW-HOOD-GRY", item:"Heavyweight Hoodie, Heather", batch:"B-2187", vendor:"Cascade Knitworks", cost:31, reason:"Defective", note:"Zipper pull snapped off in hand, photo shows sheared pin", score:91, cat:"Zipper hardware",
-      why:"Sheared zipper pin in photo is a hardware failure, not abuse; note describes normal use." },
-    { id:"R-1058", sku:"HW-HOOD-GRY", item:"Heavyweight Hoodie, Heather", batch:"B-2187", vendor:"Cascade Knitworks", cost:31, reason:"Quality issue", note:"Drawstring aglet missing on one side", score:67, cat:"Trim defect",
-      why:"Missing aglet could be assembly miss or customer damage; photo inconclusive, queue for review." },
-    { id:"R-1074", sku:"HW-HOOD-GRY", item:"Heavyweight Hoodie, Heather", batch:"B-2187", vendor:"Cascade Knitworks", cost:31, reason:"Fit too large", note:"No damage, restock ready", score:12, cat:"None",
-      why:"Sizing return, item restockable." },
-
-    { id:"R-1053", sku:"PERF-JOG-BLK", item:"Performance Jogger, Black", batch:"B-2198", vendor:"Meridian Textiles", cost:19, reason:"Defective", note:"Black dye transferred onto white sneakers, photo of both", score:81, cat:"Dye transfer",
-      why:"Dye transfer onto other items indicates failed dye fixation in production." },
-    { id:"R-1068", sku:"PERF-JOG-BLK", item:"Performance Jogger, Black", batch:"B-2198", vendor:"Meridian Textiles", cost:19, reason:"Quality issue", note:"Waistband stitching loose but not open", score:58, cat:"Seam failure",
-      why:"Loose but intact stitching is a marginal call; review decides credit vs restock." },
-    { id:"R-1079", sku:"PERF-JOG-BLK", item:"Performance Jogger, Black", batch:"B-2198", vendor:"Meridian Textiles", cost:19, reason:"Fit too small", note:"Clean, tags on", score:15, cat:"None",
-      why:"Sizing return, no defect signals." },
-
-    { id:"R-1056", sku:"LS-HENLEY-OLV", item:"Long Sleeve Henley, Olive", batch:"B-2223", vendor:"Cascade Knitworks", cost:18, reason:"Defective", note:"Second button cracked in half, photo attached", score:72, cat:"Button failure",
-      why:"Cracked button consistent with brittle lot; single case so far, credit-eligible." },
-    { id:"R-1082", sku:"LS-HENLEY-OLV", item:"Long Sleeve Henley, Olive", batch:"B-2223", vendor:"Cascade Knitworks", cost:18, reason:"Changed mind", note:"Unworn, no issues", score:6, cat:"None",
-      why:"Clean return, restock." },
-
-    { id:"R-1060", sku:"CURVE-TEE-WHT", item:"Curve Hem Tee, White", batch:"B-2235", vendor:"Anvil Apparel Co", cost:13, reason:"Not as described", note:"Customer says fabric too sheer; weight measures in spec", score:44, cat:"Spec mismatch",
-      why:"Fabric measures within spec, but repeated sheerness complaints would suggest a spec problem; review." },
-    { id:"R-1064", sku:"CURVE-TEE-WHT", item:"Curve Hem Tee, White", batch:"B-2235", vendor:"Anvil Apparel Co", cost:13, reason:"Defective", note:"Chest logo print peeling at corner, unwashed", score:86, cat:"Print peeling",
-      why:"Print peeling on an unwashed unit is an application defect by definition." },
-    { id:"R-1076", sku:"CURVE-TEE-WHT", item:"Curve Hem Tee, White", batch:"B-2235", vendor:"Anvil Apparel Co", cost:13, reason:"Fit too small", note:"Clean, tags on", score:10, cat:"None",
-      why:"Sizing return, no defect signals." }
+  var R = [
+    {id:"R-1047",sku:"PIMA-TEE-BLK",item:"Pima Split-Hem Tee",batch:"B-2241",vendor:"Meridian Textiles",cost:14,reason:"Defective",note:"Shoulder seam fully separated",score:96,cat:"Seam failure",
+     why:"Photo confirms the open seam. Third identical failure in this batch."},
+    {id:"R-1052",sku:"PIMA-TEE-BLK",item:"Pima Split-Hem Tee",batch:"B-2241",vendor:"Meridian Textiles",cost:14,reason:"Quality issue",note:"Seam separating, tags still on",score:93,cat:"Seam failure",
+     why:"Unworn with tags, so wear damage is ruled out. Same failure point as the batch."},
+    {id:"R-1063",sku:"PIMA-TEE-BLK",item:"Pima Split-Hem Tee",batch:"B-2241",vendor:"Meridian Textiles",cost:14,reason:"Defective",note:"Seam split after first wear",score:90,cat:"Seam failure",
+     why:"Clean stitch break in the photo, not fabric tearing. First-wear failure."},
+    {id:"R-1071",sku:"PIMA-TEE-BLK",item:"Pima Split-Hem Tee",batch:"B-2241",vendor:"Meridian Textiles",cost:14,reason:"Not as described",note:"Ripped on arrival, seam open",score:88,cat:"Seam failure",
+     why:"Customer picked the wrong reason code. The note and batch pattern say defect."},
+    {id:"R-1055",sku:"PIMA-TEE-BLK",item:"Pima Split-Hem Tee",batch:"B-2241",vendor:"Meridian Textiles",cost:14,reason:"Quality issue",note:"Pilling after two washes",score:62,cat:"Fabric wear",
+     why:"Borderline for pima cotton. Depends on wash-care compliance, so a person decides."},
+    {id:"R-1080",sku:"PIMA-TEE-BLK",item:"Pima Split-Hem Tee",batch:"B-2241",vendor:"Meridian Textiles",cost:14,reason:"Fit too small",note:"No damage, tags on",score:18,cat:"None",
+     why:"Sizing return. Same bad batch, but no defect signal, so it is not flagged."},
+    {id:"R-1049",sku:"AO-POLO-NVY",item:"All-Occasion Polo",batch:"B-2210",vendor:"Meridian Textiles",cost:22,reason:"Quality issue",note:"Collar curling after one wash",score:78,cat:"Collar deformation",
+     why:"Deformation after a single compliant wash points to interlining or fusing."},
+    {id:"R-1066",sku:"AO-POLO-NVY",item:"All-Occasion Polo",batch:"B-2210",vendor:"Meridian Textiles",cost:22,reason:"Defective",note:"Collar wavy out of the bag",score:74,cat:"Collar deformation",
+     why:"Out-of-bag deformation cannot be customer-caused. Second collar case on this SKU."},
+    {id:"R-1077",sku:"AO-POLO-NVY",item:"All-Occasion Polo",batch:"B-2210",vendor:"Meridian Textiles",cost:22,reason:"Changed mind",note:"Unworn, no issues found",score:8,cat:"None",
+     why:"Clean return. No defect signals anywhere."},
+    {id:"R-1051",sku:"HW-HOOD-GRY",item:"Heavyweight Hoodie",batch:"B-2187",vendor:"Cascade Knitworks",cost:31,reason:"Defective",note:"Zipper pull snapped off",score:91,cat:"Zipper hardware",
+     why:"Photo shows a sheared pin. Hardware failure under normal use, not abuse."},
+    {id:"R-1058",sku:"HW-HOOD-GRY",item:"Heavyweight Hoodie",batch:"B-2187",vendor:"Cascade Knitworks",cost:31,reason:"Quality issue",note:"Drawstring aglet missing",score:67,cat:"Trim defect",
+     why:"Could be an assembly miss or customer damage. Photo is inconclusive."},
+    {id:"R-1074",sku:"HW-HOOD-GRY",item:"Heavyweight Hoodie",batch:"B-2187",vendor:"Cascade Knitworks",cost:31,reason:"Fit too large",note:"No damage, restock ready",score:12,cat:"None",
+     why:"Sizing return, restockable as is."},
+    {id:"R-1053",sku:"PERF-JOG-BLK",item:"Performance Jogger",batch:"B-2198",vendor:"Meridian Textiles",cost:19,reason:"Defective",note:"Dye transferred onto sneakers",score:81,cat:"Dye transfer",
+     why:"Dye moving onto other items means fixation failed in production."},
+    {id:"R-1068",sku:"PERF-JOG-BLK",item:"Performance Jogger",batch:"B-2198",vendor:"Meridian Textiles",cost:19,reason:"Quality issue",note:"Waistband stitching loose",score:58,cat:"Seam failure",
+     why:"Loose but not open. Marginal call between credit and restock."},
+    {id:"R-1079",sku:"PERF-JOG-BLK",item:"Performance Jogger",batch:"B-2198",vendor:"Meridian Textiles",cost:19,reason:"Fit too small",note:"Clean, tags on",score:15,cat:"None",
+     why:"Sizing return, no defect signals."},
+    {id:"R-1056",sku:"LS-HENLEY-OLV",item:"Long Sleeve Henley",batch:"B-2223",vendor:"Cascade Knitworks",cost:18,reason:"Defective",note:"Button cracked in half",score:72,cat:"Button failure",
+     why:"Consistent with a brittle button lot. Single case so far."},
+    {id:"R-1082",sku:"LS-HENLEY-OLV",item:"Long Sleeve Henley",batch:"B-2223",vendor:"Cascade Knitworks",cost:18,reason:"Changed mind",note:"Unworn, no issues",score:6,cat:"None",
+     why:"Clean return, restock."},
+    {id:"R-1060",sku:"CURVE-TEE-WHT",item:"Curve Hem Tee",batch:"B-2235",vendor:"Anvil Apparel Co",cost:13,reason:"Not as described",note:"Fabric too sheer, weight in spec",score:44,cat:"Spec mismatch",
+     why:"Measures within spec. If sheerness complaints repeat, the spec is the problem."},
+    {id:"R-1064",sku:"CURVE-TEE-WHT",item:"Curve Hem Tee",batch:"B-2235",vendor:"Anvil Apparel Co",cost:13,reason:"Defective",note:"Logo print peeling, unwashed",score:86,cat:"Print peeling",
+     why:"Peeling on an unwashed unit is an application defect by definition."},
+    {id:"R-1076",sku:"CURVE-TEE-WHT",item:"Curve Hem Tee",batch:"B-2235",vendor:"Anvil Apparel Co",cost:13,reason:"Fit too small",note:"Clean, tags on",score:10,cat:"None",
+     why:"Sizing return, no defect signals."}
   ];
+  function D(s) { return s >= 70 ? "flag" : (s >= 40 ? "review" : "none"); }
+  var LBL = { flag:"Vendor credit", review:"Human review", none:"Restock" };
 
-  function dispo(s) { return s >= 70 ? "flag" : (s >= 40 ? "review" : "none"); }
-  var chipText = { flag:"Vendor credit", review:"Human review", none:"No defect" };
-
-  /* ================= OPS QUEUE ================= */
-  (function opsQueue() {
+  /* ---------------- warehouse queue ---------------- */
+  (function () {
     var host = document.getElementById("ops-queue");
-    var queue = returns.filter(function (r) { return dispo(r.score) !== "none"; });
-    /* evidence jobs first (flagged), then review, then a rolled-up restock card */
-    var order = { flag: 0, review: 1 };
-    queue.sort(function (a, b) {
-      var d = order[dispo(a.score)] - order[dispo(b.score)];
-      return d !== 0 ? d : b.score - a.score;
+    function top(kind, n) {
+      return R.filter(function (r) { return D(r.score) === kind; })
+        .sort(function (a, b) { return b.score - a.score; }).slice(0, n);
+    }
+    /* evidence jobs first, then the ambiguous ones a person has to settle */
+    var q = top("flag", 4).concat(top("review", 2));
+
+    q.forEach(function (r) {
+      var k = D(r.score), flag = k === "flag";
+      var c = document.createElement("div"); c.className = "task " + (flag ? "hold" : "check");
+      var m = document.createElement("div"); m.className = "mark";
+      m.appendChild(icon(flag ? "i-cam" : "i-eye")); c.appendChild(m);
+
+      var b = document.createElement("div"); b.className = "body";
+      var t = document.createElement("div"); t.className = "ttl";
+      t.appendChild(document.createTextNode(r.item));
+      var rid = document.createElement("span"); rid.className = "rid";
+      rid.textContent = r.id + " · " + r.batch; t.appendChild(rid);
+      var d = document.createElement("div"); d.className = "dsc"; d.textContent = r.note;
+      b.appendChild(t); b.appendChild(d); c.appendChild(b);
+
+      var v = document.createElement("div"); v.className = "verb";
+      var vb = document.createElement("b");
+      vb.textContent = flag ? "Photograph, set aside" : "Second look";
+      var vs = document.createElement("span");
+      vs.textContent = flag ? r.score + "% · " + r.vendor : r.score + "% · unsure";
+      v.appendChild(vb); v.appendChild(vs); c.appendChild(v);
+      host.appendChild(c);
     });
 
-    function dispoOf(r) { return dispo(r.score); }
-
-    queue.slice(0, 7).forEach(function (r) {
-      var kind = dispoOf(r);
-      var card = document.createElement("div"); card.className = "task";
-
-      var c1 = document.createElement("div"); c1.className = "rma";
-      c1.appendChild(document.createTextNode(r.id));
-      var s = document.createElement("small"); s.textContent = r.batch; c1.appendChild(s);
-
-      var c2 = document.createElement("div"); c2.className = "what";
-      var b = document.createElement("b"); b.textContent = r.item; c2.appendChild(b);
-      c2.appendChild(document.createTextNode(r.note));
-      var said = document.createElement("div"); said.className = "said";
-      said.textContent = "Customer selected: " + r.reason;
-      c2.appendChild(said);
-
-      var c3 = document.createElement("div");
-      c3.className = "action " + (kind === "flag" ? "hold" : "check");
-      var ab = document.createElement("b");
-      ab.textContent = kind === "flag" ? "Photograph, then set aside" : "Second look needed";
-      c3.appendChild(ab);
-      c3.appendChild(document.createTextNode(
-        kind === "flag"
-          ? "Likely vendor defect (" + r.score + "%). Capture the " + r.cat.toLowerCase() +
-            ", tag to " + r.vendor + ", do not restock."
-          : "Agent is unsure (" + r.score + "%). Confirm whether this is a defect or normal wear, then tap through."
-      ));
-
-      card.appendChild(c1); card.appendChild(c2); card.appendChild(c3);
-      host.appendChild(card);
-    });
-
-    var rest = document.createElement("div"); rest.className = "task";
-    var r1 = document.createElement("div"); r1.className = "rma";
-    r1.appendChild(document.createTextNode("6 items"));
-    var rs = document.createElement("small"); rs.textContent = "auto-cleared"; r1.appendChild(rs);
-    var r2 = document.createElement("div"); r2.className = "what";
-    var rb = document.createElement("b"); rb.textContent = "Sizing and changed-mind returns";
-    r2.appendChild(rb);
-    r2.appendChild(document.createTextNode("No damage found in note or photo, so the agent cleared them without asking for a human read."));
-    var r3 = document.createElement("div"); r3.className = "action pass";
-    var rab = document.createElement("b"); rab.textContent = "Restock, no inspection";
-    r3.appendChild(rab);
-    r3.appendChild(document.createTextNode("Roughly 37 minutes of inspection time not spent today."));
-    rest.appendChild(r1); rest.appendChild(r2); rest.appendChild(r3);
-    host.appendChild(rest);
+    var c = document.createElement("div"); c.className = "task pass";
+    var m = document.createElement("div"); m.className = "mark";
+    m.appendChild(icon("i-check")); c.appendChild(m);
+    var b = document.createElement("div"); b.className = "body";
+    var t = document.createElement("div"); t.className = "ttl";
+    t.appendChild(document.createTextNode("6 sizing and changed-mind returns"));
+    var d = document.createElement("div"); d.className = "dsc";
+    d.textContent = "No damage in the note or photo, so nobody needs to look.";
+    b.appendChild(t); b.appendChild(d); c.appendChild(b);
+    var v = document.createElement("div"); v.className = "verb";
+    var vb = document.createElement("b"); vb.textContent = "Restock";
+    var vs = document.createElement("span"); vs.textContent = "37 min saved";
+    v.appendChild(vb); v.appendChild(vs); c.appendChild(v);
+    host.appendChild(c);
   })();
 
-  /* ================= QUALITY TABLE ================= */
-  var tbody = document.querySelector("#returns-table tbody");
-  function renderReturns(filter) {
-    tbody.textContent = "";
-    returns.forEach(function (d) {
-      var kind = dispo(d.score);
-      if (filter !== "all" && kind !== filter) return;
-      var tr = document.createElement("tr");
+  /* ---------------- returns table ---------------- */
+  var tb = document.querySelector("#returns-table tbody");
+  function renderTable(f) {
+    tb.textContent = "";
+    R.forEach(function (r) {
+      var k = D(r.score);
+      if (f !== "all" && k !== f) return;
 
-      cell(tr).textContent = d.id;
+      var tr = document.createElement("tr"); tr.className = "row";
+      var c0 = td(tr); c0.appendChild(icon("i-chev", "chev"));
 
-      var sk = cell(tr, "sku");
-      sk.appendChild(document.createTextNode(d.sku));
-      var sm = document.createElement("small");
-      sm.textContent = d.item + " · " + d.batch;
-      sk.appendChild(sm);
+      var c1 = td(tr, "sku");
+      c1.appendChild(document.createTextNode(r.sku));
+      var sm = document.createElement("small"); sm.textContent = r.batch; c1.appendChild(sm);
 
-      cell(tr).textContent = d.reason;
-      cell(tr, "wrapcell").textContent = d.note;
+      var c2 = td(tr, "lead");
+      c2.appendChild(document.createTextNode(r.note));
+      var sm2 = document.createElement("small");
+      sm2.style.cssText = "display:block;color:var(--muted);font-size:12px;margin-top:1px";
+      sm2.textContent = "customer: " + r.reason.toLowerCase();
+      c2.appendChild(sm2);
 
-      var sc = cell(tr);
-      var meter = document.createElement("div"); meter.className = "meter";
-      var track = document.createElement("div"); track.className = "track";
-      var fill = document.createElement("div"); fill.className = "fill";
-      fill.style.width = d.score + "%";
-      track.appendChild(fill);
-      var val = document.createElement("span"); val.className = "val";
-      val.textContent = d.score + "%";
-      meter.appendChild(track); meter.appendChild(val);
-      sc.appendChild(meter);
+      var c3 = td(tr);
+      var mt = document.createElement("div"); mt.className = "meter";
+      var tk = document.createElement("div"); tk.className = "track";
+      var fl = document.createElement("div"); fl.className = "fill";
+      fl.style.width = r.score + "%"; tk.appendChild(fl);
+      var vv = document.createElement("span"); vv.className = "val"; vv.textContent = r.score + "%";
+      mt.appendChild(tk); mt.appendChild(vv); c3.appendChild(mt);
 
-      cell(tr, "wrapcell").textContent = d.why;
+      var c4 = td(tr);
+      var ch = document.createElement("span"); ch.className = "chip " + k;
+      var dt = document.createElement("span"); dt.className = "dot";
+      ch.appendChild(dt); ch.appendChild(document.createTextNode(LBL[k]));
+      c4.appendChild(ch);
 
-      var dc = cell(tr);
-      var chip = document.createElement("span"); chip.className = "chip " + kind;
-      var dot = document.createElement("span"); dot.className = "dot";
-      chip.appendChild(dot);
-      chip.appendChild(document.createTextNode(chipText[kind]));
-      dc.appendChild(chip);
+      var dr = document.createElement("tr"); dr.className = "detail"; dr.style.display = "none";
+      var dc = td(dr); dc.setAttribute("colspan", "5");
+      var wy = document.createElement("div"); wy.className = "why";
+      wy.appendChild(icon("i-bulb"));
+      var wt = document.createElement("span"); wt.textContent = r.why;
+      wy.appendChild(wt); dc.appendChild(wy);
 
-      tbody.appendChild(tr);
+      tr.addEventListener("click", function () {
+        var open = dr.style.display !== "none";
+        dr.style.display = open ? "none" : "";
+        tr.classList.toggle("open", !open);
+      });
+
+      tb.appendChild(tr); tb.appendChild(dr);
     });
   }
-  renderReturns("all");
-
+  renderTable("all");
   document.getElementById("filters").addEventListener("click", function (e) {
-    var btn = e.target.closest(".fbtn");
-    if (!btn) return;
-    document.querySelectorAll("#filters .fbtn").forEach(function (b) { b.classList.remove("active"); });
-    btn.classList.add("active");
-    renderReturns(btn.getAttribute("data-f"));
+    var b = e.target.closest(".fbtn"); if (!b) return;
+    document.querySelectorAll("#filters .fbtn").forEach(function (x) { x.classList.remove("active"); });
+    b.classList.add("active"); renderTable(b.getAttribute("data-f"));
   });
 
-  /* ================= CATEGORY CHART ================= */
-  (function catChart() {
-    var counts = {};
-    returns.filter(function (r) { return dispo(r.score) === "flag"; })
-      .forEach(function (r) { counts[r.cat] = (counts[r.cat] || 0) + 1; });
-    var cats = Object.keys(counts).map(function (k) { return { name: k, n: counts[k] }; })
-      .sort(function (a, b) { return b.n - a.n; });
-
-    var W = 450, rowH = 38, mT = 4, mL = 148, mR = 38;
-    var H = mT + cats.length * rowH + 4, pw = W - mL - mR;
-    var max = cats[0].n;
-
-    var svg = svgEl("svg", { viewBox: "0 0 " + W + " " + H, role: "img",
-      "aria-label": "Flagged defects by category, seam failure highest at 4 units" });
-    document.getElementById("cat-chart").appendChild(svg);
-
-    cats.forEach(function (c, i) {
-      var y = mT + i * rowH, bw = Math.max((c.n / max) * pw, 4);
-      var barY = y + 9, barH = 18;
-      svgText(svg, { x: mL - 10, y: barY + barH / 2 + 4, "text-anchor": "end", "class": "cat-label" }, c.name);
-      svgEl("rect", { x: mL, y: barY, width: bw, height: barH, rx: 4, fill: "#2a78d6" }, svg);
-      svgEl("rect", { x: mL, y: barY, width: Math.min(5, bw), height: barH, fill: "#2a78d6" }, svg);
-      svgText(svg, { x: mL + bw + 8, y: barY + barH / 2 + 4, "class": "direct-label" }, String(c.n));
-    });
-  })();
-
-  /* ================= BATCH DEFECT RATE ================= */
-  (function batchChart() {
-    var by = {};
-    returns.forEach(function (r) {
-      if (!by[r.batch]) by[r.batch] = { batch: r.batch, sku: r.sku, total: 0, bad: 0 };
-      by[r.batch].total++;
-      if (dispo(r.score) === "flag") by[r.batch].bad++;
-    });
-    var rows = Object.keys(by).map(function (k) {
-      var b = by[k]; b.rate = Math.round((b.bad / b.total) * 100); return b;
-    }).sort(function (a, b) { return b.rate - a.rate; });
-
-    var W = 450, rowH = 38, mT = 4, mL = 118, mR = 62;
-    var H = mT + rows.length * rowH + 4, pw = W - mL - mR;
-
-    var svg = svgEl("svg", { viewBox: "0 0 " + W + " " + H, role: "img",
-      "aria-label": "Defect rate by batch, B-2241 highest at 67 percent" });
-    document.getElementById("batch-chart").appendChild(svg);
-
+  /* ---------------- bar helper ---------------- */
+  function bars(host, rows, opts) {
+    var W = 420, rowH = 34, mT = 2, mL = opts.mL, mR = opts.mR;
+    var H = mT + rows.length * rowH, pw = W - mL - mR;
+    var svg = E("svg", { viewBox: "0 0 " + W + " " + H, "class": "chart", role: "img",
+      "aria-label": opts.label }, null);
+    svg.setAttribute("preserveAspectRatio", "xMidYMid meet");
+    document.getElementById(host).appendChild(svg);
     rows.forEach(function (r, i) {
-      var y = mT + i * rowH, bw = Math.max((r.rate / 100) * pw, 3);
-      var barY = y + 9, barH = 18;
-      svgText(svg, { x: mL - 10, y: barY + barH / 2 + 4, "text-anchor": "end", "class": "cat-label" }, r.batch);
-      svgEl("rect", { x: mL, y: barY, width: pw, height: barH, rx: 4, fill: "#cde2fb" }, svg);
-      svgEl("rect", { x: mL, y: barY, width: bw, height: barH, rx: 4, fill: "#2a78d6" }, svg);
-      svgEl("rect", { x: mL, y: barY, width: Math.min(5, bw), height: barH, fill: "#2a78d6" }, svg);
-      svgText(svg, { x: mL + pw + 8, y: barY + barH / 2 + 4, "class": "direct-label" },
-        r.rate + "%");
+      var y = mT + i * rowH, bh = 16, by = y + 8;
+      T(svg, { x: mL - 10, y: by + bh / 2 + 4, "text-anchor": "end", "class": "lb" }, r.name);
+      if (opts.track) E("rect", { x: mL, y: by, width: pw, height: bh, rx: 4, fill: "#dbeafd" }, svg);
+      var bw = Math.max((r.v / opts.max) * pw, 3);
+      E("rect", { x: mL, y: by, width: bw, height: bh, rx: 4, fill: "#2a78d6" }, svg);
+      E("rect", { x: mL, y: by, width: Math.min(4, bw), height: bh, fill: "#2a78d6" }, svg);
+      T(svg, { x: mL + (opts.track ? pw : bw) + 9, y: by + bh / 2 + 4, "class": "vl" }, r.t);
     });
-  })();
+  }
 
-  /* ================= LEDGER ================= */
-  (function ledger() {
-    var groups = {};
-    returns.filter(function (r) { return dispo(r.score) === "flag"; }).forEach(function (r) {
-      var key = r.vendor + "|" + r.sku + "|" + r.batch + "|" + r.cat;
-      if (!groups[key]) groups[key] = { vendor: r.vendor, sku: r.sku, batch: r.batch, cat: r.cat, units: 0, amt: 0 };
-      groups[key].units++; groups[key].amt += r.cost;
+  var flagged = R.filter(function (r) { return D(r.score) === "flag"; });
+  var cc = {}; flagged.forEach(function (r) { cc[r.cat] = (cc[r.cat] || 0) + 1; });
+  var cats = Object.keys(cc).map(function (k) { return { name:k, v:cc[k], t:String(cc[k]) }; })
+    .sort(function (a, b) { return b.v - a.v; });
+  bars("cat-chart", cats, { mL:132, mR:30, max:cats[0].v, label:"Seam failure 4, collar deformation 2, others 1 each" });
+
+  var bb = {};
+  R.forEach(function (r) {
+    if (!bb[r.batch]) bb[r.batch] = { t:0, b:0 };
+    bb[r.batch].t++; if (D(r.score) === "flag") bb[r.batch].b++;
+  });
+  var brows = Object.keys(bb).map(function (k) {
+    var p = Math.round((bb[k].b / bb[k].t) * 100);
+    return { name:k, v:p, t:p + "%" };
+  }).sort(function (a, b) { return b.v - a.v; });
+  bars("batch-chart", brows, { mL:74, mR:48, max:100, track:true, label:"Defect rate by batch, highest 67 percent" });
+
+  /* ---------------- ledger ---------------- */
+  (function () {
+    var g = {};
+    flagged.forEach(function (r) {
+      var k = r.vendor + "|" + r.sku + "|" + r.cat;
+      if (!g[k]) g[k] = { vendor:r.vendor, sku:r.sku, batch:r.batch, cat:r.cat, u:0, a:0 };
+      g[k].u++; g[k].a += r.cost;
     });
-    var rows = Object.keys(groups).map(function (k) { return groups[k]; })
-      .sort(function (a, b) { return b.amt - a.amt; });
-
-    var statuses = ["Drafted", "Drafted", "Sent", "Sent", "Acknowledged", "Credited"];
+    var rows = Object.keys(g).map(function (k) { return g[k]; })
+      .sort(function (a, b) { return b.a - a.a; });
+    var st = ["Drafted","Drafted","Sent","Sent","Acknowledged","Credited"];
     var body = document.querySelector("#ledger-table tbody");
 
-    rows.forEach(function (g, i) {
+    rows.forEach(function (r, i) {
       var tr = document.createElement("tr");
-      cell(tr).textContent = g.vendor;
-      var sk = cell(tr, "sku");
-      sk.appendChild(document.createTextNode(g.sku));
-      var sm = document.createElement("small"); sm.textContent = g.batch; sk.appendChild(sm);
-      cell(tr).textContent = g.cat;
-      cell(tr, "num").textContent = String(g.units);
-      cell(tr, "num").textContent = "$" + g.amt;
-
-      var st = cell(tr);
-      var label = statuses[i % statuses.length];
-      var chip = document.createElement("span");
-      chip.className = "chip " + (label === "Credited" ? "paid" : (label === "Drafted" ? "none" : "review"));
-      var dot = document.createElement("span"); dot.className = "dot";
-      chip.appendChild(dot); chip.appendChild(document.createTextNode(label));
-      st.appendChild(chip);
-
+      td(tr).textContent = r.vendor;
+      var c = td(tr, "sku"); c.appendChild(document.createTextNode(r.sku));
+      var s = document.createElement("small"); s.textContent = r.batch; c.appendChild(s);
+      td(tr, "lead").textContent = r.cat;
+      td(tr, "num").textContent = String(r.u);
+      td(tr, "num").textContent = "$" + r.a;
+      var l = st[i % st.length];
+      var cell = td(tr);
+      var ch = document.createElement("span");
+      ch.className = "chip " + (l === "Credited" ? "paid" : (l === "Drafted" ? "none" : "review"));
+      var d = document.createElement("span"); d.className = "dot";
+      ch.appendChild(d); ch.appendChild(document.createTextNode(l));
+      cell.appendChild(ch);
       body.appendChild(tr);
     });
-
-    var total = rows.reduce(function (a, g) { return a + g.amt; }, 0);
-    var units = rows.reduce(function (a, g) { return a + g.units; }, 0);
     var tr = document.createElement("tr");
-    var t1 = cell(tr); t1.textContent = "Total"; t1.style.fontWeight = "650";
-    cell(tr); cell(tr);
-    var t4 = cell(tr, "num"); t4.textContent = String(units); t4.style.fontWeight = "650";
-    var t5 = cell(tr, "num"); t5.textContent = "$" + total; t5.style.fontWeight = "650";
-    cell(tr);
+    var t0 = td(tr); t0.textContent = "Total"; t0.style.fontWeight = "680";
+    td(tr); td(tr);
+    var t3 = td(tr, "num"); t3.textContent = String(rows.reduce(function (a, r) { return a + r.u; }, 0)); t3.style.fontWeight = "680";
+    var t4 = td(tr, "num"); t4.textContent = "$" + rows.reduce(function (a, r) { return a + r.a; }, 0); t4.style.fontWeight = "680";
+    td(tr);
     body.appendChild(tr);
   })();
 
-  /* ================= LINEAGE DIAGRAM ================= */
-  (function lineage() {
-    var W = 940, H = 300;
-    var svg = svgEl("svg", { viewBox: "0 0 " + W + " " + H, role: "img",
-      "aria-label": "Pipeline: four source systems feed ingestion and batch join, then the grading agent, then four team views" });
+  /* ---------------- lineage ---------------- */
+  (function () {
+    var W = 900, H = 250;
+    var svg = E("svg", { viewBox: "0 0 " + W + " " + H, "class": "chart", role: "img",
+      "aria-label": "Four sources feed a join, then Claude grading, then four team views" }, null);
     document.getElementById("lineage").appendChild(svg);
 
-    var colX = [10, 250, 470, 690];
-    var colW = [200, 180, 180, 240];
-
-    function box(x, y, w, h, title, sub, fill, stroke) {
-      svgEl("rect", { x: x, y: y, width: w, height: h, rx: 8,
-        fill: fill, stroke: stroke, "stroke-width": 1 }, svg);
-      svgText(svg, { x: x + 12, y: y + 21, "class": "direct-label" }, title);
-      if (sub) svgText(svg, { x: x + 12, y: y + 37, "class": "tick-label" }, sub);
+    function box(x, y, w, h, t, s, fill, stroke, dark) {
+      E("rect", { x:x, y:y, width:w, height:h, rx:9, fill:fill, stroke:stroke, "stroke-width":1 }, svg);
+      T(svg, { x:x + 14, y:y + 21, "class":"vl", fill: dark ? "#fff" : "#0b0b0b" }, t);
+      if (s) T(svg, { x:x + 14, y:y + 37, "class":"tk", fill: dark ? "#cde2fb" : "#918f88" }, s);
     }
-    function header(x, w, label) {
-      svgText(svg, { x: x, y: 14, "class": "tick-label", "font-weight": "700",
-        "letter-spacing": "0.06em" }, label);
-    }
-    function arrow(x1, x2, y) {
-      svgEl("line", { x1: x1, y1: y, x2: x2 - 6, y2: y,
-        stroke: "#c3c2b7", "stroke-width": 1.5 }, svg);
-      svgEl("polygon", { points: (x2 - 6) + "," + (y - 4) + " " + x2 + "," + y + " " + (x2 - 6) + "," + (y + 4),
-        fill: "#c3c2b7" }, svg);
+    function arw(x1, x2, y) {
+      E("line", { x1:x1, y1:y, x2:x2 - 5, y2:y, stroke:"#cfcec7", "stroke-width":1.5 }, svg);
+      E("polygon", { points:(x2-5)+","+(y-3.5)+" "+x2+","+y+" "+(x2-5)+","+(y+3.5), fill:"#cfcec7" }, svg);
     }
 
-    header(colX[0], colW[0], "SOURCES");
-    header(colX[1], colW[1], "INGEST + JOIN");
-    header(colX[2], colW[2], "GRADE");
-    header(colX[3], colW[3], "SERVE");
+    var cx = [6, 236, 448, 654], cw = [186, 156, 156, 240];
+    ["SOURCES","JOIN","GRADE","SERVE"].forEach(function (h, i) {
+      T(svg, { x:cx[i], y:11, "class":"tk", "font-weight":"700", "letter-spacing":"0.07em" }, h);
+    });
 
-    var srcs = [
-      ["Returns platform", "rma, reason, comment"],
-      ["Warehouse / 3PL", "notes, photos"],
-      ["Shopify", "sku, landed cost"],
-      ["PO / ERP", "batch, vendor"]
-    ];
+    var srcs = [["Returns platform","reason, comment"],["Warehouse","notes, photos"],
+                ["Shopify","sku, cost"],["PO / ERP","batch, vendor"]];
+    srcs.forEach(function (s, i) { box(cx[0], 26 + i * 52, cw[0], 42, s[0], s[1], "#fff", "rgba(11,11,11,0.11)"); });
+
+    var bus = cx[1] - 22;
     srcs.forEach(function (s, i) {
-      box(colX[0], 30 + i * 62, colW[0], 48, s[0], s[1], "#fcfcfb", "rgba(11,11,11,0.14)");
+      E("line", { x1:cx[0] + cw[0], y1:47 + i * 52, x2:bus, y2:47 + i * 52, stroke:"#cfcec7", "stroke-width":1.5 }, svg);
     });
+    E("line", { x1:bus, y1:47, x2:bus, y2:47 + 3 * 52, stroke:"#cfcec7", "stroke-width":1.5 }, svg);
+    arw(bus, cx[1], 125);
 
-    box(colX[1], 92, colW[1], 66, "Normalize + join", "batch attribution", "#eef5fd", "#86b6ef");
-    box(colX[2], 92, colW[2], 66, "Claude grading", "score, category, rationale", "#2a78d6", "#2a78d6");
-    /* white text for the dark grading box */
-    var gt = svg.querySelectorAll("text");
-    gt[gt.length - 2].setAttribute("fill", "#ffffff");
-    gt[gt.length - 1].setAttribute("fill", "#cde2fb");
+    box(cx[1], 104, cw[1], 42, "Normalize", "batch attribution", "#eef5fd", "#86b6ef");
+    arw(cx[1] + cw[1], cx[2], 125);
+    box(cx[2], 104, cw[2], 42, "Claude grading", "score + rationale", "#2a78d6", "#2a78d6", true);
 
-    var outs = [
-      ["Warehouse queue", "real time"],
-      ["Quality dashboard", "weekly"],
-      ["Vendor credit ledger", "weekly send"],
-      ["Leadership summary", "monthly"]
-    ];
-    outs.forEach(function (o, i) {
-      box(colX[3], 30 + i * 62, colW[3], 48, o[0], o[1], "#fcfcfb", "rgba(11,11,11,0.14)");
+    var bus2 = cx[2] + cw[2] + 22;
+    E("line", { x1:cx[2] + cw[2], y1:125, x2:bus2, y2:125, stroke:"#cfcec7", "stroke-width":1.5 }, svg);
+    E("line", { x1:bus2, y1:47, x2:bus2, y2:47 + 3 * 52, stroke:"#cfcec7", "stroke-width":1.5 }, svg);
+    [["Warehouse queue","real time"],["Quality dashboard","weekly"],
+     ["Credit ledger","weekly send"],["Leadership","monthly"]].forEach(function (o, i) {
+      box(cx[3], 26 + i * 52, cw[3], 42, o[0], o[1], "#fff", "rgba(11,11,11,0.11)");
+      arw(bus2, cx[3], 47 + i * 52);
     });
-
-    /* sources converge onto a bus, then one arrow into the join box */
-    var busIn = colX[1] - 24;
-    srcs.forEach(function (s, i) {
-      svgEl("line", { x1: colX[0] + colW[0], y1: 54 + i * 62, x2: busIn, y2: 54 + i * 62,
-        stroke: "#c3c2b7", "stroke-width": 1.5 }, svg);
-    });
-    svgEl("line", { x1: busIn, y1: 54, x2: busIn, y2: 54 + 3 * 62,
-      stroke: "#c3c2b7", "stroke-width": 1.5 }, svg);
-    arrow(busIn, colX[1], 125);
-
-    arrow(colX[1] + colW[1], colX[2], 125);
-
-    /* grading fans out through a bus to the four views */
-    var busOut = colX[2] + colW[2] + 24;
-    svgEl("line", { x1: colX[2] + colW[2], y1: 125, x2: busOut, y2: 125,
-      stroke: "#c3c2b7", "stroke-width": 1.5 }, svg);
-    svgEl("line", { x1: busOut, y1: 54, x2: busOut, y2: 54 + 3 * 62,
-      stroke: "#c3c2b7", "stroke-width": 1.5 }, svg);
-    outs.forEach(function (o, i) {
-      arrow(busOut, colX[3], 54 + i * 62);
-    });
-
-    svgText(svg, { x: colX[1], y: 186, "class": "tick-label" }, "hourly + webhook");
-    svgText(svg, { x: colX[2], y: 186, "class": "tick-label" }, "cached by rma_id");
-    svgText(svg, { x: colX[0], y: 285, "class": "tick-label" }, "Failure at any gate routes the record to human review rather than producing a confident wrong answer.");
+    T(svg, { x:cx[1], y:172, "class":"tk" }, "hourly + webhook");
+    T(svg, { x:cx[2], y:172, "class":"tk" }, "cached on rma_id");
   })();
 
-  /* ================= TABS ================= */
+  /* ---------------- join viz ---------------- */
+  (function () {
+    var W = 700, H = 76;
+    var svg = E("svg", { viewBox: "0 0 " + W + " " + H, "class": "chart", role: "img",
+      "aria-label": "Join chain: return to sku to batch to vendor" }, null);
+    document.getElementById("join-viz").appendChild(svg);
+    var steps = [["return","rma_id"],["sku","catalog"],["batch","by order date"],["vendor","claim goes here"]];
+    var bw = 150, gap = 34;
+    steps.forEach(function (s, i) {
+      var x = i * (bw + gap), weak = i === 2;
+      E("rect", { x:x, y:14, width:bw, height:46, rx:9,
+        fill: weak ? "#fdf2dd" : "#fff",
+        stroke: weak ? "#d98d00" : "rgba(11,11,11,0.11)",
+        "stroke-width": weak ? 1.5 : 1 }, svg);
+      T(svg, { x:x + bw / 2, y:34, "class":"vl", "text-anchor":"middle" }, s[0]);
+      T(svg, { x:x + bw / 2, y:50, "class":"tk", "text-anchor":"middle" }, s[1]);
+      if (i < 3) {
+        var ax = x + bw + 8, ax2 = x + bw + gap - 8;
+        E("line", { x1:ax, y1:37, x2:ax2 - 5, y2:37, stroke:"#cfcec7", "stroke-width":1.5 }, svg);
+        E("polygon", { points:(ax2-5)+",33.5 "+ax2+",37 "+(ax2-5)+",40.5", fill:"#cfcec7" }, svg);
+      }
+    });
+    T(svg, { x:2 * (bw + gap) + bw / 2, y:73, "class":"tk", "text-anchor":"middle", fill:"#d98d00" }, "weakest link");
+  })();
+
+  /* ---------------- tabs ---------------- */
   var tabs = document.querySelectorAll(".tab");
   tabs.forEach(function (t) {
     t.addEventListener("click", function () {
@@ -973,7 +848,6 @@
       t.setAttribute("aria-selected", "true");
       document.querySelectorAll(".panel").forEach(function (p) { p.classList.remove("active"); });
       document.getElementById("p-" + t.getAttribute("data-p")).classList.add("active");
-      window.scrollTo({ top: 0, behavior: "smooth" });
     });
   });
 })();
