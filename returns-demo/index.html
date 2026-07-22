@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Returns Defect Triage Agent · Demo by Adi Gudi</title>
+<title>Returns Defect Triage System · Demo by Adi Gudi</title>
 <style>
   :root {
     color-scheme: light;
@@ -16,59 +16,139 @@
     --baseline:  #c3c2b7;
     --border:    rgba(11,11,11,0.10);
     --blue:      #2a78d6;
+    --blue-2:    #5598e7;
+    --blue-3:    #86b6ef;
+    --blue-deep: #1c5cab;
     --blue-track:#cde2fb;
-    --crit:      #d03b3b;   /* status: flagged defect */
-    --warn:      #fab219;   /* status: needs review */
-    --good:      #006300;
+    --crit:      #d03b3b;
+    --warn:      #fab219;
+    --good:      #0ca30c;
+    --good-txt:  #006300;
   }
   * { box-sizing: border-box; }
   html, body {
-    margin: 0; padding: 0;
-    background: var(--page); color: var(--ink);
+    margin: 0; padding: 0; background: var(--page); color: var(--ink);
     font-family: system-ui, -apple-system, "Segoe UI", Helvetica, Arial, sans-serif;
     -webkit-font-smoothing: antialiased; line-height: 1.5;
   }
-  .wrap { max-width: 1120px; margin: 0 auto; padding: 40px 28px 56px; }
+  .wrap { max-width: 1140px; margin: 0 auto; padding: 36px 26px 56px; }
 
-  header.masthead { border-bottom: 1px solid var(--grid); padding-bottom: 24px; margin-bottom: 28px; }
+  /* ---------- masthead ---------- */
   .eyebrow {
     display: inline-block; font-size: 12px; letter-spacing: 0.13em;
-    text-transform: uppercase; color: var(--blue); font-weight: 650; margin-bottom: 12px;
+    text-transform: uppercase; color: var(--blue); font-weight: 650; margin-bottom: 10px;
   }
-  h1 { font-size: 31px; line-height: 1.15; margin: 0 0 10px; font-weight: 700; letter-spacing: -0.01em; }
-  .framing { font-size: 16px; color: var(--ink-2); margin: 0; max-width: 740px; }
+  h1 { font-size: 30px; line-height: 1.15; margin: 0 0 9px; font-weight: 700; letter-spacing: -0.01em; }
+  .framing { font-size: 15.5px; color: var(--ink-2); margin: 0; max-width: 760px; }
   .synthetic-banner {
-    margin-top: 16px; background: var(--surface);
+    margin-top: 14px; background: var(--surface);
     border: 1px solid var(--border); border-left: 4px solid var(--blue);
-    border-radius: 10px; padding: 11px 16px; font-size: 13.5px; color: var(--ink-2); max-width: 780px;
+    border-radius: 10px; padding: 10px 15px; font-size: 13px; color: var(--ink-2); max-width: 790px;
   }
   .synthetic-banner strong { color: var(--ink); }
 
-  .kpi-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin: 26px 0 30px; }
-  .kpi { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 16px 18px 14px; }
-  .kpi-label { font-size: 12.5px; color: var(--muted); font-weight: 600; margin-bottom: 7px; }
-  .kpi-value { font-size: 28px; font-weight: 650; line-height: 1.05; }
-  .kpi-sub { font-size: 12.5px; color: var(--ink-2); margin-top: 4px; }
-
-  /* how it works strip */
-  .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-bottom: 34px; }
-  .step {
-    background: var(--surface); border: 1px solid var(--border); border-radius: 12px;
-    padding: 14px 16px; font-size: 13.5px; color: var(--ink-2);
+  /* ---------- tabs ---------- */
+  nav.tabs {
+    display: flex; gap: 4px; flex-wrap: wrap;
+    border-bottom: 1px solid var(--grid); margin: 26px 0 0;
   }
-  .step b { display: block; color: var(--ink); font-size: 13.5px; margin-bottom: 3px; }
-  .step .n {
-    display: inline-flex; width: 22px; height: 22px; border-radius: 50%;
-    background: var(--blue); color: #fff; font-size: 12px; font-weight: 700;
-    align-items: center; justify-content: center; margin-bottom: 8px;
+  .tab {
+    font: inherit; font-size: 14px; font-weight: 600; color: var(--ink-2);
+    background: none; border: none; border-bottom: 2px solid transparent;
+    padding: 10px 14px; cursor: pointer; margin-bottom: -1px; white-space: nowrap;
   }
+  .tab:hover { color: var(--ink); }
+  .tab[aria-selected="true"] { color: var(--blue); border-bottom-color: var(--blue); }
 
-  section { margin-bottom: 36px; }
-  h2 { font-size: 19px; margin: 0 0 4px; font-weight: 650; }
+  .panel { display: none; padding-top: 26px; }
+  .panel.active { display: block; }
+
+  /* ---------- audience strip ---------- */
+  .audience {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 0;
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 12px; overflow: hidden; margin-bottom: 26px;
+  }
+  .audience div { padding: 13px 16px; border-right: 1px solid var(--grid); }
+  .audience div:last-child { border-right: none; }
+  .audience dt {
+    font-size: 11px; letter-spacing: 0.07em; text-transform: uppercase;
+    color: var(--muted); font-weight: 650; margin-bottom: 4px;
+  }
+  .audience dd { margin: 0; font-size: 13.5px; color: var(--ink-2); }
+  .audience dd b { color: var(--ink); font-weight: 650; }
+
+  h2 { font-size: 18.5px; margin: 0 0 4px; font-weight: 650; }
   .section-sub { font-size: 14px; color: var(--ink-2); margin: 0 0 14px; max-width: 760px; }
+  section { margin-bottom: 32px; }
   .card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 18px 20px; }
 
-  /* filters */
+  /* ---------- stat tiles ---------- */
+  .kpi-grid { display: grid; gap: 14px; margin-bottom: 26px; }
+  .kpi-4 { grid-template-columns: repeat(4, 1fr); }
+  .kpi-3 { grid-template-columns: repeat(3, 1fr); }
+  .kpi { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 15px 17px 13px; }
+  .kpi-label { font-size: 12.5px; color: var(--muted); font-weight: 600; margin-bottom: 6px; }
+  .kpi-value { font-size: 27px; font-weight: 650; line-height: 1.05; }
+  .kpi-sub { font-size: 12.5px; color: var(--ink-2); margin-top: 4px; }
+  .kpi-sub.good { color: var(--good-txt); font-weight: 600; }
+
+  .hero-fig { font-size: 52px; font-weight: 700; line-height: 1; letter-spacing: -0.02em; }
+
+  /* ---------- operator task cards ---------- */
+  .task {
+    background: var(--surface); border: 1px solid var(--border); border-radius: 12px;
+    padding: 15px 18px; margin-bottom: 11px; display: grid;
+    grid-template-columns: 92px 1fr 210px; gap: 18px; align-items: start;
+  }
+  .task .rma { font-weight: 700; font-size: 14px; }
+  .task .rma small { display: block; font-weight: 400; color: var(--muted); font-size: 11.5px; margin-top: 2px; }
+  .task .what { font-size: 13.5px; color: var(--ink-2); }
+  .task .what b { color: var(--ink); display: block; margin-bottom: 2px; font-size: 13.5px; }
+  .task .said { color: var(--muted); font-size: 12.5px; margin-top: 5px; }
+  .action {
+    border-left: 3px solid var(--blue); padding-left: 12px; font-size: 13px; color: var(--ink-2);
+  }
+  .action b { display: block; color: var(--ink); font-size: 13px; margin-bottom: 2px; }
+  .action.hold { border-left-color: var(--crit); }
+  .action.check { border-left-color: var(--warn); }
+  .action.pass { border-left-color: var(--good); }
+
+  /* ---------- tables ---------- */
+  .tbl-scroll { overflow-x: auto; }
+  table.data { border-collapse: collapse; width: 100%; font-size: 13px; }
+  table.data.wide { min-width: 900px; }
+  table.data th {
+    text-align: left; color: var(--muted); font-weight: 600; font-size: 12px;
+    border-bottom: 1px solid var(--grid); padding: 8px 12px 8px 0; white-space: nowrap;
+  }
+  table.data td { border-bottom: 1px solid var(--grid); padding: 9px 12px 9px 0; vertical-align: top; }
+  table.data tr:last-child td { border-bottom: none; }
+  table.data tr:hover td { background: rgba(42,120,214,0.045); }
+  td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; padding-right: 0; }
+  .sku { font-weight: 650; white-space: nowrap; }
+  .sku small { display: block; font-weight: 400; color: var(--muted); font-size: 11.5px; }
+  .wrapcell { max-width: 240px; color: var(--ink-2); }
+
+  .meter { display: flex; align-items: center; gap: 8px; }
+  .meter .track { width: 64px; height: 8px; border-radius: 4px; background: var(--blue-track); flex: none; overflow: hidden; }
+  .meter .fill { height: 100%; background: var(--blue); }
+  .meter .val { font-weight: 650; font-variant-numeric: tabular-nums; }
+
+  .chip {
+    display: inline-flex; align-items: center; gap: 6px; white-space: nowrap;
+    font-size: 12px; font-weight: 650; border-radius: 999px; padding: 3px 10px;
+  }
+  .chip .dot { width: 7px; height: 7px; border-radius: 50%; flex: none; }
+  .chip.flag { background: rgba(208,59,59,0.10); color: #9c2323; }
+  .chip.flag .dot { background: var(--crit); }
+  .chip.review { background: rgba(250,178,25,0.16); color: #7a5200; }
+  .chip.review .dot { background: var(--warn); }
+  .chip.none { background: rgba(137,135,129,0.12); color: var(--ink-2); }
+  .chip.none .dot { background: var(--muted); }
+  .chip.paid { background: rgba(12,163,12,0.12); color: var(--good-txt); }
+  .chip.paid .dot { background: var(--good); }
+
   .filters { display: flex; gap: 8px; margin-bottom: 14px; flex-wrap: wrap; }
   .fbtn {
     font: inherit; font-size: 13px; font-weight: 600; color: var(--ink-2);
@@ -78,223 +158,427 @@
   .fbtn:hover { border-color: var(--baseline); }
   .fbtn.active { background: var(--ink); color: #fff; border-color: var(--ink); }
 
-  /* table */
-  .tbl-scroll { overflow-x: auto; }
-  table.returns { border-collapse: collapse; width: 100%; min-width: 980px; font-size: 13px; }
-  table.returns th {
-    text-align: left; color: var(--muted); font-weight: 600; font-size: 12px;
-    border-bottom: 1px solid var(--grid); padding: 8px 12px 8px 0; white-space: nowrap;
-  }
-  table.returns td { border-bottom: 1px solid var(--grid); padding: 9px 12px 9px 0; vertical-align: top; }
-  table.returns tr:last-child td { border-bottom: none; }
-  table.returns tr:hover td { background: rgba(42,120,214,0.045); }
-  .sku { font-weight: 650; white-space: nowrap; }
-  .sku small { display: block; font-weight: 400; color: var(--muted); font-size: 11.5px; }
-  .note { color: var(--ink-2); max-width: 210px; }
-  .rationale { color: var(--ink-2); max-width: 250px; font-size: 12.5px; }
-  .reason { white-space: nowrap; color: var(--ink-2); }
-
-  .score-cell { min-width: 130px; }
-  .meter { display: flex; align-items: center; gap: 8px; }
-  .meter .track { width: 72px; height: 8px; border-radius: 4px; background: var(--blue-track); overflow: hidden; flex: none; }
-  .meter .fill { height: 100%; background: var(--blue); border-radius: 4px 0 0 4px; }
-  .meter .val { font-weight: 650; font-variant-numeric: tabular-nums; font-size: 13px; }
-
-  .chip {
-    display: inline-flex; align-items: center; gap: 6px; white-space: nowrap;
-    font-size: 12px; font-weight: 650; border-radius: 999px; padding: 3px 10px;
-  }
-  .chip .dot { width: 7px; height: 7px; border-radius: 50%; flex: none; }
-  .chip.flag { background: rgba(208,59,59,0.10); color: #9c2323; }
-  .chip.flag .dot { background: var(--crit); }
-  .chip.review { background: rgba(250,178,25,0.14); color: #7a5200; }
-  .chip.review .dot { background: var(--warn); }
-  .chip.none { background: rgba(137,135,129,0.12); color: var(--ink-2); }
-  .chip.none .dot { background: var(--muted); }
-
-  /* recurring issue callout */
+  /* ---------- callout ---------- */
   .callout {
     border: 1px solid var(--border); border-left: 4px solid var(--crit);
-    background: var(--surface); border-radius: 12px; padding: 16px 20px;
-    font-size: 14px; color: var(--ink-2); max-width: 860px;
+    background: var(--surface); border-radius: 12px; padding: 15px 19px;
+    font-size: 13.5px; color: var(--ink-2); margin-bottom: 14px;
   }
   .callout b { color: var(--ink); }
   .callout .tag {
-    display: inline-block; font-size: 11px; font-weight: 700; letter-spacing: 0.06em;
-    text-transform: uppercase; color: #9c2323; margin-bottom: 6px;
+    display: block; font-size: 11px; font-weight: 700; letter-spacing: 0.06em;
+    text-transform: uppercase; color: #9c2323; margin-bottom: 5px;
   }
+  .callout.info { border-left-color: var(--blue); }
+  .callout.info .tag { color: var(--blue); }
 
-  .two-col { display: grid; grid-template-columns: 1fr 1.15fr; gap: 18px; }
-
-  /* chart */
   svg { display: block; width: 100%; height: auto; }
   svg text { font-family: system-ui, -apple-system, "Segoe UI", Helvetica, Arial, sans-serif; }
   .tick-label { font-size: 11.5px; fill: var(--muted); }
   .direct-label { font-size: 12.5px; font-weight: 650; fill: var(--ink); }
   .cat-label { font-size: 12.5px; fill: var(--ink-2); }
 
-  /* email preview */
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+  .two-col.wide-right { grid-template-columns: 1fr 1.2fr; }
+
+  /* ---------- email preview ---------- */
   .email-preview {
     border: 1px dashed var(--baseline); border-radius: 10px;
     background: var(--page); padding: 14px 16px; font-size: 13px; color: var(--ink-2);
   }
   .email-preview .meta { font-size: 12px; color: var(--muted); margin-bottom: 8px; line-height: 1.6; }
   .email-preview .meta b { color: var(--ink-2); }
-  .email-preview .body p { margin: 0 0 8px; }
+  .email-preview p { margin: 0 0 8px; }
   .email-preview table { border-collapse: collapse; width: 100%; font-size: 12.5px; margin: 8px 0; }
   .email-preview th { text-align: left; color: var(--muted); font-weight: 600; border-bottom: 1px solid var(--grid); padding: 4px 8px 4px 0; }
   .email-preview td { border-bottom: 1px solid var(--grid); padding: 4px 8px 4px 0; font-variant-numeric: tabular-nums; }
   .preview-tag {
-    display: inline-block; font-size: 11px; font-weight: 700; letter-spacing: 0.06em;
+    display: block; font-size: 11px; font-weight: 700; letter-spacing: 0.06em;
     text-transform: uppercase; color: var(--muted); margin-bottom: 8px;
   }
 
+  /* ---------- pipeline ---------- */
+  .lineage { overflow-x: auto; }
+  .stage-note { font-size: 13.5px; color: var(--ink-2); }
+  .stage-note b { color: var(--ink); }
+  dl.specs { margin: 0; }
+  dl.specs dt { font-size: 13.5px; font-weight: 650; margin-top: 13px; }
+  dl.specs dt:first-child { margin-top: 0; }
+  dl.specs dd { margin: 2px 0 0; font-size: 13.5px; color: var(--ink-2); }
+  ul.gates { margin: 0; padding-left: 18px; }
+  ul.gates li { font-size: 13.5px; color: var(--ink-2); margin-bottom: 9px; }
+  ul.gates li b { color: var(--ink); }
+  code {
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 12.5px;
+    background: rgba(11,11,11,0.05); padding: 1px 5px; border-radius: 4px;
+  }
+
   .scope-note {
-    border-top: 1px solid var(--grid); padding-top: 16px; font-size: 13.5px; color: var(--ink-2); max-width: 860px;
+    border-top: 1px solid var(--grid); padding-top: 15px; margin-top: 4px;
+    font-size: 13.5px; color: var(--ink-2);
   }
   .scope-note b { color: var(--ink); }
 
   footer {
-    border-top: 1px solid var(--grid); padding-top: 16px; margin-top: 28px;
+    border-top: 1px solid var(--grid); padding-top: 16px; margin-top: 30px;
     font-size: 13px; color: var(--muted);
     display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap;
   }
   footer a { color: var(--blue); text-decoration: none; }
 
-  @media (max-width: 900px) {
-    .kpi-grid { grid-template-columns: repeat(2, 1fr); }
-    .steps, .two-col { grid-template-columns: 1fr; }
+  @media (max-width: 940px) {
+    .kpi-4 { grid-template-columns: repeat(2, 1fr); }
+    .kpi-3, .audience { grid-template-columns: 1fr; }
+    .two-col, .two-col.wide-right { grid-template-columns: 1fr; }
+    .task { grid-template-columns: 1fr; gap: 10px; }
+    .audience div { border-right: none; border-bottom: 1px solid var(--grid); }
+    .audience div:last-child { border-bottom: none; }
   }
 </style>
 </head>
 <body>
 <div class="wrap">
 
-  <header class="masthead">
+  <header>
     <span class="eyebrow">Working Demo · Synthetic Data</span>
-    <h1>Returns Defect Triage Agent</h1>
+    <h1>Returns Defect Triage System</h1>
     <p class="framing">
-      A Claude agent reads each return (customer reason, warehouse note, item photo),
-      grades how likely it is to be a production defect, and routes it: vendor credit,
-      human review, or no action. Below is real agent output on a sample batch.
+      One agent reads every return, grades how likely it is to be a production defect,
+      and feeds four different teams the view each one actually needs. Warehouse gets a
+      work queue. Quality gets batch intelligence. Sourcing gets a credit ledger.
+      Leadership gets one number.
     </p>
     <div class="synthetic-banner">
-      <strong>All 20 returns below are synthetic</strong>, written by me to stress-test the
-      grading logic, and deliberately defect-heavy so the interesting cases are visible.
-      No Cuts data was used. Point the same engine at a real returns export and it produces
-      this exact report on live data.
+      <strong>All data below is synthetic</strong>, written by me to stress-test the logic and
+      deliberately defect-heavy so the interesting cases are visible. No Cuts data was used.
+      Vendor names are invented. Point the same engine at a real returns export and these
+      screens fill with live data.
     </div>
   </header>
 
-  <div class="kpi-grid">
-    <div class="kpi">
-      <div class="kpi-label">Returns graded</div>
-      <div class="kpi-value">20</div>
-      <div class="kpi-sub">sample batch, ~2 min of agent time</div>
+  <nav class="tabs" role="tablist">
+    <button class="tab" role="tab" aria-selected="true"  data-p="ops">Warehouse Ops</button>
+    <button class="tab" role="tab" aria-selected="false" data-p="quality">Quality &amp; Production</button>
+    <button class="tab" role="tab" aria-selected="false" data-p="credits">Vendor Credits</button>
+    <button class="tab" role="tab" aria-selected="false" data-p="exec">Leadership</button>
+    <button class="tab" role="tab" aria-selected="false" data-p="pipeline">How It Works</button>
+  </nav>
+
+  <!-- ============================ OPS ============================ -->
+  <div class="panel active" id="p-ops" role="tabpanel">
+    <dl class="audience">
+      <div><dt>Who uses this</dt><dd><b>Warehouse associates</b> at the returns inspection station</dd></div>
+      <div><dt>How it is used</dt><dd>On a tablet, <b>every morning</b>, working through the day's arrivals</dd></div>
+      <div><dt>The job it does</dt><dd>Tells them <b>what to do with the item in their hands</b>, not what to think</dd></div>
+    </dl>
+
+    <div class="callout info">
+      <span class="tag">Design note</span>
+      This screen is deliberately not a dashboard. An operator holding a returned hoodie needs a
+      verb, not a chart. The agent has already read the reason code and the photo, so the person
+      confirms a decision instead of making one from scratch. Everything is one glance and one tap.
     </div>
-    <div class="kpi">
-      <div class="kpi-label">Flagged for vendor credit</div>
-      <div class="kpi-value">10</div>
-      <div class="kpi-sub">defect likelihood 70% or higher</div>
+
+    <div class="kpi-grid kpi-4">
+      <div class="kpi"><div class="kpi-label">Arrived today</div><div class="kpi-value">20</div><div class="kpi-sub">across 6 SKUs</div></div>
+      <div class="kpi"><div class="kpi-label">Need a human</div><div class="kpi-value">14</div><div class="kpi-sub">evidence photo or second look</div></div>
+      <div class="kpi"><div class="kpi-label">Auto-cleared to restock</div><div class="kpi-value">6</div><div class="kpi-sub good">no inspection time spent</div></div>
+      <div class="kpi"><div class="kpi-label">Est. handling time</div><div class="kpi-value">38 min</div><div class="kpi-sub">vs 75 min unassisted</div></div>
     </div>
-    <div class="kpi">
-      <div class="kpi-label">Recurring issue detected</div>
-      <div class="kpi-value">1</div>
-      <div class="kpi-sub">same seam failure, 4 units, one batch</div>
-    </div>
-    <div class="kpi">
-      <div class="kpi-label">Est. recoverable, this sample</div>
-      <div class="kpi-value">$159</div>
-      <div class="kpi-sub">landed cost of flagged units</div>
+
+    <section>
+      <h2>Today's inspection queue</h2>
+      <p class="section-sub">Sorted by what matters: evidence-capture jobs first, because a missed photo means a credit you cannot claim later.</p>
+      <div id="ops-queue"></div>
+    </section>
+
+    <div class="scope-note">
+      <b>Why the ordering matters.</b> Vendor credit claims stand or fall on photo evidence taken
+      before the item is restocked or discarded. Once a unit moves, the evidence is gone and the
+      money is unrecoverable. So the queue puts evidence jobs first, every time.
     </div>
   </div>
 
-  <div class="steps">
-    <div class="step"><span class="n">1</span><b>Read the return</b>
-      Reason code, warehouse inspection note, and the customer or warehouse photo, pulled per return.</div>
-    <div class="step"><span class="n">2</span><b>Grade the defect</b>
-      Claude weighs note, photo, and reason together, scores production-defect likelihood, and explains why.</div>
-    <div class="step"><span class="n">3</span><b>Route it</b>
-      70%+ goes to the vendor credit file. 40 to 69% queues for human review. Below 40% closes as customer preference.</div>
-  </div>
+  <!-- ============================ QUALITY ============================ -->
+  <div class="panel" id="p-quality" role="tabpanel">
+    <dl class="audience">
+      <div><dt>Who uses this</dt><dd><b>Quality and production leads</b>, plus whoever owns vendor relationships</dd></div>
+      <div><dt>How it is used</dt><dd><b>Weekly</b>, and any time an alert fires on a batch</dd></div>
+      <div><dt>The job it does</dt><dd>Separates <b>one bad unit from a bad production run</b></dd></div>
+    </dl>
 
-  <!-- ============ TABLE ============ -->
-  <section>
-    <h2>Graded returns</h2>
-    <p class="section-sub">Every score comes with the agent's reasoning, so a human can audit any call it makes.</p>
-    <div class="card">
-      <div class="filters" id="filters">
-        <button class="fbtn active" data-f="all">All (20)</button>
-        <button class="fbtn" data-f="flag">Flagged (10)</button>
-        <button class="fbtn" data-f="review">Review (4)</button>
-        <button class="fbtn" data-f="none">No defect (6)</button>
-      </div>
-      <div class="tbl-scroll">
-        <table class="returns" id="returns-table">
-          <thead>
-            <tr>
-              <th>ID</th><th>Item</th><th>Customer reason</th><th>Warehouse note</th>
-              <th>Defect likelihood</th><th>Agent rationale</th><th>Disposition</th>
-            </tr>
-          </thead>
-          <tbody></tbody>
-        </table>
-      </div>
-    </div>
-  </section>
-
-  <!-- ============ RECURRING ============ -->
-  <section>
     <div class="callout">
-      <span class="tag">Recurring issue · auto-escalated</span><br>
+      <span class="tag">Recurring issue · auto-escalated</span>
       <b>PIMA-TEE-BLK, batch B-2241 (Meridian Textiles):</b> 4 of 6 returned units show the same
-      left-shoulder seam separation. The agent groups identical failures by SKU and batch, so this
-      surfaces after return #4, not after a bad quarter. In the full build this fires an escalation
-      to the team and adds the batch to the vendor's weekly credit email automatically.
+      left-shoulder seam separation. The agent groups identical failure descriptions by SKU and
+      batch, so this surfaces after the fourth return rather than after a bad quarter. Escalation
+      fires at 3 matching units or 20% of a batch's returns, whichever comes first.
     </div>
-  </section>
 
-  <!-- ============ CHART + EMAIL ============ -->
-  <section>
-    <div class="two-col">
-      <div>
-        <h2>Flagged defects by category</h2>
-        <p class="section-sub">What is actually failing, across the 10 flagged units.</p>
-        <div class="card">
-          <div id="cat-chart"></div>
+    <div class="kpi-grid kpi-4">
+      <div class="kpi"><div class="kpi-label">Flagged as defects</div><div class="kpi-value">10</div><div class="kpi-sub">of 20 graded</div></div>
+      <div class="kpi"><div class="kpi-label">Batches implicated</div><div class="kpi-value">5</div><div class="kpi-sub">of 6 in the sample</div></div>
+      <div class="kpi"><div class="kpi-label">Recurring patterns</div><div class="kpi-value">1</div><div class="kpi-sub">seam failure, B-2241</div></div>
+      <div class="kpi"><div class="kpi-label">Largest single-batch loss</div><div class="kpi-value">4 units</div><div class="kpi-sub">B-2241, 67% of its returns</div></div>
+    </div>
+
+    <section>
+      <div class="two-col">
+        <div>
+          <h2>What is failing</h2>
+          <p class="section-sub">Across the 10 flagged units.</p>
+          <div class="card"><div id="cat-chart"></div></div>
+        </div>
+        <div>
+          <h2>Defect rate by batch</h2>
+          <p class="section-sub">Share of each batch's returns graded as production defects.</p>
+          <div class="card"><div id="batch-chart"></div></div>
         </div>
       </div>
-      <div>
-        <h2>Where it goes next</h2>
-        <p class="section-sub">Each vendor gets one evidence-backed email per week. This is the draft the agent produces.</p>
-        <div class="card">
-          <div class="email-preview">
-            <span class="preview-tag">Preview · sent by the full build, not this demo</span>
-            <div class="meta">
-              <b>To:</b> QA team, Meridian Textiles (fictional vendor)<br>
-              <b>Subject:</b> Weekly defect summary: 5 units, credit request $75
-            </div>
-            <div class="body">
-              <p>Hi team, five returned units this week graded as production defects. Evidence photos are in the shared folder, filed by return ID.</p>
-              <table>
-                <tr><th>SKU / batch</th><th>Units</th><th>Issue</th><th>Credit</th></tr>
-                <tr><td>PIMA-TEE-BLK · B-2241</td><td>4</td><td>Shoulder seam separation</td><td>$56</td></tr>
-                <tr><td>PERF-JOG-BLK · B-2198</td><td>1</td><td>Dye transfer</td><td>$19</td></tr>
-              </table>
-              <p>Note: B-2241 seam failures are recurring. Requesting confirmation of the fix planned for the next production run.</p>
-            </div>
+    </section>
+
+    <section>
+      <h2>Every graded return, with the agent's reasoning</h2>
+      <p class="section-sub">Each score explains itself, so any call can be audited or overruled by a human.</p>
+      <div class="card">
+        <div class="filters" id="filters">
+          <button class="fbtn active" data-f="all">All (20)</button>
+          <button class="fbtn" data-f="flag">Flagged (10)</button>
+          <button class="fbtn" data-f="review">Review (4)</button>
+          <button class="fbtn" data-f="none">No defect (6)</button>
+        </div>
+        <div class="tbl-scroll">
+          <table class="data wide" id="returns-table">
+            <thead><tr>
+              <th>ID</th><th>Item</th><th>Customer reason</th><th>Warehouse note</th>
+              <th>Defect likelihood</th><th>Agent rationale</th><th>Disposition</th>
+            </tr></thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- ============================ CREDITS ============================ -->
+  <div class="panel" id="p-credits" role="tabpanel">
+    <dl class="audience">
+      <div><dt>Who uses this</dt><dd><b>Sourcing and finance</b>, whoever actually chases vendors for money</dd></div>
+      <div><dt>How it is used</dt><dd><b>Monday mornings</b>, reviewing the week's claim batch before it sends</dd></div>
+      <div><dt>The job it does</dt><dd>Turns scattered defects into <b>one evidence-backed invoice per vendor</b></dd></div>
+    </dl>
+
+    <div class="kpi-grid kpi-4">
+      <div class="kpi"><div class="kpi-label">Claimable this batch</div><div class="kpi-value">$181</div><div class="kpi-sub">10 units, landed cost</div></div>
+      <div class="kpi"><div class="kpi-label">Vendors to invoice</div><div class="kpi-value">3</div><div class="kpi-sub">Meridian, Cascade, Anvil</div></div>
+      <div class="kpi"><div class="kpi-label">Largest exposure</div><div class="kpi-value">$119</div><div class="kpi-sub">Meridian Textiles, 7 units</div></div>
+      <div class="kpi"><div class="kpi-label">Evidence complete</div><div class="kpi-value">10 of 10</div><div class="kpi-sub good">every claim has photos</div></div>
+    </div>
+
+    <section>
+      <h2>Credit ledger</h2>
+      <p class="section-sub">One row per vendor and batch. Status tracks the claim from drafted through credited, so nothing is invoiced twice or quietly dropped.</p>
+      <div class="card">
+        <div class="tbl-scroll">
+          <table class="data" id="ledger-table">
+            <thead><tr>
+              <th>Vendor</th><th>SKU / batch</th><th>Issue</th>
+              <th class="num">Units</th><th class="num">Claim</th><th>Status</th>
+            </tr></thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>What actually gets sent</h2>
+      <p class="section-sub">One email per vendor per week, with the evidence already filed and linked.</p>
+      <div class="card">
+        <div class="email-preview">
+          <span class="preview-tag">Preview · sent by the full build, not this demo</span>
+          <div class="meta">
+            <b>To:</b> QA team, Meridian Textiles (fictional vendor)<br>
+            <b>Subject:</b> Weekly defect summary: 7 units, credit request $119
+          </div>
+          <p>Hi team, seven returned units this week graded as production defects. Evidence photos are in the shared folder, filed by return ID.</p>
+          <table>
+            <tr><th>SKU / batch</th><th>Units</th><th>Issue</th><th>Credit</th></tr>
+            <tr><td>PIMA-TEE-BLK · B-2241</td><td>4</td><td>Shoulder seam separation</td><td>$56</td></tr>
+            <tr><td>AO-POLO-NVY · B-2210</td><td>2</td><td>Collar deformation</td><td>$44</td></tr>
+            <tr><td>PERF-JOG-BLK · B-2198</td><td>1</td><td>Dye transfer</td><td>$19</td></tr>
+          </table>
+          <p>Note: B-2241 seam failures are recurring, 4 of 6 returns from that batch. Requesting confirmation of the fix planned for the next production run.</p>
+        </div>
+      </div>
+    </section>
+
+    <div class="scope-note">
+      <b>Why a ledger and not just an email.</b> The email is the easy part. The thing that makes
+      this pay for itself is the status column: knowing which claims were acknowledged, which were
+      credited, and which a vendor is quietly ignoring. Recovery rate against claims is the metric
+      that tells you whether the whole system is working.
+    </div>
+  </div>
+
+  <!-- ============================ EXEC ============================ -->
+  <div class="panel" id="p-exec" role="tabpanel">
+    <dl class="audience">
+      <div><dt>Who uses this</dt><dd><b>Founder and leadership</b></dd></div>
+      <div><dt>How it is used</dt><dd><b>Monthly</b>, or on a phone in thirty seconds</dd></div>
+      <div><dt>The job it does</dt><dd>Answers <b>one question: is quality getting better or worse</b></dd></div>
+    </dl>
+
+    <section>
+      <div class="card">
+        <div class="kpi-label">Defect-driven returns, share of all returns</div>
+        <div class="hero-fig">50%</div>
+        <div class="kpi-sub">10 of 20 in this sample, deliberately inflated for the demo. A real book would run far lower, and the trend is what matters.</div>
+      </div>
+    </section>
+
+    <div class="kpi-grid kpi-3">
+      <div class="kpi"><div class="kpi-label">Recoverable this batch</div><div class="kpi-value">$181</div><div class="kpi-sub">identified, not yet collected</div></div>
+      <div class="kpi"><div class="kpi-label">Systemic issues open</div><div class="kpi-value">1</div><div class="kpi-sub">B-2241 seam failure, escalated</div></div>
+      <div class="kpi"><div class="kpi-label">Inspection time saved</div><div class="kpi-value">49%</div><div class="kpi-sub">6 of 20 auto-cleared</div></div>
+    </div>
+
+    <section>
+      <h2>The three things worth your attention</h2>
+      <div class="card">
+        <table class="data">
+          <thead><tr><th>Issue</th><th>Why it matters</th><th class="num">Cost</th></tr></thead>
+          <tbody>
+            <tr>
+              <td class="sku">Seam failure<small>PIMA-TEE-BLK, B-2241</small></td>
+              <td class="wrapcell">Four of six returns from one batch, same failure point. This is a factory problem, not bad luck, and it will keep costing until the next run is fixed.</td>
+              <td class="num">$56</td>
+            </tr>
+            <tr>
+              <td class="sku">Collar deformation<small>AO-POLO-NVY, B-2210</small></td>
+              <td class="wrapcell">Two units, one deformed straight out of the bag. Early signal on the same vendor as the seam issue, worth watching before it becomes a third pattern.</td>
+              <td class="num">$44</td>
+            </tr>
+            <tr>
+              <td class="sku">Vendor concentration<small>Meridian Textiles</small></td>
+              <td class="wrapcell">Seven of ten flagged units trace to one vendor across three separate batches. That is a supplier conversation, not a returns conversation.</td>
+              <td class="num">$119</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </div>
+
+  <!-- ============================ PIPELINE ============================ -->
+  <div class="panel" id="p-pipeline" role="tabpanel">
+    <dl class="audience">
+      <div><dt>Who uses this</dt><dd><b>Whoever asks how it actually works</b>, and whoever maintains it later</dd></div>
+      <div><dt>How it is used</dt><dd>Once at build time, then <b>every time a number looks wrong</b></dd></div>
+      <div><dt>The job it does</dt><dd>Makes the system <b>auditable instead of magic</b></dd></div>
+    </dl>
+
+    <section>
+      <h2>Data flow</h2>
+      <p class="section-sub">Four systems in, one graded record out, four views served from it.</p>
+      <div class="card lineage"><div id="lineage"></div></div>
+    </section>
+
+    <section>
+      <h2>Sources and refresh</h2>
+      <div class="card">
+        <div class="tbl-scroll">
+          <table class="data wide">
+            <thead><tr><th>System</th><th>What it provides</th><th>Key fields</th><th>Refresh</th></tr></thead>
+            <tbody>
+              <tr>
+                <td class="sku">Returns platform<small>Loop, Returnly, or Shopify Returns</small></td>
+                <td class="wrapcell">The return record itself</td>
+                <td class="wrapcell"><code>rma_id</code>, <code>order_id</code>, <code>sku</code>, <code>reason_code</code>, <code>customer_comment</code></td>
+                <td>Webhook on create, hourly backfill</td>
+              </tr>
+              <tr>
+                <td class="sku">Warehouse / 3PL<small>WMS or inspection app</small></td>
+                <td class="wrapcell">Human inspection notes and condition photos</td>
+                <td class="wrapcell"><code>rma_id</code>, <code>inspector_note</code>, <code>photo_urls</code>, <code>condition_grade</code></td>
+                <td>Hourly</td>
+              </tr>
+              <tr>
+                <td class="sku">Shopify<small>product and order data</small></td>
+                <td class="wrapcell">SKU master and unit economics</td>
+                <td class="wrapcell"><code>sku</code>, <code>product_title</code>, <code>landed_cost</code>, <code>order_value</code></td>
+                <td>Daily</td>
+              </tr>
+              <tr>
+                <td class="sku">PO / ERP<small>or a maintained spreadsheet</small></td>
+                <td class="wrapcell">The batch-to-vendor mapping</td>
+                <td class="wrapcell"><code>sku</code>, <code>batch_id</code>, <code>vendor</code>, <code>production_date</code></td>
+                <td>On PO receipt</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="two-col wide-right">
+        <div>
+          <h2>The join that makes it work</h2>
+          <div class="card">
+            <p class="stage-note">
+              A return knows its SKU. It does not know which <b>production batch</b> that unit came from,
+              and without that you can grade defects but never attribute them to a vendor or a run.
+            </p>
+            <p class="stage-note" style="margin-top:10px">
+              <code>return → sku → batch → vendor</code>
+            </p>
+            <p class="stage-note" style="margin-top:10px">
+              Resolved by order date against production receipt windows. <b>This is the single most
+              fragile link in the pipeline</b> and the first thing I would want to look at in real
+              data, because if batch attribution is wrong, every vendor claim is wrong.
+            </p>
+          </div>
+        </div>
+        <div>
+          <h2>Grading step</h2>
+          <div class="card">
+            <dl class="specs">
+              <dt>Input</dt>
+              <dd>Reason code, customer comment, inspector note, condition photos, and the SKU's spec sheet, assembled into one context per return.</dd>
+              <dt>Output, schema-validated</dt>
+              <dd><code>defect_likelihood</code> 0-100, <code>defect_category</code> from a fixed list, <code>rationale</code> one sentence, <code>evidence_used</code>.</dd>
+              <dt>Idempotency</dt>
+              <dd>Results cached by <code>rma_id</code> and input hash, so a re-run never re-grades or re-bills. Re-grading only happens if the inspector edits the note.</dd>
+              <dt>Failure handling</dt>
+              <dd>A malformed or low-confidence response routes to human review rather than defaulting to a score. The system never guesses toward a vendor claim.</dd>
+            </dl>
           </div>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <div class="scope-note">
-    <b>What this demo is, and is not.</b> This page shows the grading engine, the part worth
-    proving first, running end to end on sample data. The full build adds the plumbing: pull returns
-    from your returns platform automatically, file evidence photos to Drive by vendor, maintain the
-    running credit ledger, send the weekly vendor emails, and escalate recurring issues to the team.
-    That wiring is scoped against your real systems, which is the Wednesday conversation.
+    <section>
+      <h2>Data quality gates</h2>
+      <p class="section-sub">Where the pipeline deliberately stops rather than producing a confident wrong answer.</p>
+      <div class="card">
+        <ul class="gates">
+          <li><b>No photo, no auto-claim.</b> A return without usable images can be graded from text but never auto-flagged for a vendor credit, because the claim would not survive a vendor pushing back.</li>
+          <li><b>Unknown batch blocks attribution.</b> If the SKU cannot be resolved to a batch, the defect still counts in quality totals but is held out of the vendor ledger and raised as a data fix.</li>
+          <li><b>Reason-code drift.</b> Reason codes get renamed and added by whoever manages the returns app. Unmapped codes raise an alert instead of silently falling into a default bucket.</li>
+          <li><b>Claim reconciliation.</b> Credits claimed are matched against credits actually received. A widening gap is the signal that the whole system is being ignored by a vendor.</li>
+          <li><b>Duplicate returns.</b> Reopened or re-shipped RMAs are deduplicated on <code>rma_id</code> so a single defective unit is never claimed twice.</li>
+        </ul>
+      </div>
+    </section>
+
+    <div class="scope-note">
+      <b>What this demo is, and is not.</b> These screens run on synthetic data to show the grading
+      engine and the four views it feeds. The full build is the plumbing: connectors to the four
+      source systems, the batch attribution job, evidence filing to Drive, the persistent credit
+      ledger, the weekly vendor sends, and the escalation hooks. That wiring is scoped against real
+      systems, which is the conversation worth having.
+    </div>
   </div>
 
   <footer>
@@ -308,104 +592,171 @@
 (function () {
   "use strict";
 
-  /* disposition: flag (>=70), review (40-69), none (<40) */
-  var data = [
-    { id: "R-1047", sku: "PIMA-TEE-BLK", item: "Pima Split-Hem Tee, Black", batch: "B-2241", reason: "Defective", note: "Left shoulder seam fully separated, approx 2 in", score: 96,
-      why: "Photo confirms open seam matching note; reason corroborates; identical to 3 other units in batch B-2241." },
-    { id: "R-1052", sku: "PIMA-TEE-BLK", item: "Pima Split-Hem Tee, Black", batch: "B-2241", reason: "Quality issue", note: "Shoulder seam separating at same point, unworn tags on", score: 93,
-      why: "Unworn with tags rules out wear damage; failure point matches batch pattern." },
-    { id: "R-1063", sku: "PIMA-TEE-BLK", item: "Pima Split-Hem Tee, Black", batch: "B-2241", reason: "Defective", note: "Seam split left shoulder after first wear", score: 90,
-      why: "First-wear failure at the recurring batch failure point; photo shows clean stitch break, not tearing." },
-    { id: "R-1071", sku: "PIMA-TEE-BLK", item: "Pima Split-Hem Tee, Black", batch: "B-2241", reason: "Not as described", note: "Customer says ripped on arrival; seam open at shoulder", score: 88,
-      why: "Damage present on arrival per note; location matches batch B-2241 pattern despite vague reason code." },
-    { id: "R-1055", sku: "PIMA-TEE-BLK", item: "Pima Split-Hem Tee, Black", batch: "B-2241", reason: "Quality issue", note: "Light pilling on chest after 2 washes", score: 62,
-      why: "Pilling after 2 washes is borderline for pima cotton; needs human judgment on wash-care compliance." },
-    { id: "R-1080", sku: "PIMA-TEE-BLK", item: "Pima Split-Hem Tee, Black", batch: "B-2241", reason: "Fit too small", note: "No damage found, tags on", score: 18,
-      why: "Sizing return, no defect indicators in note or photo." },
+  var SVGNS = "http://www.w3.org/2000/svg";
+  function svgEl(name, attrs, parent) {
+    var n = document.createElementNS(SVGNS, name);
+    for (var k in attrs) n.setAttribute(k, attrs[k]);
+    if (parent) parent.appendChild(n);
+    return n;
+  }
+  function svgText(parent, attrs, str) {
+    var t = svgEl("text", attrs, parent);
+    t.appendChild(document.createTextNode(str));
+    return t;
+  }
+  function cell(row, cls) {
+    var td = document.createElement("td");
+    if (cls) td.className = cls;
+    row.appendChild(td);
+    return td;
+  }
 
-    { id: "R-1049", sku: "AO-POLO-NVY", item: "All-Occasion Polo, Navy", batch: "B-2210", reason: "Quality issue", note: "Collar curling badly after one wash, photo attached", score: 78,
-      why: "Collar deformation after a single compliant wash indicates interlining or fusing defect." },
-    { id: "R-1066", sku: "AO-POLO-NVY", item: "All-Occasion Polo, Navy", batch: "B-2210", reason: "Defective", note: "Collar edge wavy out of the bag", score: 74,
-      why: "Out-of-bag deformation cannot be customer-caused; second collar case on this SKU." },
-    { id: "R-1077", sku: "AO-POLO-NVY", item: "All-Occasion Polo, Navy", batch: "B-2210", reason: "Changed mind", note: "Unworn, tags on, no issues found", score: 8,
-      why: "Clean return, no defect signals anywhere." },
+  /* ---------------- data ---------------- */
+  var returns = [
+    { id:"R-1047", sku:"PIMA-TEE-BLK", item:"Pima Split-Hem Tee, Black", batch:"B-2241", vendor:"Meridian Textiles", cost:14, reason:"Defective", note:"Left shoulder seam fully separated, approx 2 in", score:96, cat:"Seam failure",
+      why:"Photo confirms open seam matching note; reason corroborates; identical to 3 other units in batch B-2241." },
+    { id:"R-1052", sku:"PIMA-TEE-BLK", item:"Pima Split-Hem Tee, Black", batch:"B-2241", vendor:"Meridian Textiles", cost:14, reason:"Quality issue", note:"Shoulder seam separating at same point, unworn tags on", score:93, cat:"Seam failure",
+      why:"Unworn with tags rules out wear damage; failure point matches batch pattern." },
+    { id:"R-1063", sku:"PIMA-TEE-BLK", item:"Pima Split-Hem Tee, Black", batch:"B-2241", vendor:"Meridian Textiles", cost:14, reason:"Defective", note:"Seam split left shoulder after first wear", score:90, cat:"Seam failure",
+      why:"First-wear failure at the recurring batch failure point; photo shows clean stitch break, not tearing." },
+    { id:"R-1071", sku:"PIMA-TEE-BLK", item:"Pima Split-Hem Tee, Black", batch:"B-2241", vendor:"Meridian Textiles", cost:14, reason:"Not as described", note:"Customer says ripped on arrival; seam open at shoulder", score:88, cat:"Seam failure",
+      why:"Damage present on arrival per note; location matches batch B-2241 pattern despite vague reason code." },
+    { id:"R-1055", sku:"PIMA-TEE-BLK", item:"Pima Split-Hem Tee, Black", batch:"B-2241", vendor:"Meridian Textiles", cost:14, reason:"Quality issue", note:"Light pilling on chest after 2 washes", score:62, cat:"Fabric wear",
+      why:"Pilling after 2 washes is borderline for pima cotton; needs human judgment on wash-care compliance." },
+    { id:"R-1080", sku:"PIMA-TEE-BLK", item:"Pima Split-Hem Tee, Black", batch:"B-2241", vendor:"Meridian Textiles", cost:14, reason:"Fit too small", note:"No damage found, tags on", score:18, cat:"None",
+      why:"Sizing return, no defect indicators in note or photo." },
 
-    { id: "R-1051", sku: "HW-HOOD-GRY", item: "Heavyweight Hoodie, Heather", batch: "B-2187", reason: "Defective", note: "Zipper pull snapped off in hand, photo shows sheared pin", score: 91,
-      why: "Sheared zipper pin in photo is a hardware failure, not abuse; note describes normal use." },
-    { id: "R-1058", sku: "HW-HOOD-GRY", item: "Heavyweight Hoodie, Heather", batch: "B-2187", reason: "Quality issue", note: "Drawstring aglet missing on one side", score: 67,
-      why: "Missing aglet could be assembly miss or customer damage; photo inconclusive, queue for review." },
-    { id: "R-1074", sku: "HW-HOOD-GRY", item: "Heavyweight Hoodie, Heather", batch: "B-2187", reason: "Fit too large", note: "No damage, restock ready", score: 12,
-      why: "Sizing return, item restockable." },
+    { id:"R-1049", sku:"AO-POLO-NVY", item:"All-Occasion Polo, Navy", batch:"B-2210", vendor:"Meridian Textiles", cost:22, reason:"Quality issue", note:"Collar curling badly after one wash, photo attached", score:78, cat:"Collar deformation",
+      why:"Collar deformation after a single compliant wash indicates interlining or fusing defect." },
+    { id:"R-1066", sku:"AO-POLO-NVY", item:"All-Occasion Polo, Navy", batch:"B-2210", vendor:"Meridian Textiles", cost:22, reason:"Defective", note:"Collar edge wavy out of the bag", score:74, cat:"Collar deformation",
+      why:"Out-of-bag deformation cannot be customer-caused; second collar case on this SKU." },
+    { id:"R-1077", sku:"AO-POLO-NVY", item:"All-Occasion Polo, Navy", batch:"B-2210", vendor:"Meridian Textiles", cost:22, reason:"Changed mind", note:"Unworn, tags on, no issues found", score:8, cat:"None",
+      why:"Clean return, no defect signals anywhere." },
 
-    { id: "R-1053", sku: "PERF-JOG-BLK", item: "Performance Jogger, Black", batch: "B-2198", reason: "Defective", note: "Black dye transferred onto white sneakers, photo of both", score: 81,
-      why: "Dye transfer onto other items indicates failed dye fixation in production." },
-    { id: "R-1068", sku: "PERF-JOG-BLK", item: "Performance Jogger, Black", batch: "B-2198", reason: "Quality issue", note: "Waistband stitching loose but not open", score: 58,
-      why: "Loose but intact stitching is a marginal call; review decides credit vs restock." },
-    { id: "R-1079", sku: "PERF-JOG-BLK", item: "Performance Jogger, Black", batch: "B-2198", reason: "Fit too small", note: "Clean, tags on", score: 15,
-      why: "Sizing return, no defect signals." },
+    { id:"R-1051", sku:"HW-HOOD-GRY", item:"Heavyweight Hoodie, Heather", batch:"B-2187", vendor:"Cascade Knitworks", cost:31, reason:"Defective", note:"Zipper pull snapped off in hand, photo shows sheared pin", score:91, cat:"Zipper hardware",
+      why:"Sheared zipper pin in photo is a hardware failure, not abuse; note describes normal use." },
+    { id:"R-1058", sku:"HW-HOOD-GRY", item:"Heavyweight Hoodie, Heather", batch:"B-2187", vendor:"Cascade Knitworks", cost:31, reason:"Quality issue", note:"Drawstring aglet missing on one side", score:67, cat:"Trim defect",
+      why:"Missing aglet could be assembly miss or customer damage; photo inconclusive, queue for review." },
+    { id:"R-1074", sku:"HW-HOOD-GRY", item:"Heavyweight Hoodie, Heather", batch:"B-2187", vendor:"Cascade Knitworks", cost:31, reason:"Fit too large", note:"No damage, restock ready", score:12, cat:"None",
+      why:"Sizing return, item restockable." },
 
-    { id: "R-1056", sku: "LS-HENLEY-OLV", item: "Long Sleeve Henley, Olive", batch: "B-2223", reason: "Defective", note: "Second button cracked in half, photo attached", score: 72,
-      why: "Cracked button consistent with brittle lot; single case so far, credit-eligible." },
-    { id: "R-1082", sku: "LS-HENLEY-OLV", item: "Long Sleeve Henley, Olive", batch: "B-2223", reason: "Changed mind", note: "Unworn, no issues", score: 6,
-      why: "Clean return, restock." },
+    { id:"R-1053", sku:"PERF-JOG-BLK", item:"Performance Jogger, Black", batch:"B-2198", vendor:"Meridian Textiles", cost:19, reason:"Defective", note:"Black dye transferred onto white sneakers, photo of both", score:81, cat:"Dye transfer",
+      why:"Dye transfer onto other items indicates failed dye fixation in production." },
+    { id:"R-1068", sku:"PERF-JOG-BLK", item:"Performance Jogger, Black", batch:"B-2198", vendor:"Meridian Textiles", cost:19, reason:"Quality issue", note:"Waistband stitching loose but not open", score:58, cat:"Seam failure",
+      why:"Loose but intact stitching is a marginal call; review decides credit vs restock." },
+    { id:"R-1079", sku:"PERF-JOG-BLK", item:"Performance Jogger, Black", batch:"B-2198", vendor:"Meridian Textiles", cost:19, reason:"Fit too small", note:"Clean, tags on", score:15, cat:"None",
+      why:"Sizing return, no defect signals." },
 
-    { id: "R-1060", sku: "CURVE-TEE-WHT", item: "Curve Hem Tee, White", batch: "B-2235", reason: "Not as described", note: "Customer says fabric too sheer; weight measures in spec", score: 44,
-      why: "Fabric measures within spec, but repeated sheerness complaints would suggest a spec problem; review." },
-    { id: "R-1064", sku: "CURVE-TEE-WHT", item: "Curve Hem Tee, White", batch: "B-2235", reason: "Defective", note: "Chest logo print peeling at corner, unwashed", score: 86,
-      why: "Print peeling on an unwashed unit is an application defect by definition." },
-    { id: "R-1076", sku: "CURVE-TEE-WHT", item: "Curve Hem Tee, White", batch: "B-2235", reason: "Fit too small", note: "Clean, tags on", score: 10,
-      why: "Sizing return, no defect signals." }
+    { id:"R-1056", sku:"LS-HENLEY-OLV", item:"Long Sleeve Henley, Olive", batch:"B-2223", vendor:"Cascade Knitworks", cost:18, reason:"Defective", note:"Second button cracked in half, photo attached", score:72, cat:"Button failure",
+      why:"Cracked button consistent with brittle lot; single case so far, credit-eligible." },
+    { id:"R-1082", sku:"LS-HENLEY-OLV", item:"Long Sleeve Henley, Olive", batch:"B-2223", vendor:"Cascade Knitworks", cost:18, reason:"Changed mind", note:"Unworn, no issues", score:6, cat:"None",
+      why:"Clean return, restock." },
+
+    { id:"R-1060", sku:"CURVE-TEE-WHT", item:"Curve Hem Tee, White", batch:"B-2235", vendor:"Anvil Apparel Co", cost:13, reason:"Not as described", note:"Customer says fabric too sheer; weight measures in spec", score:44, cat:"Spec mismatch",
+      why:"Fabric measures within spec, but repeated sheerness complaints would suggest a spec problem; review." },
+    { id:"R-1064", sku:"CURVE-TEE-WHT", item:"Curve Hem Tee, White", batch:"B-2235", vendor:"Anvil Apparel Co", cost:13, reason:"Defective", note:"Chest logo print peeling at corner, unwashed", score:86, cat:"Print peeling",
+      why:"Print peeling on an unwashed unit is an application defect by definition." },
+    { id:"R-1076", sku:"CURVE-TEE-WHT", item:"Curve Hem Tee, White", batch:"B-2235", vendor:"Anvil Apparel Co", cost:13, reason:"Fit too small", note:"Clean, tags on", score:10, cat:"None",
+      why:"Sizing return, no defect signals." }
   ];
 
-  function dispo(score) {
-    if (score >= 70) return "flag";
-    if (score >= 40) return "review";
-    return "none";
-  }
-  var chipText = { flag: "Vendor credit", review: "Human review", none: "No defect" };
+  function dispo(s) { return s >= 70 ? "flag" : (s >= 40 ? "review" : "none"); }
+  var chipText = { flag:"Vendor credit", review:"Human review", none:"No defect" };
 
+  /* ================= OPS QUEUE ================= */
+  (function opsQueue() {
+    var host = document.getElementById("ops-queue");
+    var queue = returns.filter(function (r) { return dispo(r.score) !== "none"; });
+    /* evidence jobs first (flagged), then review, then a rolled-up restock card */
+    var order = { flag: 0, review: 1 };
+    queue.sort(function (a, b) {
+      var d = order[dispo(a.score)] - order[dispo(b.score)];
+      return d !== 0 ? d : b.score - a.score;
+    });
+
+    function dispoOf(r) { return dispo(r.score); }
+
+    queue.slice(0, 7).forEach(function (r) {
+      var kind = dispoOf(r);
+      var card = document.createElement("div"); card.className = "task";
+
+      var c1 = document.createElement("div"); c1.className = "rma";
+      c1.appendChild(document.createTextNode(r.id));
+      var s = document.createElement("small"); s.textContent = r.batch; c1.appendChild(s);
+
+      var c2 = document.createElement("div"); c2.className = "what";
+      var b = document.createElement("b"); b.textContent = r.item; c2.appendChild(b);
+      c2.appendChild(document.createTextNode(r.note));
+      var said = document.createElement("div"); said.className = "said";
+      said.textContent = "Customer selected: " + r.reason;
+      c2.appendChild(said);
+
+      var c3 = document.createElement("div");
+      c3.className = "action " + (kind === "flag" ? "hold" : "check");
+      var ab = document.createElement("b");
+      ab.textContent = kind === "flag" ? "Photograph, then set aside" : "Second look needed";
+      c3.appendChild(ab);
+      c3.appendChild(document.createTextNode(
+        kind === "flag"
+          ? "Likely vendor defect (" + r.score + "%). Capture the " + r.cat.toLowerCase() +
+            ", tag to " + r.vendor + ", do not restock."
+          : "Agent is unsure (" + r.score + "%). Confirm whether this is a defect or normal wear, then tap through."
+      ));
+
+      card.appendChild(c1); card.appendChild(c2); card.appendChild(c3);
+      host.appendChild(card);
+    });
+
+    var rest = document.createElement("div"); rest.className = "task";
+    var r1 = document.createElement("div"); r1.className = "rma";
+    r1.appendChild(document.createTextNode("6 items"));
+    var rs = document.createElement("small"); rs.textContent = "auto-cleared"; r1.appendChild(rs);
+    var r2 = document.createElement("div"); r2.className = "what";
+    var rb = document.createElement("b"); rb.textContent = "Sizing and changed-mind returns";
+    r2.appendChild(rb);
+    r2.appendChild(document.createTextNode("No damage found in note or photo, so the agent cleared them without asking for a human read."));
+    var r3 = document.createElement("div"); r3.className = "action pass";
+    var rab = document.createElement("b"); rab.textContent = "Restock, no inspection";
+    r3.appendChild(rab);
+    r3.appendChild(document.createTextNode("Roughly 37 minutes of inspection time not spent today."));
+    rest.appendChild(r1); rest.appendChild(r2); rest.appendChild(r3);
+    host.appendChild(rest);
+  })();
+
+  /* ================= QUALITY TABLE ================= */
   var tbody = document.querySelector("#returns-table tbody");
-
-  function render(filter) {
+  function renderReturns(filter) {
     tbody.textContent = "";
-    data.forEach(function (d) {
+    returns.forEach(function (d) {
       var kind = dispo(d.score);
       if (filter !== "all" && kind !== filter) return;
       var tr = document.createElement("tr");
 
-      function td(cls) {
-        var c = document.createElement("td");
-        if (cls) c.className = cls;
-        tr.appendChild(c);
-        return c;
-      }
+      cell(tr).textContent = d.id;
 
-      td().textContent = d.id;
+      var sk = cell(tr, "sku");
+      sk.appendChild(document.createTextNode(d.sku));
+      var sm = document.createElement("small");
+      sm.textContent = d.item + " · " + d.batch;
+      sk.appendChild(sm);
 
-      var sk = td("sku");
-      sk.textContent = d.sku;
-      var small = document.createElement("small");
-      small.textContent = d.item + " · " + d.batch;
-      sk.appendChild(small);
+      cell(tr).textContent = d.reason;
+      cell(tr, "wrapcell").textContent = d.note;
 
-      td("reason").textContent = d.reason;
-      td("note").textContent = d.note;
-
-      var sc = td("score-cell");
+      var sc = cell(tr);
       var meter = document.createElement("div"); meter.className = "meter";
       var track = document.createElement("div"); track.className = "track";
       var fill = document.createElement("div"); fill.className = "fill";
       fill.style.width = d.score + "%";
-      if (d.score > 95) fill.style.borderRadius = "4px";
       track.appendChild(fill);
       var val = document.createElement("span"); val.className = "val";
       val.textContent = d.score + "%";
       meter.appendChild(track); meter.appendChild(val);
       sc.appendChild(meter);
 
-      td("rationale").textContent = d.why;
+      cell(tr, "wrapcell").textContent = d.why;
 
-      var dc = td();
+      var dc = cell(tr);
       var chip = document.createElement("span"); chip.className = "chip " + kind;
       var dot = document.createElement("span"); dot.className = "dot";
       chip.appendChild(dot);
@@ -415,63 +766,215 @@
       tbody.appendChild(tr);
     });
   }
-  render("all");
+  renderReturns("all");
 
   document.getElementById("filters").addEventListener("click", function (e) {
     var btn = e.target.closest(".fbtn");
     if (!btn) return;
-    document.querySelectorAll(".fbtn").forEach(function (b) { b.classList.remove("active"); });
+    document.querySelectorAll("#filters .fbtn").forEach(function (b) { b.classList.remove("active"); });
     btn.classList.add("active");
-    render(btn.getAttribute("data-f"));
+    renderReturns(btn.getAttribute("data-f"));
   });
 
-  /* ---- category chart: flagged defects, single series, horizontal bars ---- */
-  var cats = [
-    { name: "Seam failure", n: 4 },
-    { name: "Collar deformation", n: 2 },
-    { name: "Print peeling", n: 1 },
-    { name: "Zipper hardware", n: 1 },
-    { name: "Dye transfer", n: 1 },
-    { name: "Button failure", n: 1 }
-  ];
-  var SVGNS = "http://www.w3.org/2000/svg";
-  var W = 460, rowH = 40, mT = 4, mL = 150, mR = 40;
-  var H = mT + cats.length * rowH + 4;
-  var pw = W - mL - mR, max = 4;
+  /* ================= CATEGORY CHART ================= */
+  (function catChart() {
+    var counts = {};
+    returns.filter(function (r) { return dispo(r.score) === "flag"; })
+      .forEach(function (r) { counts[r.cat] = (counts[r.cat] || 0) + 1; });
+    var cats = Object.keys(counts).map(function (k) { return { name: k, n: counts[k] }; })
+      .sort(function (a, b) { return b.n - a.n; });
 
-  var svg = document.createElementNS(SVGNS, "svg");
-  svg.setAttribute("viewBox", "0 0 " + W + " " + H);
-  svg.setAttribute("role", "img");
-  svg.setAttribute("aria-label", "Flagged defects by category: seam failure 4, collar deformation 2, print peeling 1, zipper hardware 1, dye transfer 1, button failure 1");
-  document.getElementById("cat-chart").appendChild(svg);
+    var W = 450, rowH = 38, mT = 4, mL = 148, mR = 38;
+    var H = mT + cats.length * rowH + 4, pw = W - mL - mR;
+    var max = cats[0].n;
 
-  cats.forEach(function (c, i) {
-    var y = mT + i * rowH;
-    var bw = Math.max((c.n / max) * pw, 4);
-    var barY = y + 10, barH = 18;
+    var svg = svgEl("svg", { viewBox: "0 0 " + W + " " + H, role: "img",
+      "aria-label": "Flagged defects by category, seam failure highest at 4 units" });
+    document.getElementById("cat-chart").appendChild(svg);
 
-    var lbl = document.createElementNS(SVGNS, "text");
-    lbl.setAttribute("x", mL - 10); lbl.setAttribute("y", barY + barH / 2 + 4);
-    lbl.setAttribute("text-anchor", "end"); lbl.setAttribute("class", "cat-label");
-    lbl.appendChild(document.createTextNode(c.name));
-    svg.appendChild(lbl);
+    cats.forEach(function (c, i) {
+      var y = mT + i * rowH, bw = Math.max((c.n / max) * pw, 4);
+      var barY = y + 9, barH = 18;
+      svgText(svg, { x: mL - 10, y: barY + barH / 2 + 4, "text-anchor": "end", "class": "cat-label" }, c.name);
+      svgEl("rect", { x: mL, y: barY, width: bw, height: barH, rx: 4, fill: "#2a78d6" }, svg);
+      svgEl("rect", { x: mL, y: barY, width: Math.min(5, bw), height: barH, fill: "#2a78d6" }, svg);
+      svgText(svg, { x: mL + bw + 8, y: barY + barH / 2 + 4, "class": "direct-label" }, String(c.n));
+    });
+  })();
 
-    var bar = document.createElementNS(SVGNS, "rect");
-    bar.setAttribute("x", mL); bar.setAttribute("y", barY);
-    bar.setAttribute("width", bw); bar.setAttribute("height", barH);
-    bar.setAttribute("rx", 4); bar.setAttribute("fill", "#2a78d6");
-    svg.appendChild(bar);
-    var sq = document.createElementNS(SVGNS, "rect");
-    sq.setAttribute("x", mL); sq.setAttribute("y", barY);
-    sq.setAttribute("width", Math.min(5, bw)); sq.setAttribute("height", barH);
-    sq.setAttribute("fill", "#2a78d6");
-    svg.appendChild(sq);
+  /* ================= BATCH DEFECT RATE ================= */
+  (function batchChart() {
+    var by = {};
+    returns.forEach(function (r) {
+      if (!by[r.batch]) by[r.batch] = { batch: r.batch, sku: r.sku, total: 0, bad: 0 };
+      by[r.batch].total++;
+      if (dispo(r.score) === "flag") by[r.batch].bad++;
+    });
+    var rows = Object.keys(by).map(function (k) {
+      var b = by[k]; b.rate = Math.round((b.bad / b.total) * 100); return b;
+    }).sort(function (a, b) { return b.rate - a.rate; });
 
-    var v = document.createElementNS(SVGNS, "text");
-    v.setAttribute("x", mL + bw + 8); v.setAttribute("y", barY + barH / 2 + 4);
-    v.setAttribute("class", "direct-label");
-    v.appendChild(document.createTextNode(String(c.n)));
-    svg.appendChild(v);
+    var W = 450, rowH = 38, mT = 4, mL = 118, mR = 62;
+    var H = mT + rows.length * rowH + 4, pw = W - mL - mR;
+
+    var svg = svgEl("svg", { viewBox: "0 0 " + W + " " + H, role: "img",
+      "aria-label": "Defect rate by batch, B-2241 highest at 67 percent" });
+    document.getElementById("batch-chart").appendChild(svg);
+
+    rows.forEach(function (r, i) {
+      var y = mT + i * rowH, bw = Math.max((r.rate / 100) * pw, 3);
+      var barY = y + 9, barH = 18;
+      svgText(svg, { x: mL - 10, y: barY + barH / 2 + 4, "text-anchor": "end", "class": "cat-label" }, r.batch);
+      svgEl("rect", { x: mL, y: barY, width: pw, height: barH, rx: 4, fill: "#cde2fb" }, svg);
+      svgEl("rect", { x: mL, y: barY, width: bw, height: barH, rx: 4, fill: "#2a78d6" }, svg);
+      svgEl("rect", { x: mL, y: barY, width: Math.min(5, bw), height: barH, fill: "#2a78d6" }, svg);
+      svgText(svg, { x: mL + pw + 8, y: barY + barH / 2 + 4, "class": "direct-label" },
+        r.rate + "%");
+    });
+  })();
+
+  /* ================= LEDGER ================= */
+  (function ledger() {
+    var groups = {};
+    returns.filter(function (r) { return dispo(r.score) === "flag"; }).forEach(function (r) {
+      var key = r.vendor + "|" + r.sku + "|" + r.batch + "|" + r.cat;
+      if (!groups[key]) groups[key] = { vendor: r.vendor, sku: r.sku, batch: r.batch, cat: r.cat, units: 0, amt: 0 };
+      groups[key].units++; groups[key].amt += r.cost;
+    });
+    var rows = Object.keys(groups).map(function (k) { return groups[k]; })
+      .sort(function (a, b) { return b.amt - a.amt; });
+
+    var statuses = ["Drafted", "Drafted", "Sent", "Sent", "Acknowledged", "Credited"];
+    var body = document.querySelector("#ledger-table tbody");
+
+    rows.forEach(function (g, i) {
+      var tr = document.createElement("tr");
+      cell(tr).textContent = g.vendor;
+      var sk = cell(tr, "sku");
+      sk.appendChild(document.createTextNode(g.sku));
+      var sm = document.createElement("small"); sm.textContent = g.batch; sk.appendChild(sm);
+      cell(tr).textContent = g.cat;
+      cell(tr, "num").textContent = String(g.units);
+      cell(tr, "num").textContent = "$" + g.amt;
+
+      var st = cell(tr);
+      var label = statuses[i % statuses.length];
+      var chip = document.createElement("span");
+      chip.className = "chip " + (label === "Credited" ? "paid" : (label === "Drafted" ? "none" : "review"));
+      var dot = document.createElement("span"); dot.className = "dot";
+      chip.appendChild(dot); chip.appendChild(document.createTextNode(label));
+      st.appendChild(chip);
+
+      body.appendChild(tr);
+    });
+
+    var total = rows.reduce(function (a, g) { return a + g.amt; }, 0);
+    var units = rows.reduce(function (a, g) { return a + g.units; }, 0);
+    var tr = document.createElement("tr");
+    var t1 = cell(tr); t1.textContent = "Total"; t1.style.fontWeight = "650";
+    cell(tr); cell(tr);
+    var t4 = cell(tr, "num"); t4.textContent = String(units); t4.style.fontWeight = "650";
+    var t5 = cell(tr, "num"); t5.textContent = "$" + total; t5.style.fontWeight = "650";
+    cell(tr);
+    body.appendChild(tr);
+  })();
+
+  /* ================= LINEAGE DIAGRAM ================= */
+  (function lineage() {
+    var W = 940, H = 300;
+    var svg = svgEl("svg", { viewBox: "0 0 " + W + " " + H, role: "img",
+      "aria-label": "Pipeline: four source systems feed ingestion and batch join, then the grading agent, then four team views" });
+    document.getElementById("lineage").appendChild(svg);
+
+    var colX = [10, 250, 470, 690];
+    var colW = [200, 180, 180, 240];
+
+    function box(x, y, w, h, title, sub, fill, stroke) {
+      svgEl("rect", { x: x, y: y, width: w, height: h, rx: 8,
+        fill: fill, stroke: stroke, "stroke-width": 1 }, svg);
+      svgText(svg, { x: x + 12, y: y + 21, "class": "direct-label" }, title);
+      if (sub) svgText(svg, { x: x + 12, y: y + 37, "class": "tick-label" }, sub);
+    }
+    function header(x, w, label) {
+      svgText(svg, { x: x, y: 14, "class": "tick-label", "font-weight": "700",
+        "letter-spacing": "0.06em" }, label);
+    }
+    function arrow(x1, x2, y) {
+      svgEl("line", { x1: x1, y1: y, x2: x2 - 6, y2: y,
+        stroke: "#c3c2b7", "stroke-width": 1.5 }, svg);
+      svgEl("polygon", { points: (x2 - 6) + "," + (y - 4) + " " + x2 + "," + y + " " + (x2 - 6) + "," + (y + 4),
+        fill: "#c3c2b7" }, svg);
+    }
+
+    header(colX[0], colW[0], "SOURCES");
+    header(colX[1], colW[1], "INGEST + JOIN");
+    header(colX[2], colW[2], "GRADE");
+    header(colX[3], colW[3], "SERVE");
+
+    var srcs = [
+      ["Returns platform", "rma, reason, comment"],
+      ["Warehouse / 3PL", "notes, photos"],
+      ["Shopify", "sku, landed cost"],
+      ["PO / ERP", "batch, vendor"]
+    ];
+    srcs.forEach(function (s, i) {
+      box(colX[0], 30 + i * 62, colW[0], 48, s[0], s[1], "#fcfcfb", "rgba(11,11,11,0.14)");
+    });
+
+    box(colX[1], 92, colW[1], 66, "Normalize + join", "batch attribution", "#eef5fd", "#86b6ef");
+    box(colX[2], 92, colW[2], 66, "Claude grading", "score, category, rationale", "#2a78d6", "#2a78d6");
+    /* white text for the dark grading box */
+    var gt = svg.querySelectorAll("text");
+    gt[gt.length - 2].setAttribute("fill", "#ffffff");
+    gt[gt.length - 1].setAttribute("fill", "#cde2fb");
+
+    var outs = [
+      ["Warehouse queue", "real time"],
+      ["Quality dashboard", "weekly"],
+      ["Vendor credit ledger", "weekly send"],
+      ["Leadership summary", "monthly"]
+    ];
+    outs.forEach(function (o, i) {
+      box(colX[3], 30 + i * 62, colW[3], 48, o[0], o[1], "#fcfcfb", "rgba(11,11,11,0.14)");
+    });
+
+    /* sources converge onto a bus, then one arrow into the join box */
+    var busIn = colX[1] - 24;
+    srcs.forEach(function (s, i) {
+      svgEl("line", { x1: colX[0] + colW[0], y1: 54 + i * 62, x2: busIn, y2: 54 + i * 62,
+        stroke: "#c3c2b7", "stroke-width": 1.5 }, svg);
+    });
+    svgEl("line", { x1: busIn, y1: 54, x2: busIn, y2: 54 + 3 * 62,
+      stroke: "#c3c2b7", "stroke-width": 1.5 }, svg);
+    arrow(busIn, colX[1], 125);
+
+    arrow(colX[1] + colW[1], colX[2], 125);
+
+    /* grading fans out through a bus to the four views */
+    var busOut = colX[2] + colW[2] + 24;
+    svgEl("line", { x1: colX[2] + colW[2], y1: 125, x2: busOut, y2: 125,
+      stroke: "#c3c2b7", "stroke-width": 1.5 }, svg);
+    svgEl("line", { x1: busOut, y1: 54, x2: busOut, y2: 54 + 3 * 62,
+      stroke: "#c3c2b7", "stroke-width": 1.5 }, svg);
+    outs.forEach(function (o, i) {
+      arrow(busOut, colX[3], 54 + i * 62);
+    });
+
+    svgText(svg, { x: colX[1], y: 186, "class": "tick-label" }, "hourly + webhook");
+    svgText(svg, { x: colX[2], y: 186, "class": "tick-label" }, "cached by rma_id");
+    svgText(svg, { x: colX[0], y: 285, "class": "tick-label" }, "Failure at any gate routes the record to human review rather than producing a confident wrong answer.");
+  })();
+
+  /* ================= TABS ================= */
+  var tabs = document.querySelectorAll(".tab");
+  tabs.forEach(function (t) {
+    t.addEventListener("click", function () {
+      tabs.forEach(function (x) { x.setAttribute("aria-selected", "false"); });
+      t.setAttribute("aria-selected", "true");
+      document.querySelectorAll(".panel").forEach(function (p) { p.classList.remove("active"); });
+      document.getElementById("p-" + t.getAttribute("data-p")).classList.add("active");
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    });
   });
 })();
 </script>
